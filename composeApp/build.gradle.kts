@@ -7,18 +7,25 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
+    sourceSets.commonMain {
+        kotlin.srcDir("build/generated/ksp/metadata")
+    }
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -29,13 +36,15 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.ktor.client.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -44,9 +53,40 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            implementation(compose.material3)
+
+            // Navigation
+            implementation(libs.navigation.compose)
+
+            // ViewModel
+            implementation(libs.androidx.lifecycle.viewmodel)
+
+            //Coil
+            implementation(libs.coil.compose.core)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.mp)
+            implementation(libs.coil.network.ktor)
+
+            // Room + Sqlite
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.sqlite.bundled)
+
+            implementation(libs.kotlinx.serialization.json)
+
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+
+            // ktor
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.kotlinx.coroutines.swing)
+        }
+        iosMain.dependencies {
+
+            // Ktor
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
@@ -87,7 +127,25 @@ android {
         debugImplementation(compose.uiTooling)
     }
 }
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+dependencies {
+//    ksp(libs.androidx.room.compiler)
 
+//    add("kspAndroid", libs.androidx.room.compiler)
+//    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+//    add("kspIosX64", libs.androidx.room.compiler)
+//    add("kspIosArm64", libs.androidx.room.compiler)
+//
+    // Room
+    add("kspCommonMainMetadata", libs.androidx.room.compiler)
+}
+tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata" ) {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
 compose.desktop {
     application {
         mainClass = "MainKt"

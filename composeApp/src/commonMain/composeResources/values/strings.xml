@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">News app</string>
+    <string name="top_headlines">Top Headlines</string>
+    <string name="search_news">Search News</string>
+    <string name="bookmarked">Bookmarked</string>
+    <string name="headlines">Headlines</string>
+    <string name="search">Search</string>
+    <string name="bookmark">Bookmark</string>
+</resources>
