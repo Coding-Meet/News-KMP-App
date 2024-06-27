@@ -3,31 +3,28 @@ package data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 @Entity(tableName = "articleTable")
 data class Article(
-    val source: String,
-    val author: String?,
-    val title: String,
+    @SerialName("author")
+    val author: String? = null,
+    @SerialName("content")
+    val content: String?,
+    @SerialName("description")
     val description: String?,
-    val url: String,
-    val urlToImage: String?,
+    @SerialName("publishedAt")
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name="articleId")
     val publishedAt: String,
-    val content: String?
+    @SerialName("source")
+    val source: Source,
+    @SerialName("title")
+    val title: String,
+    @SerialName("url")
+    val url: String,
+    @SerialName("urlToImage")
+    val urlToImage: String?
 )
-//@Entity(tableName = "articleTable")
-//data class Article(
-//    val source: String="",
-//    val author: String = "",
-//    val title: String = "",
-//    val description: String="",
-//    val url: String="",
-//    val urlToImage: String="",
-//    @PrimaryKey(autoGenerate = false)
-//    @ColumnInfo(name="articleId")
-//    val publishedAt: String="",
-//    val content: String=""
-//)

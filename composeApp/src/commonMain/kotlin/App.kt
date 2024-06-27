@@ -1,5 +1,4 @@
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import data.database.NewsDatabase
@@ -12,7 +11,7 @@ import ui.navigation.graphs.RootNavGraph
 @Composable
 @Preview
 fun App(databaseBuilder: RoomDatabase.Builder<NewsDatabase>) {
-    val newsDatabase = rememberSaveable { getRoomDatabase(databaseBuilder) }
+    val newsDatabase =  getRoomDatabase(databaseBuilder)
     NewsAppTheme(true) {
         RootNavGraph(newsDatabase)
     }

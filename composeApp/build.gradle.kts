@@ -1,12 +1,15 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.*
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.buildkonfig)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
@@ -44,6 +47,7 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
 
+            // Ktor
             implementation(libs.ktor.client.android)
         }
         commonMain.dependencies {
@@ -58,6 +62,7 @@ kotlin {
 
             // Navigation
             implementation(libs.navigation.compose)
+            implementation(libs.kotlinx.serialization.json)
 
             // ViewModel
             implementation(libs.androidx.lifecycle.viewmodel)
@@ -72,8 +77,16 @@ kotlin {
             implementation(libs.androidx.room.runtime)
             implementation(libs.sqlite.bundled)
 
+
+            // Ktor
+            implementation(libs.ktor.core)
+            implementation(libs.ktor.json)
+            implementation(libs.ktor.logging)
+            implementation(libs.ktor.negotiation)
             implementation(libs.kotlinx.serialization.json)
 
+            //Kermit  for logging
+            implementation(libs.kermit)
 
         }
         desktopMain.dependencies {
@@ -155,5 +168,24 @@ compose.desktop {
             packageName = "com.coding.meet.newsapp"
             packageVersion = "1.0.0"
         }
+    }
+}
+buildkonfig {
+    packageName = "com.coding.meet.newsapp"
+
+    val localProperties =
+        Properties().apply {
+            val propsFile = rootProject.file("local.properties")
+            if (propsFile.exists()) {
+                load(propsFile.inputStream())
+            }
+        }
+
+    defaultConfigs {
+        buildConfigField(
+            FieldSpec.Type.STRING,
+            "API_KEY",
+            localProperties["API_KEY"]?.toString() ?: "",
+        )
     }
 }

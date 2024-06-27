@@ -16,12 +16,14 @@ kotlin = "2.0.0"
 coil3 = "3.0.0-alpha06"
 ktor = "2.3.11"
 lifecycleViewmodel = "2.8.2"
-navigationCompose = "2.7.0-alpha07"
+navigationCompose = "2.8.0-alpha02"
 coroutines = "1.8.1"
 ksp = "2.0.0-1.0.21"
 sqlite = "2.5.0-SNAPSHOT"
 androidx-room = "2.7.0-alpha04"
 kotlinx-serialization = "1.5.1"
+kermit = "2.0.3"
+buildkonfig = "0.15.1"
 
 [libraries]
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
@@ -39,10 +41,15 @@ androidx-material = { group = "com.google.android.material", name = "material", 
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor"}
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor"}
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kermit = {module = "co.touchlab:kermit", version.ref = "kermit"}
 
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
 coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil3" }
@@ -61,4 +68,5 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
 room = { id = "androidx.room", version.ref = "androidx-room" }

@@ -6,38 +6,33 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import data.database.NewsDatabase
-import data.repository.NewsRepository
+import data.model.Article
+import data.repository.LocalNewsRepository
 import kotlinx.coroutines.launch
 
 class ArticleViewModel(
-//    savedStateHandle: SavedStateHandle,
     newsDatabase: NewsDatabase
-): ViewModel() {
-    private val newsRepository = NewsRepository(newsDatabase.newsDao())
-    var uiState by mutableStateOf(ArticleUiState())
-        private set
+) : ViewModel() {
+    private val localNewsRepository = LocalNewsRepository(newsDatabase.newsDao())
+    var isBookmarked by mutableStateOf(false)
 
-//    init {
-//        val data = savedStateHandle.get<String>(Constants.ARTICLE_ARG)
-//        uiState = uiState.copy(article = data?.decodeFromString())
-//        isArticleBookmark()
-//    }
-
-
-     fun isArticleBookmark() {
+    fun isArticleBookmark(currentArticle: Article) {
         viewModelScope.launch {
-            newsRepository.getArticle(uiState.article.publishedAt)?.let {
-                uiState = uiState.copy(isBookmarked = true)
+            currentArticle.publishedAt.let {
+                localNewsRepository.getArticle(it)?.let {
+                    isBookmarked = true
+                }
             }
         }
     }
 
-     fun bookmarkArticle() {
+    fun bookmarkArticle(currentArticle: Article) {
         viewModelScope.launch {
-            if (!uiState.isBookmarked) uiState.article?.let { newsRepository.upsertArticle(it) }
-            else uiState.article?.let { newsRepository.deleteArticle(it) }
-            uiState = uiState.copy(isBookmarked = !uiState.isBookmarked)
+            if (!isBookmarked) {
+                localNewsRepository.upsertArticle(currentArticle)
+            } else localNewsRepository.deleteArticle(currentArticle)
         }
+        isBookmarked = !isBookmarked
     }
 
 }

@@ -1,29 +1,36 @@
 package ui.bookmark
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import data.database.NewsDatabase
-import data.repository.NewsRepository
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import data.model.Article
+import data.repository.LocalNewsRepository
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import utils.Resource
 
 class BookmarkViewModel(newsDatabase: NewsDatabase) : ViewModel() {
 
-    private val newsRepository = NewsRepository(newsDatabase.newsDao())
+    private val localNewsRepository = LocalNewsRepository(newsDatabase.newsDao())
 
-    private val _state = mutableStateOf(BookmarkUiState())
-    val state: State<BookmarkUiState> = _state
 
+    private val _bookmarkNewsStateFlow =
+        MutableStateFlow<Resource<List<Article>>>(Resource.Idle)
+    val bookmarkNewsStateFlow: StateFlow<Resource<List<Article>>>
+        get() = _bookmarkNewsStateFlow
     init {
         getArticles()
     }
 
-    private fun getArticles() {
-        newsRepository.getArticles().onEach {
-            _state.value = _state.value.copy(articles = it)
-            println(it)
-        }.launchIn(viewModelScope)
+    fun getArticles() {
+        viewModelScope.launch {
+            _bookmarkNewsStateFlow.emit(Resource.Loading)
+            localNewsRepository.getArticles().catch {
+                it.printStackTrace()
+                _bookmarkNewsStateFlow.emit(Resource.Error(it.message.toString()))
+            }.collect { result ->
+                _bookmarkNewsStateFlow.emit(Resource.Success(result))
+            }
+        }
     }
 }

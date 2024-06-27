@@ -13,6 +13,8 @@ import ui.navigation.MainRouteScreen
 import ui.bookmark.BookmarkScreen
 import ui.headline.HeadlineScreen
 import ui.search.SearchScreen
+import utils.FadeIn
+import utils.FadeOut
 
 /**
  * Created 28-02-2024 at 03:05 pm
@@ -29,7 +31,9 @@ fun MainNavGraph(
         modifier = Modifier.padding(innerPadding),
         navController = homeNavController,
         route = Graph.MainScreenGraph,
-        startDestination = MainRouteScreen.Headline.route
+        startDestination = MainRouteScreen.Headline.route,
+        enterTransition = { FadeIn },
+        exitTransition = { FadeOut },
     ) {
 
         composable(route = MainRouteScreen.Headline.route) {

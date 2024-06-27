@@ -3,7 +3,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -22,12 +22,12 @@ fun MainScreen(
 ) {
     val homeNavController = rememberNavController()
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
-    val currentRoute by rememberSaveable(navBackStackEntry) {
+    val currentRoute by remember(navBackStackEntry) {
         derivedStateOf {
             navBackStackEntry?.destination?.route
         }
     }
-    val topBarTitle by rememberSaveable(currentRoute) {
+    val topBarTitle by remember(currentRoute) {
         derivedStateOf {
             if (currentRoute != null) {
                  bottomNavigationItemsList[bottomNavigationItemsList.indexOfFirst {

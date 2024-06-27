@@ -10,46 +10,53 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import data.database.NewsDatabase
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import news_kmp_app.composeapp.generated.resources.*
 import theme.xLargePadding
 import ui.common.ArticleItem
 import ui.common.EmptyContent
+import ui.common.ShimmerEffect
 import ui.navigation.NewsRouteScreen
 
 @Composable
 fun BookmarkScreen(
-    navController: NavController,
-    newsDatabase: NewsDatabase
+    navController: NavController, newsDatabase: NewsDatabase
 
 ) {
     val bookmarkViewModel = viewModel {
         BookmarkViewModel(newsDatabase)
     }
-    val articles = bookmarkViewModel.state.value.articles
+    val uiState by bookmarkViewModel.bookmarkNewsStateFlow.collectAsState()
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
-        contentPadding = PaddingValues(xLargePadding),
-        verticalArrangement = Arrangement.spacedBy(xLargePadding)
-    ) {
-        if (articles.isNotEmpty()) {
-            items(articles) { item ->
-                ArticleItem(
-                    article = item,
-                    onClick = {
+    uiState.DisplayResult(onLoading = {
+        ShimmerEffect()
+    }, onSuccess = { articleList ->
+        if (articleList.isEmpty()) {
+            EmptyContent(message = "No bookmarks yet!", icon = Res.drawable.ic_network_error, onRetryClick = null)
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(xLargePadding),
+                verticalArrangement = Arrangement.spacedBy(xLargePadding)
+            ) {
+                items(articleList, key = {
+                    it.publishedAt
+                }) { item ->
+                    ArticleItem(article = item, onClick = {
+                        val articleStr = Json.encodeToString(item)
+                        navController.currentBackStackEntry?.savedStateHandle?.apply {
+                            set("article",articleStr)
+                        }
                         navController.navigate(NewsRouteScreen.NewsDetail.route)
-                    }
-                )
+                    })
+                }
             }
         }
-    }
+    }, onError = {
+        EmptyContent(message = it, icon = Res.drawable.ic_network_error, onRetryClick = {
+            bookmarkViewModel.getArticles()
+        })
+    })
 
-    if (articles.isEmpty()) {
-        EmptyContent(
-            message = "No bookmarks yet!",
-            icon = Res.drawable.ic_bookmark_outlined,
-            onRetryClick = null
-        )
-    }
 }

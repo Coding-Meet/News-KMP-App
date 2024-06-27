@@ -12,11 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import news_kmp_app.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun EmptyContent(
@@ -32,7 +31,7 @@ fun EmptyContent(
         Icon(
             modifier = Modifier.size(120.dp),
             painter = painterResource(icon),
-            tint = if (isSystemInDarkTheme()) LightGray else DarkGray,
+            tint = if (!isSystemInDarkTheme()) LightGray else DarkGray,
             contentDescription = null
         )
         Text(
@@ -40,7 +39,8 @@ fun EmptyContent(
             text = message,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Medium,
-            color = if (isSystemInDarkTheme()) LightGray else DarkGray,
+            textAlign = TextAlign.Center,
+            color = if (!isSystemInDarkTheme()) LightGray else DarkGray,
         )
         onRetryClick?.let {
             Button(onClick = it) {
@@ -51,14 +51,4 @@ fun EmptyContent(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun EmptyScreenPreview() {
-    EmptyContent(
-        message = "Internet Unavailable.",
-        icon = Res.drawable.ic_network_error,
-        onRetryClick = {}
-    )
 }

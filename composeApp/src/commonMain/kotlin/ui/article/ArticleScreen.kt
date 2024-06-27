@@ -8,33 +8,41 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import data.database.NewsDatabase
-import news_kmp_app.composeapp.generated.resources.*
+import data.model.Article
+import news_kmp_app.composeapp.generated.resources.Res
+import news_kmp_app.composeapp.generated.resources.ic_bookmark_filled
+import news_kmp_app.composeapp.generated.resources.ic_bookmark_outlined
+import news_kmp_app.composeapp.generated.resources.ic_browse
 import org.jetbrains.compose.resources.painterResource
 import theme.xLargePadding
+import utils.shareLink
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArticleScreen(
     navController: NavController,
-    newsDatabase: NewsDatabase
+    newsDatabase: NewsDatabase,
+    currentArticle: Article
 ) {
     val articleViewModel = viewModel {
         ArticleViewModel(newsDatabase)
     }
-    val uiState = articleViewModel.uiState
+    LaunchedEffect(Unit){
+        articleViewModel.isArticleBookmark(currentArticle)
+    }
+    val url = LocalUriHandler.current
 
     Scaffold(
         topBar = {
@@ -59,7 +67,7 @@ fun ArticleScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-
+                        shareLink(currentArticle.url)
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Share,
@@ -67,7 +75,7 @@ fun ArticleScreen(
                         )
                     }
                     IconButton(onClick = {
-
+                        url.openUri(currentArticle.url)
                     }) {
                         Icon(
                             painter = painterResource(Res.drawable.ic_browse),
@@ -75,11 +83,11 @@ fun ArticleScreen(
                         )
                     }
                     IconButton(onClick = {
-                        articleViewModel.bookmarkArticle()
+                        articleViewModel.bookmarkArticle(currentArticle)
                     }) {
                         Icon(
                             painter = painterResource(
-                                if (uiState.isBookmarked) Res.drawable.ic_bookmark_filled
+                                if (articleViewModel.isBookmarked) Res.drawable.ic_bookmark_filled
                                 else Res.drawable.ic_bookmark_outlined
                             ),
                             contentDescription = null,
@@ -103,7 +111,7 @@ fun ArticleScreen(
                         .height(200.dp)
                         .clip(MaterialTheme.shapes.large)
                         .background(color = Color.Gray),
-                    model = uiState.article?.urlToImage,
+                    model = currentArticle.urlToImage,
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
@@ -111,14 +119,14 @@ fun ArticleScreen(
 
             item {
                 Text(
-                    text = uiState.article?.title ?: "",
+                    text = currentArticle.title,
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground
                 )
             }
 
-            uiState.article?.content?.let { content ->
+            currentArticle.description?.let { content ->
                 item {
                     Text(
                         text = content,
@@ -128,7 +136,7 @@ fun ArticleScreen(
                 }
             }
 
-            uiState.article?.publishedAt?.let { content ->
+            currentArticle.publishedAt.let { content ->
                 item {
                     Text(
                         text = content,
