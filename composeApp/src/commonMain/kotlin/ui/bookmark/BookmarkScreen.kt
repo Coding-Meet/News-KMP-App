@@ -13,11 +13,13 @@ import data.database.NewsDatabase
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import news_kmp_app.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import theme.xLargePadding
 import ui.common.ArticleItem
 import ui.common.EmptyContent
 import ui.common.ShimmerEffect
 import ui.navigation.NewsRouteScreen
+import utils.randomUUIDStr
 
 @Composable
 fun BookmarkScreen(
@@ -33,7 +35,7 @@ fun BookmarkScreen(
         ShimmerEffect()
     }, onSuccess = { articleList ->
         if (articleList.isEmpty()) {
-            EmptyContent(message = "No bookmarks yet!", icon = Res.drawable.ic_network_error, onRetryClick = null)
+            EmptyContent(message = stringResource(Res.string.no_bookmarks), icon = Res.drawable.ic_network_error, onRetryClick = null)
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -41,7 +43,7 @@ fun BookmarkScreen(
                 verticalArrangement = Arrangement.spacedBy(xLargePadding)
             ) {
                 items(articleList, key = {
-                    it.publishedAt
+                    it.publishedAt+ randomUUIDStr()
                 }) { item ->
                     ArticleItem(article = item, onClick = {
                         val articleStr = Json.encodeToString(item)

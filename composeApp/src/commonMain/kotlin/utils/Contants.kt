@@ -14,6 +14,7 @@ import kotlin.random.Random
 
 const val BASE_URL = "https://newsapi.org/v2/"
 const val DB_Name = "myNewsDB"
+const val dataStoreFileName = "setting.preferences_pb"
 
 val bottomNavigationItemsList = listOf(
     BottomNavigationItem(
@@ -32,6 +33,9 @@ val bottomNavigationItemsList = listOf(
         route = MainRouteScreen.Bookmark.route,
     ),
 )
+enum class Theme {
+    Light, Dark
+}
 
 val articles: List<Article> = listOf(
     Article(

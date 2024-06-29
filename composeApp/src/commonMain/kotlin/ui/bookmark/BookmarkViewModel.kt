@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import data.database.NewsDatabase
 import data.model.Article
 import data.repository.LocalNewsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import utils.Resource
@@ -23,7 +25,7 @@ class BookmarkViewModel(newsDatabase: NewsDatabase) : ViewModel() {
     }
 
     fun getArticles() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _bookmarkNewsStateFlow.emit(Resource.Loading)
             localNewsRepository.getArticles().catch {
                 it.printStackTrace()

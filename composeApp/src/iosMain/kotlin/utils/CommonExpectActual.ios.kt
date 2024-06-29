@@ -2,6 +2,7 @@ package utils
 
 
 import platform.UIKit.*
+import platform.Foundation.NSUUID
 
 actual fun shareLink(url: String) {
     val currentViewController = UIApplication.sharedApplication().keyWindow?.rootViewController
@@ -11,4 +12,8 @@ actual fun shareLink(url: String) {
         animated = true,
         completion = null
     )
+}
+
+actual fun randomUUIDStr(): String {
+   return NSUUID().UUIDString()
 }

@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import news_kmp_app.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import theme.mediumPadding
 import theme.xLargePadding
 import ui.common.ArticleItem
@@ -16,6 +17,7 @@ import ui.common.EmptyContent
 import ui.common.ShimmerEffect
 import ui.navigation.NewsRouteScreen
 import ui.search.components.SearchBar
+import utils.randomUUIDStr
 
 @Composable
 fun SearchScreen(
@@ -41,7 +43,7 @@ fun SearchScreen(
         uiState.DisplayResult(
             onIdle = {
                 EmptyContent(
-                    message = "Type to search!",
+                    message = stringResource(Res.string.type_to_search),
                     icon = Res.drawable.ic_browse,
                     onRetryClick = null
                 )
@@ -52,7 +54,7 @@ fun SearchScreen(
             onSuccess = { articleList ->
                 if (articleList.isEmpty()) {
                     EmptyContent(
-                        message = "Type to search!",
+                        message = stringResource(Res.string.type_to_search),
                         icon = Res.drawable.ic_browse,
                         onRetryClick = null
                     )
@@ -63,7 +65,7 @@ fun SearchScreen(
                         verticalArrangement = Arrangement.spacedBy(xLargePadding)
                     ) {
                         items(articleList,key={
-                            it.publishedAt
+                            it.publishedAt+ randomUUIDStr()
                         }) { item ->
                             ArticleItem(article = item, onClick = {
                                 navController.navigate(NewsRouteScreen.NewsDetail.route)

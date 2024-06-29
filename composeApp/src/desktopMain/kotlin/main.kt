@@ -10,10 +10,9 @@ import java.io.File
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "News app",
+        title = "News KMP APP",
     ) {
         val database = remember { getDatabaseBuilder() }
-
         App(database)
     }
 }

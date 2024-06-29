@@ -13,10 +13,12 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ui.navigation.NewsRouteScreen
 import news_kmp_app.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import theme.xLargePadding
 import ui.common.ArticleItem
 import ui.common.EmptyContent
 import ui.common.ShimmerEffect
+import utils.randomUUIDStr
 
 @Composable
 fun HeadlineScreen(navController: NavController) {
@@ -29,7 +31,7 @@ fun HeadlineScreen(navController: NavController) {
         },
         onSuccess = { articleList ->
             if (articleList.isEmpty()) {
-                EmptyContent(message = "No News", icon = Res.drawable.ic_network_error, onRetryClick = null)
+                EmptyContent(message = stringResource(Res.string.no_news), icon = Res.drawable.ic_network_error, onRetryClick = null)
             } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
@@ -37,7 +39,7 @@ fun HeadlineScreen(navController: NavController) {
                     verticalArrangement = Arrangement.spacedBy(xLargePadding)
                 ) {
                     items(articleList, key = {
-                        it.publishedAt
+                      it.publishedAt+ randomUUIDStr()
                     }) { item ->
                         ArticleItem(article = item, onClick = {
                              val articleStr = Json.encodeToString(item)

@@ -1,4 +1,4 @@
-package ui.article
+package ui.article_detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,29 +21,30 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import data.database.NewsDatabase
 import data.model.Article
+import news_kmp_app.composeapp.generated.resources.*
 import news_kmp_app.composeapp.generated.resources.Res
 import news_kmp_app.composeapp.generated.resources.ic_bookmark_filled
 import news_kmp_app.composeapp.generated.resources.ic_bookmark_outlined
 import news_kmp_app.composeapp.generated.resources.ic_browse
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import theme.xLargePadding
 import utils.shareLink
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ArticleScreen(
+fun ArticleDetailScreen(
     navController: NavController,
     newsDatabase: NewsDatabase,
     currentArticle: Article
 ) {
-    val articleViewModel = viewModel {
-        ArticleViewModel(newsDatabase)
+    val articleDetailViewModel = viewModel {
+        ArticleDetailViewModel(newsDatabase)
     }
-    LaunchedEffect(Unit){
-        articleViewModel.isArticleBookmark(currentArticle)
+    LaunchedEffect(Unit) {
+        articleDetailViewModel.isArticleBookmark(currentArticle)
     }
     val url = LocalUriHandler.current
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -59,7 +60,7 @@ fun ArticleScreen(
                 },
                 title = {
                     Text(
-                        text = "Detail",
+                        text = stringResource(Res.string.news_detail),
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onBackground
@@ -83,11 +84,11 @@ fun ArticleScreen(
                         )
                     }
                     IconButton(onClick = {
-                        articleViewModel.bookmarkArticle(currentArticle)
+                        articleDetailViewModel.bookmarkArticle(currentArticle)
                     }) {
                         Icon(
                             painter = painterResource(
-                                if (articleViewModel.isBookmarked) Res.drawable.ic_bookmark_filled
+                                if (articleDetailViewModel.isBookmarked) Res.drawable.ic_bookmark_filled
                                 else Res.drawable.ic_bookmark_outlined
                             ),
                             contentDescription = null,
@@ -108,7 +109,7 @@ fun ArticleScreen(
                 AsyncImage(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp)
+                        .height(250.dp)
                         .clip(MaterialTheme.shapes.large)
                         .background(color = Color.Gray),
                     model = currentArticle.urlToImage,

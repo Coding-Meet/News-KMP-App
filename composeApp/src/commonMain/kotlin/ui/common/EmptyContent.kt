@@ -14,8 +14,11 @@ import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import news_kmp_app.composeapp.generated.resources.Res
+import news_kmp_app.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun EmptyContent(
@@ -45,7 +48,7 @@ fun EmptyContent(
         onRetryClick?.let {
             Button(onClick = it) {
                 Text(
-                    text = "Retry",
+                    text = stringResource(Res.string.retry),
                     style = MaterialTheme.typography.titleMedium
                 )
             }

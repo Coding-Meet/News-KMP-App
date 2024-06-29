@@ -1,4 +1,6 @@
 package ui
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -11,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import data.database.NewsDatabase
 import org.jetbrains.compose.resources.stringResource
 import ui.navigation.NewsBottomNavigation
+import ui.navigation.SettingRouteScreen
 import ui.navigation.graphs.MainNavGraph
 import utils.bottomNavigationItemsList
 
@@ -49,6 +52,16 @@ fun MainScreen(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onBackground
                     )
+                },
+                actions = {
+                    IconButton(onClick = {
+                        rootNavHostController.navigate(SettingRouteScreen.SettingDetail.route)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = null,
+                        )
+                    }
                 }
             )
         },

@@ -4,7 +4,6 @@ import data.database.NewsDao
 import data.model.Article
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
 class LocalNewsRepository(
@@ -16,6 +15,9 @@ class LocalNewsRepository(
 
     suspend fun deleteArticle(article: Article) {
         newsDao.delete(article)
+    }
+    suspend fun deleteAllBookmark() {
+        newsDao.deleteAllBookmark()
     }
 
     fun getArticles() = newsDao.getArticles().flowOn(Dispatchers.IO)

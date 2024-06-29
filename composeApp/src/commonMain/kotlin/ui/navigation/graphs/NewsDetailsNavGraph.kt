@@ -7,9 +7,11 @@ import androidx.navigation.navigation
 import data.database.NewsDatabase
 import data.model.Article
 import kotlinx.serialization.json.Json
-import ui.article.ArticleScreen
+import ui.article_detail.ArticleDetailScreen
 import ui.navigation.Graph
 import ui.navigation.NewsRouteScreen
+import utils.FadeIn
+import utils.FadeOut
 
 /**
  * Created 28-02-2024 at 03:05 pm
@@ -19,15 +21,15 @@ fun NavGraphBuilder.newsScreenNavGraph(rootNavController: NavHostController, new
     navigation(
         route = Graph.NewsScreenGraph,
         startDestination = NewsRouteScreen.NewsDetail.route,
-
-        ) {
+    ) {
         composable(
             route = NewsRouteScreen.NewsDetail.route,
+            enterTransition = { FadeIn },
+            exitTransition = { FadeOut },
         ) {
-
             rootNavController.previousBackStackEntry?.savedStateHandle?.get<String>("article")?.let { article ->
                 val currentArticle: Article = Json.decodeFromString(article)
-                ArticleScreen(navController = rootNavController, newsDatabase, currentArticle)
+                ArticleDetailScreen(rootNavController, newsDatabase, currentArticle)
             }
         }
     }

@@ -1,9 +1,9 @@
 package utils
 
-import android.content.Context
 import android.content.Intent
-import androidx.core.content.ContextCompat.startActivity
-import com.coding.meet.newsapp.MyApp
+import com.coding.meet.newsapp.getActivity
+import com.coding.meet.newsapp.getContext
+import java.util.UUID
 
 
 actual fun shareLink(url: String) {
@@ -13,10 +13,10 @@ actual fun shareLink(url: String) {
     }
     val shareIntent = Intent.createChooser(sendIntent, "Share Link")
     getContext()?.let {
-        startActivity(it, shareIntent, null)
+        getActivity()?.startActivity( shareIntent)
     }
 }
 
-fun getContext(): Context?{
-    return MyApp.instance
+actual fun randomUUIDStr(): String {
+    return UUID.randomUUID().toString()
 }

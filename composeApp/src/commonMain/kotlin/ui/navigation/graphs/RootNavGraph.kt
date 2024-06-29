@@ -7,22 +7,24 @@ import androidx.navigation.compose.rememberNavController
 import data.database.NewsDatabase
 import ui.MainScreen
 import ui.navigation.Graph
+import ui.setting.SettingViewModel
 
 /**
  * Created 28-02-2024 at 03:04 pm
  */
 
 @Composable
-fun RootNavGraph(newsDatabase: NewsDatabase) {
+fun RootNavGraph(newsDatabase: NewsDatabase, settingViewModel: SettingViewModel) {
     val rootNavController = rememberNavController()
     NavHost(
         navController = rootNavController,
         route = Graph.RootGraph,
-        startDestination = Graph.MainScreenGraph
+        startDestination = Graph.MainScreenGraph,
     ) {
         composable(route = Graph.MainScreenGraph){
-            MainScreen(rootNavController,newsDatabase=newsDatabase)
+            MainScreen(rootNavController,newsDatabase)
         }
         newsScreenNavGraph(rootNavController,newsDatabase)
+        settingScreenNavGraph(rootNavController,settingViewModel)
     }
 }
