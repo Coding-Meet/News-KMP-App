@@ -4,8 +4,6 @@ package ui.navigation
 object Graph {
     const val RootGraph = "rootScreenGraph"
     const val MainScreenGraph = "mainScreenGraph"
-    const val NewsScreenGraph = "newsScreenGraph"
-    const val SettingScreenGraph = "settingScreenGraph"
 }
 
 sealed class MainRouteScreen(var route: String) {
