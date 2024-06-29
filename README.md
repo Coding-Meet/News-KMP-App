@@ -1,6 +1,6 @@
 # News Kotlin Multiplatform App ✨
 
-[![News Kotlin Multiplatform AppPreview](image/News-KMP-App.png)]()
+[![News Kotlin Multiplatform AppPreview](image/News-KMP-App.png)](https://youtu.be/Dq1jcsVQmtY?si=nU6pnpR9jpuy0Cw5)
 
 Click the image above to watch a demo of the News Kotlin Multiplatform App on YouTube.
 
