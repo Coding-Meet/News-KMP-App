@@ -17,6 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import coil3.compose.AsyncImage
 import data.model.Article
+import news_kmp_app.composeapp.generated.resources.Res
+import news_kmp_app.composeapp.generated.resources.logo
+import org.jetbrains.compose.resources.painterResource
 import theme.imageSize
 import theme.mediumPadding
 import theme.xxSmallPadding
@@ -38,6 +41,7 @@ fun ArticleItem(
                 .clip(MaterialTheme.shapes.large)
                 .background(Color.Gray),
             model = article.urlToImage,
+            error = painterResource(Res.drawable.logo),
             contentScale = ContentScale.Crop,
             contentDescription = null
         )

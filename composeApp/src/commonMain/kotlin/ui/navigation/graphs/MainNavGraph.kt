@@ -1,6 +1,7 @@
 package ui.navigation.graphs
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,7 +29,7 @@ fun MainNavGraph(
     newsDatabase: NewsDatabase,
 ) {
     NavHost(
-        modifier = Modifier.padding(innerPadding),
+        modifier = Modifier.fillMaxSize().padding(innerPadding),
         navController = homeNavController,
         route = Graph.MainScreenGraph,
         startDestination = MainRouteScreen.Headline.route,
