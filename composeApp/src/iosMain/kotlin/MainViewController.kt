@@ -3,6 +3,8 @@ import androidx.compose.ui.window.ComposeUIViewController
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import data.database.NewsDatabase
+import data.database.instantiateImpl
+import platform.Foundation.NSHomeDirectory
 import utils.DB_Name
 
 fun MainViewController() = ComposeUIViewController {

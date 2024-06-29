@@ -2,7 +2,7 @@
 
 [![News Kotlin Multiplatform AppPreview](image/News-KMP-App.png)]()
 
-[//]: # (Click the image above to watch a demo of the News Kotlin Multiplatform App on YouTube.)
+Click the image above to watch a demo of the News Kotlin Multiplatform App on YouTube.
 
 ## Overview
 
@@ -13,6 +13,14 @@ on each platform.
 
 ## Features & Technologies:
 
+* Explore Top News Headlines:
+    * Stay updated with the day's top news stories effortlessly.
+* Read Detailed Content:
+    * Dive deeper into your favorite news articles for comprehensive insights.
+* Personalized Search:
+    * Easily find news articles tailored to your interests.
+* Save for Later:
+    * Bookmark articles to read offline and enjoy uninterrupted reading pleasure.
 * Cross-Platform Support:
     * Seamless operation on Android, iOS, Windows, macOS, and Linux.
 * Declarative UI with Jetpack Compose
@@ -33,7 +41,7 @@ on each platform.
     * Key-value pair storage with DataStore.
 * Build Configuration Management:
     * Centralized build configurations using BuildKonfig.
-  
+
 ## Libraries 🛠️
 
 - [BuildKonfig](https://github.com/yshrsmz/BuildKonfig) - BuildConfig for Kotlin Multiplatform Project. It currently
@@ -111,6 +119,31 @@ API_KEY=YOUR_API_KEY
    <tr>
     <td><img src="image/android/android11.png" alt="android"></td>
     <td><img src="image/android/android12.png" alt="android"></td>
+   </tr>
+</table>
+
+## IOS
+
+<table>
+   <tr>
+    <td><img src="image/ios/ios1.png" alt="ios"></td>
+    <td><img src="image/ios/ios2.png" alt="ios"></td>
+   </tr>
+   <tr>
+    <td><img src="image/ios/ios3.png" alt="ios"></td>
+    <td><img src="image/ios/ios4.png" alt="ios"></td>
+   </tr>
+   <tr>
+    <td><img src="image/ios/ios5.png" alt="ios"></td>
+    <td><img src="image/ios/ios6.png" alt="ios"></td>
+   </tr>
+   <tr>
+    <td><img src="image/ios/ios7.png" alt="ios"></td>
+    <td><img src="image/ios/ios8.png" alt="ios"></td>
+       </tr>
+   <tr>
+    <td><img src="image/ios/ios9.png" alt="ios"></td>
+    <td><img src="image/ios/ios10.png" alt="ios"></td>
    </tr>
 </table>
 

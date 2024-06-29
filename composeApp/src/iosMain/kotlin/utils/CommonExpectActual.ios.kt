@@ -15,7 +15,7 @@ actual fun shareLink(url: String) {
 }
 
 actual fun randomUUIDStr(): String {
-   return NSUUID().UUIDString()
+    return NSUUID().UUIDString()
 }
 
 actual fun getType(): Type {
