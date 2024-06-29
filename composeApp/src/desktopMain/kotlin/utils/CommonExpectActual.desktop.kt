@@ -12,3 +12,7 @@ actual fun shareLink(url: String) {
 actual fun randomUUIDStr(): String {
    return UUID.randomUUID().toString()
 }
+
+actual fun getType(): Type {
+    return Type.Desktop
+}

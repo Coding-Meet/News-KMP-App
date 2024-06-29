@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
@@ -28,6 +27,7 @@ import news_kmp_app.composeapp.generated.resources.ic_bookmark_outlined
 import news_kmp_app.composeapp.generated.resources.ic_browse
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import theme.detailImageSize
 import theme.xLargePadding
 import utils.shareLink
 
@@ -109,7 +109,7 @@ fun ArticleDetailScreen(
                 AsyncImage(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(250.dp)
+                        .height(detailImageSize)
                         .clip(MaterialTheme.shapes.large)
                         .background(color = Color.Gray),
                     model = currentArticle.urlToImage,

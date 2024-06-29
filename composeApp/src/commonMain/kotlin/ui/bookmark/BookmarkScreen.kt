@@ -1,25 +1,18 @@
 package ui.bookmark
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import data.database.NewsDatabase
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import news_kmp_app.composeapp.generated.resources.*
+import news_kmp_app.composeapp.generated.resources.Res
+import news_kmp_app.composeapp.generated.resources.ic_network_error
+import news_kmp_app.composeapp.generated.resources.no_bookmarks
 import org.jetbrains.compose.resources.stringResource
-import theme.xLargePadding
-import ui.common.ArticleItem
+import ui.common.ArticleListScreen
 import ui.common.EmptyContent
 import ui.common.ShimmerEffect
-import ui.navigation.NewsRouteScreen
-import utils.randomUUIDStr
 
 @Composable
 fun BookmarkScreen(
@@ -37,23 +30,7 @@ fun BookmarkScreen(
         if (articleList.isEmpty()) {
             EmptyContent(message = stringResource(Res.string.no_bookmarks), icon = Res.drawable.ic_network_error, onRetryClick = null)
         } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(xLargePadding),
-                verticalArrangement = Arrangement.spacedBy(xLargePadding)
-            ) {
-                items(articleList, key = {
-                    it.publishedAt+ randomUUIDStr()
-                }) { item ->
-                    ArticleItem(article = item, onClick = {
-                        val articleStr = Json.encodeToString(item)
-                        navController.currentBackStackEntry?.savedStateHandle?.apply {
-                            set("article",articleStr)
-                        }
-                        navController.navigate(NewsRouteScreen.NewsDetail.route)
-                    })
-                }
-            }
+            ArticleListScreen(articleList,navController)
         }
     }, onError = {
         EmptyContent(message = it, icon = Res.drawable.ic_network_error, onRetryClick = {

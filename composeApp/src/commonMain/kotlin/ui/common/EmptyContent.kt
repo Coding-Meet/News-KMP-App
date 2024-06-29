@@ -13,12 +13,13 @@ import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import news_kmp_app.composeapp.generated.resources.Res
 import news_kmp_app.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import theme.imageSize
+import theme.smallPadding
 
 @Composable
 fun EmptyContent(
@@ -32,13 +33,13 @@ fun EmptyContent(
         verticalArrangement = Arrangement.Center
     ) {
         Icon(
-            modifier = Modifier.size(120.dp),
+            modifier = Modifier.size(imageSize),
             painter = painterResource(icon),
             tint = if (!isSystemInDarkTheme()) LightGray else DarkGray,
             contentDescription = null
         )
         Text(
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier.padding(smallPadding),
             text = message,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Medium,

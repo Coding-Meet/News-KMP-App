@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.graphics.toArgb
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import data.database.NewsDatabase
@@ -17,6 +18,7 @@ import utils.DB_Name
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         MyApp.activity = this
         val database = getDatabaseBuilder(applicationContext)
         setContent {

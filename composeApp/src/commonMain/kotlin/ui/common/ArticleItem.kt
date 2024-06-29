@@ -15,9 +15,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import data.model.Article
+import theme.imageSize
 import theme.mediumPadding
 import theme.xxSmallPadding
 
@@ -34,7 +34,7 @@ fun ArticleItem(
 
         AsyncImage(
             modifier = Modifier
-                .size(120.dp)
+                .size(imageSize)
                 .clip(MaterialTheme.shapes.large)
                 .background(Color.Gray),
             model = article.urlToImage,

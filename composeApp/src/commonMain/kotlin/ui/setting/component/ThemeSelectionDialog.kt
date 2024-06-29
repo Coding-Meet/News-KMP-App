@@ -27,11 +27,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import news_kmp_app.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
+import theme.mediumPadding
+import theme.xLargePadding
+import theme.xSmallPadding
 import utils.Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,12 +48,12 @@ fun ThemeSelectionDialog(
             shape = MaterialTheme.shapes.large,
             tonalElevation = AlertDialogDefaults.TonalElevation
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
+            Column(modifier = Modifier.padding(mediumPadding)) {
 
                 Text(
                     text = stringResource(Res.string.choose_a_theme),
-                    style = TextStyle(fontSize = 20.sp),
-                    modifier = Modifier.padding(8.dp)
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(xSmallPadding)
                 )
 
                 Row(
@@ -87,7 +87,7 @@ fun ThemeSelectionDialog(
                     Text(text = stringResource(Res.string.dark_mode))
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(xLargePadding))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
@@ -95,7 +95,7 @@ fun ThemeSelectionDialog(
                     TextButton(onClick = onDismissRequest) {
                         Text(text = stringResource(Res.string.cancel))
                     }
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = Modifier.width(mediumPadding))
                     TextButton(onClick = { onThemeChange(currentSelectedTheme) }) {
                         Text(text = stringResource(Res.string.apply))
                     }

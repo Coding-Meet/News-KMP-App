@@ -15,10 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import theme.mediumPadding
+import theme.xLargePadding
 
 @Composable
 fun SettingItem(
@@ -32,23 +31,21 @@ fun SettingItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+            .padding(mediumPadding),
+        horizontalArrangement = Arrangement.spacedBy(mediumPadding, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(xLargePadding),
             painter = painter,
             contentDescription = null,
             colorFilter = ColorFilter.tint(color = itemColor)
         )
         Text(
             text = itemName,
-            style = TextStyle(
-                color = itemColor,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Normal
-            )
+            color = itemColor,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Normal
         )
     }
 }

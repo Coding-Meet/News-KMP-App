@@ -36,6 +36,9 @@ val bottomNavigationItemsList = listOf(
 enum class Theme {
     Light, Dark
 }
+enum class Type {
+   Mobile, Desktop
+}
 
 val articles: List<Article> = listOf(
     Article(

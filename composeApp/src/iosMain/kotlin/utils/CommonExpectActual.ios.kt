@@ -17,3 +17,7 @@ actual fun shareLink(url: String) {
 actual fun randomUUIDStr(): String {
    return NSUUID().UUIDString()
 }
+
+actual fun getType(): Type {
+    return Type.Mobile
+}
