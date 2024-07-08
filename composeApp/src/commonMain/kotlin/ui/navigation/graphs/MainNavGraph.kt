@@ -26,7 +26,6 @@ fun MainNavGraph(
     rootNavController: NavHostController,
     homeNavController: NavHostController,
     innerPadding: PaddingValues,
-    newsDatabase: NewsDatabase,
 ) {
     NavHost(
         modifier = Modifier.fillMaxSize().padding(innerPadding),
@@ -46,7 +45,7 @@ fun MainNavGraph(
         }
 
         composable(route = MainRouteScreen.Bookmark.route) {
-            BookmarkScreen(rootNavController,newsDatabase)
+            BookmarkScreen(rootNavController)
         }
     }
 

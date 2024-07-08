@@ -1,22 +1,10 @@
-import androidx.compose.runtime.remember
 import androidx.compose.ui.window.ComposeUIViewController
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import data.database.NewsDatabase
-import data.database.instantiateImpl
-import platform.Foundation.NSHomeDirectory
-import utils.DB_Name
+import di.initKoin
 
-fun MainViewController() = ComposeUIViewController {
-    val database = remember {
-        getDatabaseBuilder()
+fun MainViewController() = ComposeUIViewController(
+    configure = {
+        initKoin()
     }
-    App(database) }
-
-fun getDatabaseBuilder(): RoomDatabase.Builder<NewsDatabase> {
-    val dbFilePath = NSHomeDirectory() + "/$DB_Name"
-    return Room.databaseBuilder<NewsDatabase>(
-        name = dbFilePath,
-        factory =  { NewsDatabase::class.instantiateImpl() }
-    )
+) {
+    App()
 }

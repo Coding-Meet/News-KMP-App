@@ -10,13 +10,14 @@ androidx-core-ktx = "1.13.1"
 androidx-espresso-core = "3.5.1"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.1.5"
-compose-plugin = "1.6.10"
+compose-plugin = "1.6.11"
 junit = "4.13.2"
 kotlin = "2.0.0"
 coil3 = "3.0.0-alpha06"
 ktor = "2.3.11"
 lifecycleViewmodel = "2.8.2"
 navigationCompose = "2.8.0-alpha02"
+#navigationCompose = "2.7.0-alpha07"
 coroutines = "1.8.1"
 ksp = "2.0.0-1.0.21"
 sqlite = "2.5.0-SNAPSHOT"
@@ -26,6 +27,10 @@ kermit = "2.0.3"
 buildkonfig = "0.15.1"
 androidx-data-store = "1.1.1"
 coreSplashscreen = "1.0.1"
+
+koin = "3.6.0-alpha3"
+koinCompose = "3.6.0-alpha3"
+koinComposeMultiplatform = "1.2.0-alpha3"
 
 [libraries]
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
@@ -43,6 +48,13 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCompose" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinComposeMultiplatform" }
+koin-composeVM = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinComposeMultiplatform" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }

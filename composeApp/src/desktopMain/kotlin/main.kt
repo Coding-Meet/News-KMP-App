@@ -1,15 +1,15 @@
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.window.*
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import data.database.NewsDatabase
-import news_kmp_app.composeapp.generated.resources.*
-import utils.DB_Name
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
+import androidx.compose.ui.window.WindowState
+import androidx.compose.ui.window.application
+import di.initKoin
+import news_kmp_app.composeapp.generated.resources.Res
+import news_kmp_app.composeapp.generated.resources.logo
 import java.awt.Dimension
-import java.io.File
 
 fun main() = application {
+    initKoin()
     Window(
         onCloseRequest = ::exitApplication, state = WindowState(
             position = WindowPosition(Alignment.Center)
@@ -17,13 +17,6 @@ fun main() = application {
         icon = org.jetbrains.compose.resources.painterResource(Res.drawable.logo)
     ) {
         window.minimumSize = Dimension(1280, 768)
-        val database = remember { getDatabaseBuilder() }
-        App(database)
+        App()
     }
-}
-fun getDatabaseBuilder(): RoomDatabase.Builder<NewsDatabase> {
-    val dbFile = File(System.getProperty("java.io.tmpdir"), DB_Name)
-    return Room.databaseBuilder<NewsDatabase>(
-        name = dbFile.absolutePath,
-    )
 }

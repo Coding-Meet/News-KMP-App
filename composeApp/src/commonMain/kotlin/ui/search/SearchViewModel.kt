@@ -1,5 +1,7 @@
 package ui.search
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import data.model.Article
@@ -14,11 +16,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import utils.Resource
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(
+    private val onlineNewsRepository : OnlineNewsRepository
+) : ViewModel() {
 
 
-    private val onlineNewsRepository = OnlineNewsRepository()
-
+    val searchQuery by mutableStateOf("")
 
     private val _newsStateFlow =
         MutableStateFlow<Resource<List<Article>>>(Resource.Idle)

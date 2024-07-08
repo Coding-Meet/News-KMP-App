@@ -15,11 +15,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
-import data.database.NewsDatabase
 import data.model.Article
+import di.koinViewModel
 import news_kmp_app.composeapp.generated.resources.*
 import news_kmp_app.composeapp.generated.resources.Res
 import news_kmp_app.composeapp.generated.resources.ic_bookmark_filled
@@ -35,12 +34,10 @@ import utils.shareLink
 @Composable
 fun ArticleDetailScreen(
     navController: NavController,
-    newsDatabase: NewsDatabase,
     currentArticle: Article
 ) {
-    val articleDetailViewModel = viewModel {
-        ArticleDetailViewModel(newsDatabase)
-    }
+    val articleDetailViewModel = koinViewModel<ArticleDetailViewModel>()
+
     LaunchedEffect(Unit) {
         articleDetailViewModel.isArticleBookmark(currentArticle)
     }

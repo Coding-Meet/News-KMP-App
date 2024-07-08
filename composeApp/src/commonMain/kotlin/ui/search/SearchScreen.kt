@@ -6,11 +6,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import di.koinViewModel
 import news_kmp_app.composeapp.generated.resources.Res
 import news_kmp_app.composeapp.generated.resources.ic_browse
 import news_kmp_app.composeapp.generated.resources.ic_network_error
@@ -26,17 +24,16 @@ import ui.search.components.SearchBar
 fun SearchScreen(
     navController: NavController,
 ) {
-    val searchViewModel = viewModel { SearchViewModel() }
+    val searchViewModel = koinViewModel<SearchViewModel>()
     val uiState by searchViewModel.newsStateFlow.collectAsState()
 
-    val searchQuery by rememberSaveable { mutableStateOf("") }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(mediumPadding)
     ) {
         SearchBar(
             modifier = Modifier.padding(horizontal = mediumPadding),
-            text = searchQuery,
+            text = searchViewModel.searchQuery,
             onSearch = { query ->
                 if (query.trim().isNotEmpty()){
                     searchViewModel.searchQueryNews(query.trim())
@@ -67,8 +64,8 @@ fun SearchScreen(
             },
             onError = {
                 EmptyContent(message = it, icon = Res.drawable.ic_network_error, onRetryClick = {
-                    if (searchQuery.trim().isNotEmpty()){
-                        searchViewModel.searchQueryNews(searchQuery.trim())
+                    if (searchViewModel.searchQuery.trim().isNotEmpty()){
+                        searchViewModel.searchQueryNews(searchViewModel.searchQuery.trim())
                     }
                 })
             }

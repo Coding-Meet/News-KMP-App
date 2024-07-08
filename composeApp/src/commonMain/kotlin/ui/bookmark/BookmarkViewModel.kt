@@ -2,7 +2,6 @@ package ui.bookmark
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import data.database.NewsDatabase
 import data.model.Article
 import data.repository.LocalNewsRepository
 import kotlinx.coroutines.Dispatchers
@@ -11,10 +10,9 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import utils.Resource
 
-class BookmarkViewModel(newsDatabase: NewsDatabase) : ViewModel() {
-
-    private val localNewsRepository = LocalNewsRepository(newsDatabase.newsDao())
-
+class BookmarkViewModel(
+    private val localNewsRepository : LocalNewsRepository
+) : ViewModel() {
 
     private val _bookmarkNewsStateFlow =
         MutableStateFlow<Resource<List<Article>>>(Resource.Idle)

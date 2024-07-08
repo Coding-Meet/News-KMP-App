@@ -52,6 +52,9 @@ kotlin {
             // Ktor
             implementation(libs.ktor.client.android)
 
+            // Koin
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
 
             // Splash API
             implementation(libs.androidx.core.splashscreen)
@@ -68,7 +71,6 @@ kotlin {
 
             // Navigation
             implementation(libs.navigation.compose)
-            implementation(libs.kotlinx.serialization.json)
 
             // ViewModel
             implementation(libs.androidx.lifecycle.viewmodel)
@@ -97,6 +99,10 @@ kotlin {
             //dataStore
             implementation(libs.androidx.data.store.core)
 
+            // Koin
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+//            implementation(libs.koin.composeVM)
 
         }
         desktopMain.dependencies {

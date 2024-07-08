@@ -3,8 +3,8 @@ package ui.headline
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import di.koinViewModel
 import news_kmp_app.composeapp.generated.resources.Res
 import news_kmp_app.composeapp.generated.resources.ic_network_error
 import news_kmp_app.composeapp.generated.resources.no_news
@@ -16,7 +16,8 @@ import ui.common.ShimmerEffect
 @Composable
 fun HeadlineScreen(navController: NavController) {
 
-    val headlineViewModel = viewModel { HeadlineViewModel() }
+    val headlineViewModel = koinViewModel<HeadlineViewModel>()
+
     val uiState by headlineViewModel.newsStateFlow.collectAsState()
     uiState.DisplayResult(
         onLoading = {

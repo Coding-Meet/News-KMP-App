@@ -12,12 +12,13 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.koin.mp.KoinPlatform
 import utils.Resource
 
-class HeadlineViewModel : ViewModel() {
+class HeadlineViewModel(
+    private val onlineNewsRepository : OnlineNewsRepository
+) : ViewModel() {
 
-
-    private val onlineNewsRepository = OnlineNewsRepository()
 
 
     private val _newsStateFlow =

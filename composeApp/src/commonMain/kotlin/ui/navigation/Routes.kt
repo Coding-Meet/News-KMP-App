@@ -17,5 +17,5 @@ sealed class NewsRouteScreen(var route: String) {
 }
 
 sealed class SettingRouteScreen(var route: String) {
-    object SettingDetail : NewsRouteScreen("settingDetail")
+    object SettingDetail : SettingRouteScreen("settingDetail")
 }

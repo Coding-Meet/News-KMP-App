@@ -10,7 +10,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import data.database.NewsDatabase
 import org.jetbrains.compose.resources.stringResource
 import ui.navigation.NewsBottomNavigation
 import ui.navigation.SettingRouteScreen
@@ -21,7 +20,6 @@ import utils.bottomNavigationItemsList
 @Composable
 fun MainScreen(
     rootNavHostController: NavHostController,
-    newsDatabase: NewsDatabase
 ) {
     val homeNavController = rememberNavController()
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
@@ -94,7 +92,7 @@ fun MainScreen(
     ) { innerPadding ->
         MainNavGraph(
             rootNavHostController,
-            homeNavController, innerPadding,newsDatabase
+            homeNavController, innerPadding
         )
     }
 

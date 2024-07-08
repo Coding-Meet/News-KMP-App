@@ -2,7 +2,6 @@ package ui.setting
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import data.database.NewsDatabase
 import data.repository.LocalNewsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -13,11 +12,8 @@ import utils.AppPreferencesImpl
 
 class SettingViewModel(
     private val appPreferencesImpl: AppPreferencesImpl,
-    newsDatabase: NewsDatabase
+    private val localNewsRepository : LocalNewsRepository
 ) : ViewModel() {
-
-    private val localNewsRepository = LocalNewsRepository(newsDatabase.newsDao())
-
 
     private val _isDarkModeEnabled = MutableStateFlow(false)
     val isDarkModeEnabled = _isDarkModeEnabled.asStateFlow()

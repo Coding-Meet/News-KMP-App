@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import data.database.NewsDatabase
 import data.model.Article
 import data.repository.LocalNewsRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,10 +12,9 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 
 class ArticleDetailViewModel(
-    newsDatabase: NewsDatabase
+    private val localNewsRepository : LocalNewsRepository
 ) : ViewModel() {
 
-    private val localNewsRepository = LocalNewsRepository(newsDatabase.newsDao())
     var isBookmarked by mutableStateOf(false)
 
     fun isArticleBookmark(currentArticle: Article) {
