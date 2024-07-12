@@ -42,9 +42,8 @@ fun MainScreen(
         }
     }
     DisposableEffect(Unit) {
-        onDispose {
-            previousRoute = currentRoute
-        }
+        previousRoute = currentRoute
+        onDispose {}
     }
     LaunchedEffect(Unit) {
         if (previousRoute != null) {
