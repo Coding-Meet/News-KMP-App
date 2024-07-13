@@ -25,7 +25,7 @@ fun MainScreen(
     var previousRoute by rememberSaveable {
         mutableStateOf(navBackStackEntry?.destination?.route)
     }
-    val currentRoute by rememberSaveable(navBackStackEntry) {
+    val currentRoute by remember(navBackStackEntry) {
         derivedStateOf {
             navBackStackEntry?.destination?.route
         }
