@@ -7,7 +7,7 @@ import data.datastore.dataStorePreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.dsl.module
-import utils.AppPreferencesImpl
+import utils.AppPreferences
 import utils.getDatabaseBuilder
 
 val databaseModule = module {
@@ -19,7 +19,7 @@ val databaseModule = module {
 
     // datastore
     single {
-        AppPreferencesImpl(dataStorePreferences())
+        AppPreferences(dataStorePreferences())
     }
 
 }

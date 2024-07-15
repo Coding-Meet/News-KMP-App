@@ -7,8 +7,11 @@ import utils.dataStoreFileName
 import java.io.File
 
 actual fun dataStorePreferences(): DataStore<Preferences> {
-    return createDataStoreWithDefaults(
-        path = {
-            File(getContext()!!.filesDir, "datastore/$dataStoreFileName").path
-        })
+     return AppSettings.getDataStore(
+        producePath = {
+            getContext()!!.filesDir
+                .resolve(dataStoreFileName)
+                .absolutePath
+        }
+    )
 }

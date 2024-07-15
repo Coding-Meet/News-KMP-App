@@ -1,4 +1,3 @@
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -13,7 +12,7 @@ import ui.setting.SettingViewModel
 fun App() {
     KoinContext {
         val settingViewModel = koinViewModel<SettingViewModel>()
-        val isDarkModeEnabled by settingViewModel.isDarkModeEnabled.collectAsState(isSystemInDarkTheme())
+        val isDarkModeEnabled by settingViewModel.isDarkModeEnabled.collectAsState()
         val isInit by settingViewModel.isInit.collectAsState(false)
         if (isInit) {
             NewsAppTheme(isDarkModeEnabled) {

@@ -8,16 +8,15 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 
- class AppPreferencesImpl(
+ class AppPreferences(
     private val dataStore: DataStore<Preferences>
 )  {
 
     private companion object {
-        private const val PREFS_TAG_KEY = "AppPreferences"
         private const val IS_DARK_MODE_ENABLED = "prefsBoolean"
     }
 
-    private val darkModeKey = booleanPreferencesKey("$PREFS_TAG_KEY$IS_DARK_MODE_ENABLED")
+    private val darkModeKey = booleanPreferencesKey(IS_DARK_MODE_ENABLED)
 
     suspend fun isDarkModeEnabled() = dataStore.data.map { preferences ->
         preferences[darkModeKey] ?: false

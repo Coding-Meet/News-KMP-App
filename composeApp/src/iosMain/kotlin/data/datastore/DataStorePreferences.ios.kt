@@ -12,8 +12,8 @@ import platform.Foundation.NSUserDomainMask
 import utils.dataStoreFileName
 
 actual fun dataStorePreferences(): DataStore<Preferences> {
-    return createDataStoreWithDefaults(
-        path = {
+    return AppSettings.getDataStore(
+        producePath = {
             val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
                 directory = NSDocumentDirectory,
                 inDomain = NSUserDomainMask,

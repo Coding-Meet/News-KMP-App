@@ -5,7 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import utils.dataStoreFileName
 
 actual fun dataStorePreferences(): DataStore<Preferences> {
-    return createDataStoreWithDefaults(
-        path = { dataStoreFileName }
-    )
+    return AppSettings.getDataStore {
+        dataStoreFileName
+    }
 }

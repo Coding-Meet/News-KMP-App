@@ -25,9 +25,13 @@ fun BookmarkScreen(
         ShimmerEffect()
     }, onSuccess = { articleList ->
         if (articleList.isEmpty()) {
-            EmptyContent(message = stringResource(Res.string.no_bookmarks), icon = Res.drawable.ic_network_error, onRetryClick = null)
+            EmptyContent(
+                message = stringResource(Res.string.no_bookmarks),
+                icon = Res.drawable.ic_network_error,
+                onRetryClick = null
+            )
         } else {
-            ArticleListScreen(articleList,navController)
+            ArticleListScreen(articleList, navController)
         }
     }, onError = {
         EmptyContent(message = it, icon = Res.drawable.ic_network_error, onRetryClick = {

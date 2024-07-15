@@ -8,10 +8,10 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import utils.AppPreferencesImpl
+import utils.AppPreferences
 
 class SettingViewModel(
-    private val appPreferencesImpl: AppPreferencesImpl,
+    private val appPreferences: AppPreferences,
     private val localNewsRepository : LocalNewsRepository
 ) : ViewModel() {
 
@@ -32,11 +32,11 @@ class SettingViewModel(
     }
 
     private fun isDarkModeEnabled() = viewModelScope.launch(Dispatchers.IO) {
-        _isDarkModeEnabled.value = appPreferencesImpl.isDarkModeEnabled()
+        _isDarkModeEnabled.value = appPreferences.isDarkModeEnabled()
     }
 
     fun changeDarkMode(isEnabled: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        appPreferencesImpl.changeDarkMode(isEnabled)
+        appPreferences.changeDarkMode(isEnabled)
         _isDarkModeEnabled.value = isEnabled
     }
 }
