@@ -22,7 +22,7 @@ import utils.Theme
 fun SettingScreen(navController: NavController, settingViewModel: SettingViewModel) {
 
     var showThemeSelectionDialog by remember { mutableStateOf(false) }
-    val isDarkModeEnabled by settingViewModel.isDarkModeEnabled.collectAsState()
+    val currentTheme by settingViewModel.currentTheme.collectAsState()
     var showDeleteBookmarkArticleDialog by remember { mutableStateOf(false) }
 
     when {
@@ -59,11 +59,11 @@ fun SettingScreen(navController: NavController, settingViewModel: SettingViewMod
         showThemeSelectionDialog -> {
             ThemeSelectionDialog(
                 onThemeChange = { theme ->
-                    settingViewModel.changeDarkMode(theme == Theme.Dark)
+                    settingViewModel.changeThemeMode(theme.name)
                     showThemeSelectionDialog = false
                 },
                 onDismissRequest = { showThemeSelectionDialog = false },
-                currentTheme = if (isDarkModeEnabled) Theme.Dark else Theme.Light
+                currentTheme =currentTheme ?: Theme.DARK_MODE.name
             )
         }
     }

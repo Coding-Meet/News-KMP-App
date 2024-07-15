@@ -11,11 +11,12 @@ import ui.setting.SettingViewModel
 @Preview
 fun App() {
     KoinContext {
+
         val settingViewModel = koinViewModel<SettingViewModel>()
-        val isDarkModeEnabled by settingViewModel.isDarkModeEnabled.collectAsState()
+        val currentTheme by settingViewModel.currentTheme.collectAsState()
         val isInit by settingViewModel.isInit.collectAsState(false)
         if (isInit) {
-            NewsAppTheme(isDarkModeEnabled) {
+            NewsAppTheme(currentTheme) {
                 RootNavGraph(settingViewModel)
             }
         }

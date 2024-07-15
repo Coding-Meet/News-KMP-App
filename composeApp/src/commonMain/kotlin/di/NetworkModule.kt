@@ -20,17 +20,17 @@ val networkModule = module {
                 socketTimeoutMillis = 60_000
                 requestTimeoutMillis = 60_000
             }
-//            install(Logging) {
-//                logger = Logger.DEFAULT
-//                level = LogLevel.ALL
-//                logger = object : Logger {
-//                    override fun log(message: String) {
-//                        co.touchlab.kermit.Logger.d(tag = "KtorClient", null) {
-//                            message
-//                        }
-//                    }
-//                }
-//            }
+            install(Logging) {
+                logger = Logger.DEFAULT
+                level = LogLevel.ALL
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        co.touchlab.kermit.Logger.d(tag = "KtorClient", null) {
+                            message
+                        }
+                    }
+                }
+            }
             defaultRequest {
                 url(BASE_URL)
                 contentType(ContentType.Application.Json)

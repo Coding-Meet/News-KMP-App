@@ -8,6 +8,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import utils.AppPreferences
 
 class SettingViewModel(
@@ -15,8 +16,8 @@ class SettingViewModel(
     private val localNewsRepository : LocalNewsRepository
 ) : ViewModel() {
 
-    private val _isDarkModeEnabled = MutableStateFlow(false)
-    val isDarkModeEnabled = _isDarkModeEnabled.asStateFlow()
+    private val _currentTheme: MutableStateFlow<String?> = MutableStateFlow(null)
+    val currentTheme = _currentTheme.asStateFlow()
 
     fun deleteHistory() = viewModelScope.launch(Dispatchers.IO) {
         localNewsRepository.deleteAllBookmark()
@@ -27,16 +28,16 @@ class SettingViewModel(
 
 
     init {
-        isDarkModeEnabled()
+        currentThemeGet()
         _isInit.value = true
     }
 
-    private fun isDarkModeEnabled() = viewModelScope.launch(Dispatchers.IO) {
-        _isDarkModeEnabled.value = appPreferences.isDarkModeEnabled()
+    private fun currentThemeGet() = runBlocking {
+        _currentTheme.value = appPreferences.getTheme()
     }
 
-    fun changeDarkMode(isEnabled: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        appPreferences.changeDarkMode(isEnabled)
-        _isDarkModeEnabled.value = isEnabled
+    fun changeThemeMode(value: String) = viewModelScope.launch(Dispatchers.IO) {
+        appPreferences.changeThemeMode(value)
+        _currentTheme.value = value
     }
 }

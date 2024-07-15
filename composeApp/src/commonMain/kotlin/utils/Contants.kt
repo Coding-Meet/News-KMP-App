@@ -8,6 +8,7 @@ import data.model.Article
 import data.model.NewsResponse
 import data.model.Source
 import news_kmp_app.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.StringResource
 import ui.navigation.BottomNavigationItem
 import ui.navigation.MainRouteScreen
 import kotlin.random.Random
@@ -33,8 +34,10 @@ val bottomNavigationItemsList = listOf(
         route = MainRouteScreen.Bookmark.route,
     ),
 )
-enum class Theme {
-    Light, Dark
+enum class Theme(val title: StringResource) {
+    SYSTEM_DEFAULT(Res.string.system_default),
+    LIGHT_MODE(Res.string.light_mode),
+    DARK_MODE(Res.string.dark_mode)
 }
 enum class Type {
    Mobile, Desktop
