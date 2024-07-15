@@ -36,13 +36,6 @@ fun NewsAppTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when (appTheme) {
-        Theme.SYSTEM_DEFAULT.name -> {
-            if (darkTheme) {
-                DarkColorScheme
-            } else {
-                LightColorScheme
-            }
-        }
         Theme.LIGHT_MODE.name -> {
             LightColorScheme
         }
