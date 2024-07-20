@@ -2,6 +2,7 @@ package ui.search
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import data.model.Article
@@ -21,7 +22,7 @@ class SearchViewModel(
 ) : ViewModel() {
 
 
-    val searchQuery by mutableStateOf("")
+    var searchQuery by mutableStateOf("")
 
     private val _newsStateFlow =
         MutableStateFlow<Resource<List<Article>>>(Resource.Idle)

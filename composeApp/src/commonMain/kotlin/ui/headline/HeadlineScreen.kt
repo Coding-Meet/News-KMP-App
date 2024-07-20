@@ -25,15 +25,23 @@ fun HeadlineScreen(navController: NavController) {
         },
         onSuccess = { articleList ->
             if (articleList.isEmpty()) {
-                EmptyContent(message = stringResource(Res.string.no_news), icon = Res.drawable.ic_network_error, onRetryClick = null)
+                EmptyContent(
+                    message = stringResource(Res.string.no_news),
+                    icon = Res.drawable.ic_network_error,
+                    onRetryClick = null
+                )
             } else {
-                ArticleListScreen(articleList,navController)
+                ArticleListScreen(articleList, navController)
             }
         },
         onError = {
-            EmptyContent(message = it, icon = Res.drawable.ic_network_error, onRetryClick = {
-                headlineViewModel.getHeadlines()
-            })
+            EmptyContent(
+                message = it,
+                icon = Res.drawable.ic_network_error,
+                onRetryClick = {
+                    headlineViewModel.getHeadlines()
+                }
+            )
         }
     )
 }

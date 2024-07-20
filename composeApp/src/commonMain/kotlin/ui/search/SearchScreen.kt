@@ -2,11 +2,7 @@ package ui.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.*
 import androidx.navigation.NavController
 import di.koinViewModel
 import news_kmp_app.composeapp.generated.resources.Res
@@ -32,8 +28,10 @@ fun SearchScreen(
         verticalArrangement = Arrangement.spacedBy(mediumPadding)
     ) {
         SearchBar(
-            modifier = Modifier.padding(horizontal = mediumPadding),
             text = searchViewModel.searchQuery,
+            onValueChange = {query ->
+                searchViewModel. searchQuery = query
+            },
             onSearch = { query ->
                 if (query.trim().isNotEmpty()){
                     searchViewModel.searchQueryNews(query.trim())
