@@ -7,18 +7,15 @@ import org.koin.compose.KoinContext
 import theme.NewsAppTheme
 import ui.navigation.graphs.RootNavGraph
 import ui.setting.SettingViewModel
+
 @Composable
 @Preview
 fun App() {
     KoinContext {
-
         val settingViewModel = koinViewModel<SettingViewModel>()
         val currentTheme by settingViewModel.currentTheme.collectAsState()
-        val isInit by settingViewModel.isInit.collectAsState(false)
-        if (isInit) {
-            NewsAppTheme(currentTheme) {
-                RootNavGraph(settingViewModel)
-            }
+        NewsAppTheme(currentTheme) {
+            RootNavGraph(settingViewModel)
         }
     }
 }

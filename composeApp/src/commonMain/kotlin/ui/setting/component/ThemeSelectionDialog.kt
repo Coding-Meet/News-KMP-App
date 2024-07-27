@@ -2,6 +2,8 @@ package ui.setting.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -74,3 +76,34 @@ fun ThemeSelectionDialog(
     })
 }
 
+
+@Composable
+fun BookmarkDialog(
+    onDeleteHistory: () -> Unit, onDismissRequest: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = { Text(stringResource(Res.string.delete_bookmark)) },
+        text = { Text(stringResource(Res.string.delete_bookmark_description)) },
+        icon = {
+            Icon(
+                imageVector = Icons.Outlined.Delete,
+                contentDescription = stringResource(Res.string.delete_bookmark)
+            )
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    onDeleteHistory()
+                }
+            ) {
+                Text(stringResource(Res.string.delete))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismissRequest) {
+                Text(stringResource(Res.string.cancel))
+            }
+        }
+    )
+}

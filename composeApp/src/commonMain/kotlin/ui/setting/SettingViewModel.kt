@@ -23,13 +23,8 @@ class SettingViewModel(
         localNewsRepository.deleteAllBookmark()
     }
 
-    private val _isInit = MutableStateFlow(false)
-    val isInit = _isInit.asStateFlow()
-
-
     init {
         currentThemeGet()
-        _isInit.value = true
     }
 
     private fun currentThemeGet() = runBlocking {

@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import news_kmp_app.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import ui.setting.component.BookmarkDialog
 import ui.setting.component.SettingItem
 import ui.setting.component.ThemeSelectionDialog
 import utils.Theme
@@ -27,33 +28,16 @@ fun SettingScreen(navController: NavController, settingViewModel: SettingViewMod
 
     when {
         showDeleteBookmarkArticleDialog -> {
-
-            AlertDialog(
-                onDismissRequest = { showDeleteBookmarkArticleDialog = false },
-                title = { Text(stringResource(Res.string.delete_bookmark)) },
-                text = { Text(stringResource(Res.string.delete_bookmark_description)) },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Delete,
-                        contentDescription = stringResource(Res.string.delete_bookmark)
-                    )
+            BookmarkDialog(
+                onDeleteHistory = {
+                    settingViewModel.deleteHistory()
+                    showDeleteBookmarkArticleDialog = false
                 },
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            settingViewModel.deleteHistory()
-                            showDeleteBookmarkArticleDialog = false
-                        }
-                    ) {
-                        Text(stringResource(Res.string.delete))
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { showDeleteBookmarkArticleDialog = false }) {
-                        Text(stringResource(Res.string.cancel))
-                    }
+                onDismissRequest = {
+                    showDeleteBookmarkArticleDialog = false
                 }
             )
+
         }
 
         showThemeSelectionDialog -> {
