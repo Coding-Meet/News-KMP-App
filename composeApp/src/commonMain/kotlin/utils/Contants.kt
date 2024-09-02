@@ -16,7 +16,14 @@ import kotlin.random.Random
 const val BASE_URL = "https://newsapi.org/v2/"
 const val DB_Name = "myNewsDB"
 const val dataStoreFileName = "setting.preferences_pb"
-
+val categoryList = arrayListOf(
+    "Business",
+    "Entertainment",
+    "General",
+    "Health",
+    "Science",
+    "Sports",
+    "Technology")
 val bottomNavigationItemsList = listOf(
     BottomNavigationItem(
         icon = Res.drawable.ic_headline,

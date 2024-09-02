@@ -1,5 +1,8 @@
 package ui.headline
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import data.model.Article
@@ -13,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import utils.Resource
+import utils.categoryList
 
 class HeadlineViewModel(
     private val onlineNewsRepository : OnlineNewsRepository
@@ -23,14 +27,14 @@ class HeadlineViewModel(
     val newsStateFlow: StateFlow<Resource<List<Article>>>
         get() = _newsStateFlow
 
-    init {
-        getHeadlines()
-    }
-    fun getHeadlines() {
+    var category by mutableStateOf(categoryList[0])
+
+
+    fun getHeadlines(category: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _newsStateFlow.emit(Resource.Loading)
             try {
-                val httpResponse = onlineNewsRepository.getNews()
+                val httpResponse = onlineNewsRepository.getNews(category)
                 if (httpResponse.status.value in 200..299) {
                     val body = httpResponse.body<NewsResponse>()
                     _newsStateFlow.emit(Resource.Success(body.articles))

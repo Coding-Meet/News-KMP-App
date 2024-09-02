@@ -8,11 +8,21 @@ class OnlineNewsRepository(
     private val networkModule : HttpClient
 ) {
 
-    suspend fun getNews(): HttpResponse {
+    suspend fun getNews(category: String): HttpResponse {
 
         return networkModule.get {
-            url("top-headlines")
-            parameter("country", "us")
+//             top headline prefect work but image url not get so i change it
+//            url("top-headlines")
+//            parameter("country", "us")
+//            parameter("apiKey", API_KEY)
+
+//             here only category it prefect work image url not get, so I use everything api
+//            url("top-headlines")
+//            parameter("category",category)
+//            parameter("apiKey", API_KEY)
+
+            url("everything")
+            parameter("q", category)
             parameter("apiKey", API_KEY)
         }
 

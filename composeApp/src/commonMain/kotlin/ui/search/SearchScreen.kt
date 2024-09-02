@@ -10,7 +10,7 @@ import news_kmp_app.composeapp.generated.resources.ic_browse
 import news_kmp_app.composeapp.generated.resources.ic_network_error
 import news_kmp_app.composeapp.generated.resources.type_to_search
 import org.jetbrains.compose.resources.stringResource
-import theme.mediumPadding
+import theme.xSmallPadding
 import ui.common.ArticleListScreen
 import ui.common.EmptyContent
 import ui.common.ShimmerEffect
@@ -25,7 +25,7 @@ fun SearchScreen(
 
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(mediumPadding)
+        verticalArrangement = Arrangement.spacedBy(xSmallPadding)
     ) {
         SearchBar(
             text = searchViewModel.searchQuery,

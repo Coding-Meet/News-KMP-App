@@ -1,15 +1,16 @@
 package data.datastore
 
+import android.app.Application
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.coding.meet.newsapp.getContext
+import org.koin.mp.KoinPlatform
 import utils.dataStoreFileName
-import java.io.File
 
 actual fun dataStorePreferences(): DataStore<Preferences> {
+    val appContext = KoinPlatform.getKoin().get<Application>()
      return AppSettings.getDataStore(
         producePath = {
-            getContext()!!.filesDir
+            appContext.filesDir
                 .resolve(dataStoreFileName)
                 .absolutePath
         }
