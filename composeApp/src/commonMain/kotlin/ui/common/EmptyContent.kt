@@ -25,7 +25,8 @@ import theme.smallPadding
 fun EmptyContent(
     message: String,
     icon: DrawableResource,
-    onRetryClick: (() -> Unit)?
+    isOnRetryBtnVisible: Boolean = true,
+    onRetryClick: (() -> Unit) = {  }
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -46,8 +47,8 @@ fun EmptyContent(
             textAlign = TextAlign.Center,
             color = if (!isSystemInDarkTheme()) LightGray else DarkGray,
         )
-        onRetryClick?.let {
-            Button(onClick = it) {
+        if (isOnRetryBtnVisible) {
+            Button(onClick = onRetryClick) {
                 Text(
                     text = stringResource(Res.string.retry),
                     style = MaterialTheme.typography.titleMedium

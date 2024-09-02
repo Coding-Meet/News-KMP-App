@@ -15,4 +15,4 @@ val xxxLargePadding = 48.dp
 
 
 val imageSize = 120.dp
-val detailImageSize = 250.dp
+val detailImageSize = 400.dp

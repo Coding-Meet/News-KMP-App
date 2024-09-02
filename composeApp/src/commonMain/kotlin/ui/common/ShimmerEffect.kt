@@ -1,38 +1,50 @@
 package ui.common
 
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.TileMode
 import theme.*
 import utils.Type
 import utils.getType
 
-fun Modifier.shimmerEffect(cornerRadius: CornerRadius = CornerRadius(x = 12f, y = 12f)) = composed {
-    val transition = rememberInfiniteTransition(label = "shimmer effect")
-    val alpha = transition.animateFloat(
-        initialValue = 0.2f, targetValue = 0.9f, animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000),
-            repeatMode = RepeatMode.Reverse
+fun Modifier.shimmerEffect() = composed {
+
+    val transition = rememberInfiniteTransition()
+    val translateAnimation by transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 400f,
+        animationSpec = infiniteRepeatable(
+            tween(durationMillis = 1500, easing = LinearOutSlowInEasing),
+            RepeatMode.Reverse
         ),
-        label = "transparency of the background color"
-    ).value
-    val color = shimmer.copy(alpha = alpha)
-    drawBehind {
-        drawRoundRect(
-            color = color,
-            cornerRadius = cornerRadius
-        )
-    }
+    )
+    val shimmerColors = listOf(
+        shimmer.copy(alpha = 0.3f),
+        shimmer.copy(alpha = 0.5f),
+        shimmer.copy(alpha = 1.0f),
+        shimmer.copy(alpha = 0.5f),
+        shimmer.copy(alpha = 0.3f),
+    )
+    val brush = Brush.linearGradient(
+        colors = shimmerColors,
+        start = Offset(translateAnimation, translateAnimation),
+        end = Offset(translateAnimation + 100f, translateAnimation + 100f),
+        tileMode = TileMode.Mirror,
+    )
+    background(brush, RoundedCornerShape(10))
 }
+
 @Composable
 fun ShimmerEffect() {
     val isDesktop = remember {
@@ -43,14 +55,16 @@ fun ShimmerEffect() {
         verticalArrangement = Arrangement.spacedBy(xLargePadding),
         horizontalArrangement = Arrangement.spacedBy(xLargePadding),
         contentPadding = PaddingValues(xLargePadding),
-    ){
-        repeat(12) {
+        userScrollEnabled = false
+    ) {
+        repeat( 12 ) {
             item {
                 ArticleCardShimmerEffect()
             }
         }
     }
 }
+
 @Composable
 fun ArticleCardShimmerEffect() {
     Row(
@@ -59,7 +73,6 @@ fun ArticleCardShimmerEffect() {
         Box(
             modifier = Modifier
                 .size(imageSize)
-                .clip(MaterialTheme.shapes.large)
                 .shimmerEffect()
         )
         Column(
@@ -81,7 +94,7 @@ fun ArticleCardShimmerEffect() {
             )
             Box(
                 modifier = Modifier
-                    .fillMaxWidth(0.3f)
+                    .fillMaxWidth(0.4f)
                     .height(mediumPadding)
                     .shimmerEffect()
             )

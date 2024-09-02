@@ -110,6 +110,7 @@ fun ArticleDetailScreen(
                         .clip(MaterialTheme.shapes.large)
                         .background(color = Color.Gray),
                     model = currentArticle.urlToImage,
+                    error = painterResource(Res.drawable.logo),
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )

@@ -13,7 +13,6 @@ class OnlineNewsRepository(
         return networkModule.get {
             url("top-headlines")
             parameter("country", "us")
-            parameter("page", 1)
             parameter("apiKey", API_KEY)
         }
 
@@ -23,7 +22,6 @@ class OnlineNewsRepository(
         return networkModule.get {
             url("everything")
             parameter("q", searchQuery)
-            parameter("page", 1)
             parameter("apiKey", API_KEY)
         }
     }

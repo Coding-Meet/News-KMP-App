@@ -69,59 +69,50 @@ fun MainScreen(
         }
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(topBarTitle),
-                        style = MaterialTheme.typography.headlineLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                },
-                actions = {
-                    IconButton(onClick = {
-                        rootNavHostController.navigate(SettingRouteScreen.SettingDetail.route)
-                    }) {
-                        Icon(
-                            imageVector = Icons.Filled.Settings,
-                            contentDescription = null,
-                        )
-                    }
-                }
+    Scaffold(topBar = {
+        TopAppBar(title = {
+            Text(
+                text = stringResource(topBarTitle),
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground
             )
-        },
-        bottomBar = {
-            NewsBottomNavigation(
-                items = bottomNavigationItemsList,
-                currentRoute = currentRoute,
-                onItemClick = { currentNavigationItem ->
-                    homeNavController.navigate(currentNavigationItem.route) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
-                        homeNavController.graph.startDestinationRoute?.let { startDestinationRoute ->
-                            // Pop up to the start destination, clearing the back stack
-                            popUpTo(startDestinationRoute) {
-                                // Save the state of popped destinations
-                                saveState = true
-                            }
+        }, actions = {
+            IconButton(onClick = {
+                rootNavHostController.navigate(SettingRouteScreen.SettingDetail.route)
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = null,
+                )
+            }
+        })
+    }, bottomBar = {
+        NewsBottomNavigation(items = bottomNavigationItemsList,
+            currentRoute = currentRoute,
+            onItemClick = { currentNavigationItem ->
+                homeNavController.navigate(currentNavigationItem.route) {
+                    // Pop up to the start destination of the graph to
+                    // avoid building up a large stack of destinations
+                    // on the back stack as users select items
+                    homeNavController.graph.startDestinationRoute?.let { startDestinationRoute ->
+                        // Pop up to the start destination, clearing the back stack
+                        popUpTo(startDestinationRoute) {
+                            // Save the state of popped destinations
+                            saveState = true
                         }
-
-                        // Configure navigation to avoid multiple instances of the same destination
-                        launchSingleTop = true
-
-                        // Restore state when re-selecting a previously selected item
-                        restoreState = true
                     }
+
+                    // Configure navigation to avoid multiple instances of the same destination
+                    launchSingleTop = true
+
+                    // Restore state when re-selecting a previously selected item
+                    restoreState = true
                 }
-            )
-        }
-    ) { innerPadding ->
+            })
+    }) { innerPadding ->
         MainNavGraph(
-            rootNavHostController,
-            homeNavController, innerPadding
+            rootNavHostController, homeNavController, innerPadding
         )
     }
 

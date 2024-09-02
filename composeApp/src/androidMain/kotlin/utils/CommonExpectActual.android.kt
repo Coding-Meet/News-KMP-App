@@ -1,11 +1,10 @@
 package utils
 
+import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.coding.meet.newsapp.getActivity
-import com.coding.meet.newsapp.getContext
 import data.database.NewsDatabase
 import org.koin.mp.KoinPlatform
 import java.util.UUID
@@ -17,11 +16,15 @@ actual fun shareLink(url: String) {
         type = "text/plain"
     }
     val shareIntent = Intent.createChooser(sendIntent, "Share Link")
-    getContext()?.let {
-        getActivity()?.startActivity( shareIntent)
-    }
+    activityProvider.invoke().startActivity(shareIntent)
+}
+private var activityProvider : () -> Activity = {
+    throw IllegalArgumentException("Error")
 }
 
+fun setActivityProvider(provider :() -> Activity){
+    activityProvider = provider
+}
 actual fun randomUUIDStr(): String {
     return UUID.randomUUID().toString()
 }

@@ -29,11 +29,11 @@ fun SearchScreen(
     ) {
         SearchBar(
             text = searchViewModel.searchQuery,
-            onValueChange = {query ->
-                searchViewModel. searchQuery = query
+            onValueChange = { query ->
+                searchViewModel.searchQuery = query
             },
             onSearch = { query ->
-                if (query.trim().isNotEmpty()){
+                if (query.trim().isNotEmpty()) {
                     searchViewModel.searchQueryNews(query.trim())
                 }
             },
@@ -43,7 +43,7 @@ fun SearchScreen(
                 EmptyContent(
                     message = stringResource(Res.string.type_to_search),
                     icon = Res.drawable.ic_browse,
-                    onRetryClick = null
+                    isOnRetryBtnVisible = false
                 )
             },
             onLoading = {
@@ -53,16 +53,18 @@ fun SearchScreen(
                 if (articleList.isEmpty()) {
                     EmptyContent(
                         message = stringResource(Res.string.type_to_search),
-                        icon = Res.drawable.ic_browse,
-                        onRetryClick = null
-                    )
+                        icon = Res.drawable.ic_browse, onRetryClick = {
+                            if (searchViewModel.searchQuery.trim().isNotEmpty()) {
+                                searchViewModel.searchQueryNews(searchViewModel.searchQuery.trim())
+                            }
+                        })
                 } else {
-                    ArticleListScreen(articleList,navController)
+                    ArticleListScreen(articleList, navController)
                 }
             },
             onError = {
                 EmptyContent(message = it, icon = Res.drawable.ic_network_error, onRetryClick = {
-                    if (searchViewModel.searchQuery.trim().isNotEmpty()){
+                    if (searchViewModel.searchQuery.trim().isNotEmpty()) {
                         searchViewModel.searchQueryNews(searchViewModel.searchQuery.trim())
                     }
                 })

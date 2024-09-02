@@ -16,9 +16,21 @@ import utils.BASE_URL
 val networkModule = module {
     single {
         HttpClient {
+            defaultRequest {
+                url(BASE_URL)
+                contentType(ContentType.Application.Json)
+            }
             install(HttpTimeout) {
                 socketTimeoutMillis = 60_000
                 requestTimeoutMillis = 60_000
+            }
+            install(ContentNegotiation) {
+                json(Json {
+                    prettyPrint = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                    explicitNulls = false
+                })
             }
             install(Logging) {
                 logger = Logger.DEFAULT
@@ -31,19 +43,6 @@ val networkModule = module {
                     }
                 }
             }
-            defaultRequest {
-                url(BASE_URL)
-                contentType(ContentType.Application.Json)
-            }
-            install(ContentNegotiation) {
-                json(Json {
-                    prettyPrint = true
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                    explicitNulls = false
-                })
-            }
-            install(WebSockets)
 
         }
     }

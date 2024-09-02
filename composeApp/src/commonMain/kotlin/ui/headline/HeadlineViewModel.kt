@@ -12,14 +12,11 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.koin.mp.KoinPlatform
 import utils.Resource
 
 class HeadlineViewModel(
     private val onlineNewsRepository : OnlineNewsRepository
 ) : ViewModel() {
-
-
 
     private val _newsStateFlow =
         MutableStateFlow<Resource<List<Article>>>(Resource.Idle)
@@ -29,8 +26,6 @@ class HeadlineViewModel(
     init {
         getHeadlines()
     }
-
-
     fun getHeadlines() {
         viewModelScope.launch(Dispatchers.IO) {
             _newsStateFlow.emit(Resource.Loading)
