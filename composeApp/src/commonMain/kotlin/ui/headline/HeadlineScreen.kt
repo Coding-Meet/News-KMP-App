@@ -8,10 +8,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -34,9 +32,6 @@ fun HeadlineScreen(navController: NavController) {
 
     val uiState by headlineViewModel.newsStateFlow.collectAsState()
 
-    LaunchedEffect(headlineViewModel.category){
-        headlineViewModel.getHeadlines(headlineViewModel.category)
-    }
 
     Column {
         LazyRow(
@@ -49,6 +44,7 @@ fun HeadlineScreen(navController: NavController) {
                     selected = headlineViewModel.category == category,
                     onClick = {
                         headlineViewModel.category = category
+                        headlineViewModel.getHeadlines(headlineViewModel.category)
                     }, label = {
                         Text(category)
                     })
