@@ -151,6 +151,10 @@ API_KEY=YOUR_API_KEY
 
 <table>
   <tr>
+    <td><img src="image/windows/new_feature.png" alt="win"></td>
+      </tr>
+  <tr>
+  <tr>
     <td><img src="image/windows/win1.png" alt="win"></td>
       </tr>
   <tr>
