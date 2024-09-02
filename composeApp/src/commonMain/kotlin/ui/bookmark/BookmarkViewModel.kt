@@ -15,7 +15,7 @@ class BookmarkViewModel(
 ) : ViewModel() {
 
     private val _bookmarkNewsStateFlow =
-        MutableStateFlow<Resource<List<Article>>>(Resource.Idle)
+        MutableStateFlow<Resource<List<Article>>>(Resource.Loading)
     val bookmarkNewsStateFlow: StateFlow<Resource<List<Article>>>
         get() = _bookmarkNewsStateFlow
     init {

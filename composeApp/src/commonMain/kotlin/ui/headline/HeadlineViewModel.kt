@@ -1,7 +1,9 @@
 package ui.headline
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,16 +21,19 @@ import utils.Resource
 import utils.categoryList
 
 class HeadlineViewModel(
-    private val onlineNewsRepository : OnlineNewsRepository
+    private val onlineNewsRepository: OnlineNewsRepository
 ) : ViewModel() {
 
     private val _newsStateFlow =
-        MutableStateFlow<Resource<List<Article>>>(Resource.Idle)
+        MutableStateFlow<Resource<List<Article>>>(Resource.Loading)
     val newsStateFlow: StateFlow<Resource<List<Article>>>
         get() = _newsStateFlow
 
     var category by mutableStateOf(categoryList[0])
 
+    init {
+        getHeadlines(category)
+    }
 
     fun getHeadlines(category: String) {
         viewModelScope.launch(Dispatchers.IO) {
