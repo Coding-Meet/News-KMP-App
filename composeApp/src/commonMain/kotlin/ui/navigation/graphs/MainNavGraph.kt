@@ -1,51 +1,41 @@
 package ui.navigation.graphs
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import data.database.NewsDatabase
+import androidx.navigation.navigation
+import ui.MainScaffold
 import ui.navigation.Graph
 import ui.navigation.MainRouteScreen
 import ui.bookmark.BookmarkScreen
 import ui.headline.HeadlineScreen
 import ui.search.SearchScreen
-import utils.FadeIn
-import utils.FadeOut
 
 /**
  * Created 28-02-2024 at 03:05 pm
  */
 
-@Composable
-fun MainNavGraph(
-    rootNavController: NavHostController,
-    homeNavController: NavHostController,
-    innerPadding: PaddingValues,
+fun NavGraphBuilder.mainNavGraph(
+    rootNavController: NavHostController
 ) {
-    NavHost(
-        modifier = Modifier.fillMaxSize().padding(innerPadding),
-        navController = homeNavController,
-        route = Graph.MainScreenGraph,
+    navigation(
         startDestination = MainRouteScreen.Headline.route,
-        enterTransition = { FadeIn },
-        exitTransition = { FadeOut },
+        route = Graph.MainScreenGraph
     ) {
-
         composable(route = MainRouteScreen.Headline.route) {
-            HeadlineScreen(rootNavController)
+            MainScaffold(rootNavController) {paddingValues ->
+                HeadlineScreen(navController = rootNavController, paddingValues =paddingValues)
+            }
         }
-
         composable(route = MainRouteScreen.Search.route) {
-            SearchScreen(rootNavController)
+            MainScaffold(rootNavController) {paddingValues ->
+                SearchScreen(navController = rootNavController, paddingValues =paddingValues)
+            }
         }
-
         composable(route = MainRouteScreen.Bookmark.route) {
-            BookmarkScreen(rootNavController)
+            MainScaffold(rootNavController) {paddingValues ->
+                BookmarkScreen(navController = rootNavController, paddingValues =paddingValues )
+            }
         }
     }
 

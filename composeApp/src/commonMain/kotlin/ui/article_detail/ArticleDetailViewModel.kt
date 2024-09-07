@@ -19,11 +19,7 @@ class ArticleDetailViewModel(
 
     fun isArticleBookmark(currentArticle: Article) {
         viewModelScope.launch(Dispatchers.IO) {
-            currentArticle.publishedAt.let {
-                localNewsRepository.getArticle(it)?.let {
-                    isBookmarked = true
-                }
-            }
+            isBookmarked = localNewsRepository.getArticle(currentArticle.publishedAt) != null
         }
     }
 

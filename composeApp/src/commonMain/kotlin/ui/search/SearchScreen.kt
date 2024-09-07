@@ -2,7 +2,10 @@ package ui.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import di.koinViewModel
 import news_kmp_app.composeapp.generated.resources.Res
@@ -19,12 +22,14 @@ import ui.search.components.SearchBar
 @Composable
 fun SearchScreen(
     navController: NavController,
+    paddingValues: PaddingValues,
 ) {
     val searchViewModel = koinViewModel<SearchViewModel>()
     val uiState by searchViewModel.newsStateFlow.collectAsState()
 
 
     Column(
+        modifier =  Modifier.padding(paddingValues),
         verticalArrangement = Arrangement.spacedBy(xSmallPadding)
     ) {
         SearchBar(

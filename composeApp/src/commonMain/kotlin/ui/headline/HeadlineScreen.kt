@@ -1,15 +1,11 @@
 package ui.headline
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -26,14 +22,16 @@ import ui.common.ShimmerEffect
 import utils.categoryList
 
 @Composable
-fun HeadlineScreen(navController: NavController) {
+fun HeadlineScreen(navController: NavController,paddingValues: PaddingValues) {
 
     val headlineViewModel = koinViewModel<HeadlineViewModel>()
 
     val uiState by headlineViewModel.newsStateFlow.collectAsState()
 
 
-    Column {
+    Column(
+        Modifier.padding(paddingValues)
+    ) {
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(horizontal = xSmallPadding),

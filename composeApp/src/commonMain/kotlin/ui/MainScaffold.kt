@@ -1,30 +1,25 @@
 package ui
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.resources.stringResource
 import ui.navigation.NewsBottomNavigation
 import ui.navigation.SettingRouteScreen
-import ui.navigation.graphs.MainNavGraph
 import utils.bottomNavigationItemsList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(
-    rootNavHostController: NavHostController,
+fun MainScaffold(
+    rootNavController: NavHostController,
+    content: @Composable (PaddingValues) -> Unit
 ) {
-    val homeNavController = rememberNavController()
-    val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
-    var previousRoute by rememberSaveable {
-        mutableStateOf(navBackStackEntry?.destination?.route)
-    }
+    val navBackStackEntry by rootNavController.currentBackStackEntryAsState()
     val currentRoute by remember(navBackStackEntry) {
         derivedStateOf {
             navBackStackEntry?.destination?.route
@@ -33,38 +28,10 @@ fun MainScreen(
     val topBarTitle by remember(currentRoute) {
         derivedStateOf {
             if (currentRoute != null) {
-                bottomNavigationItemsList[bottomNavigationItemsList.indexOfFirst {
-                    it.route == currentRoute
-                }].title
+                val index = bottomNavigationItemsList.indexOfFirst { it.route == currentRoute }
+                bottomNavigationItemsList[if (index != -1) index else 0].title
             } else {
                 bottomNavigationItemsList[0].title
-            }
-        }
-    }
-    DisposableEffect(Unit) {
-        onDispose {
-            previousRoute = currentRoute
-        }
-    }
-    LaunchedEffect(Unit) {
-        if (previousRoute != null) {
-            homeNavController.navigate(previousRoute!!) {
-                // Pop up to the start destination of the graph to
-                // avoid building up a large stack of destinations
-                // on the back stack as users select items
-                homeNavController.graph.startDestinationRoute?.let { startDestinationRoute ->
-                    // Pop up to the start destination, clearing the back stack
-                    popUpTo(startDestinationRoute) {
-                        // Save the state of popped destinations
-                        saveState = true
-                    }
-                }
-
-                // Configure navigation to avoid multiple instances of the same destination
-                launchSingleTop = true
-
-                // Restore state when re-selecting a previously selected item
-                restoreState = true
             }
         }
     }
@@ -79,7 +46,7 @@ fun MainScreen(
             )
         }, actions = {
             IconButton(onClick = {
-                rootNavHostController.navigate(SettingRouteScreen.SettingDetail.route)
+                rootNavController.navigate(SettingRouteScreen.SettingDetail.route)
             }) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
@@ -91,11 +58,11 @@ fun MainScreen(
         NewsBottomNavigation(items = bottomNavigationItemsList,
             currentRoute = currentRoute,
             onItemClick = { currentNavigationItem ->
-                homeNavController.navigate(currentNavigationItem.route) {
+                rootNavController.navigate(currentNavigationItem.route) {
                     // Pop up to the start destination of the graph to
                     // avoid building up a large stack of destinations
                     // on the back stack as users select items
-                    homeNavController.graph.startDestinationRoute?.let { startDestinationRoute ->
+                    rootNavController.graph.startDestinationRoute?.let { startDestinationRoute ->
                         // Pop up to the start destination, clearing the back stack
                         popUpTo(startDestinationRoute) {
                             // Save the state of popped destinations
@@ -111,9 +78,7 @@ fun MainScreen(
                 }
             })
     }) { innerPadding ->
-        MainNavGraph(
-            rootNavHostController, homeNavController, innerPadding
-        )
+        content(innerPadding)
     }
 
 }

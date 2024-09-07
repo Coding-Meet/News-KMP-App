@@ -6,7 +6,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import data.model.Article
 import kotlinx.serialization.json.Json
-import ui.MainScreen
 import ui.article_detail.ArticleDetailScreen
 import ui.navigation.Graph
 import ui.navigation.NewsRouteScreen
@@ -19,16 +18,14 @@ import ui.setting.SettingViewModel
  */
 
 @Composable
-fun RootNavGraph( settingViewModel: SettingViewModel) {
+fun RootNavGraph(settingViewModel: SettingViewModel) {
     val rootNavController = rememberNavController()
+
     NavHost(
         navController = rootNavController,
-        route = Graph.RootGraph,
         startDestination = Graph.MainScreenGraph,
     ) {
-        composable(route = Graph.MainScreenGraph){
-            MainScreen(rootNavController)
-        }
+        mainNavGraph(rootNavController)
         composable(
             route = NewsRouteScreen.NewsDetail.route,
         ) {
@@ -40,7 +37,7 @@ fun RootNavGraph( settingViewModel: SettingViewModel) {
         composable(
             route = SettingRouteScreen.SettingDetail.route,
         ) {
-            SettingScreen(navController = rootNavController,settingViewModel)
+            SettingScreen(navController = rootNavController, settingViewModel)
         }
     }
 }
