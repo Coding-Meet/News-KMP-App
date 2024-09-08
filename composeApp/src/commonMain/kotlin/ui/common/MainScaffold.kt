@@ -1,4 +1,4 @@
-package ui
+package ui.common
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import ui.navigation.NewsBottomNavigation
 import ui.navigation.SettingRouteScreen
@@ -17,22 +18,13 @@ import utils.bottomNavigationItemsList
 @Composable
 fun MainScaffold(
     rootNavController: NavHostController,
+    topBarTitle : StringResource,
     content: @Composable (PaddingValues) -> Unit
 ) {
     val navBackStackEntry by rootNavController.currentBackStackEntryAsState()
     val currentRoute by remember(navBackStackEntry) {
         derivedStateOf {
             navBackStackEntry?.destination?.route
-        }
-    }
-    val topBarTitle by remember(currentRoute) {
-        derivedStateOf {
-            if (currentRoute != null) {
-                val index = bottomNavigationItemsList.indexOfFirst { it.route == currentRoute }
-                bottomNavigationItemsList[if (index != -1) index else 0].title
-            } else {
-                bottomNavigationItemsList[0].title
-            }
         }
     }
 
