@@ -2,7 +2,6 @@ package ui.navigation
 
 
 object Graph {
-    const val RootGraph = "rootScreenGraph"
     const val MainScreenGraph = "mainScreenGraph"
 }
 

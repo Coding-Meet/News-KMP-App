@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,52 +29,55 @@ fun ArticleItem(
     article: Article,
     onClick: () -> Unit
 ) {
-
-    Row(
-        modifier = Modifier.clickable { onClick() },
-        horizontalArrangement = Arrangement.spacedBy(mediumPadding)
+    Card(
+        onClick = onClick,
+        shape =  RoundedCornerShape(10),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
-
-        AsyncImage(
-            modifier = Modifier
-                .size(imageSize)
-                .clip(MaterialTheme.shapes.large)
-                .background(Color.Gray),
-            model = article.urlToImage,
-            error = painterResource(Res.drawable.logo),
-            contentScale = ContentScale.Crop,
-            contentDescription = null
-        )
-
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(xxSmallPadding)
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(mediumPadding)
         ) {
-            Text(
-                text = article.title,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 2
+            AsyncImage(
+                modifier = Modifier
+                    .size(imageSize)
+                    .clip( RoundedCornerShape(10))
+                    .background(Color.Gray),
+                model = article.urlToImage,
+                error = painterResource(Res.drawable.logo),
+                contentScale = ContentScale.Crop,
+                contentDescription = null
             )
 
-            article.description?.let {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(xxSmallPadding)
+            ) {
                 Text(
-                    text = it,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    text = article.title,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2
                 )
-            }
 
-            Text(
-                text = article.source.name,
-                style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
+                article.description?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 2
+                    )
+                }
+
+                Text(
+                    text = article.source.name,
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
         }
     }
 }

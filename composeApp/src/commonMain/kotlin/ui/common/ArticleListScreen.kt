@@ -6,11 +6,14 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavController
 import data.model.Article
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import theme.mediumPadding
 import theme.xLargePadding
 import ui.navigation.NewsRouteScreen
 import utils.Type
@@ -20,13 +23,13 @@ import utils.randomUUIDStr
 
 @Composable
 fun ArticleListScreen(articleList: List<Article>,navController: NavController) {
-    val isDesktop = remember {
-        getType() == Type.Desktop
+    val isDesktop by remember {
+        mutableStateOf(getType() == Type.Desktop)
     }
     LazyVerticalGrid(
         columns = GridCells.Fixed(if (isDesktop) 3 else 1),
-        verticalArrangement = Arrangement.spacedBy(xLargePadding),
-        horizontalArrangement = Arrangement.spacedBy(xLargePadding),
+        verticalArrangement = Arrangement.spacedBy(mediumPadding),
+        horizontalArrangement = Arrangement.spacedBy(mediumPadding),
         contentPadding = PaddingValues(xLargePadding),
     ){
         items(articleList, key = {

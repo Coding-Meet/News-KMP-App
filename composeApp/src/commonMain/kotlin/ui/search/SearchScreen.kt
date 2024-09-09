@@ -1,11 +1,13 @@
 package ui.search
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import di.koinViewModel
 import news_kmp_app.composeapp.generated.resources.Res
@@ -17,8 +19,11 @@ import theme.xSmallPadding
 import ui.common.ArticleListScreen
 import ui.common.EmptyContent
 import ui.common.ShimmerEffect
+import ui.navigation.SettingRouteScreen
 import ui.search.components.SearchBar
+import utils.bottomNavigationItemsList
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     navController: NavController,
@@ -26,12 +31,32 @@ fun SearchScreen(
 ) {
     val searchViewModel = koinViewModel<SearchViewModel>()
     val uiState by searchViewModel.newsStateFlow.collectAsState()
-
+    val originDirection = LocalLayoutDirection.current
 
     Column(
-        modifier =  Modifier.padding(paddingValues),
+        modifier =  Modifier.fillMaxSize().padding(
+            start = paddingValues.calculateStartPadding(originDirection),
+            end = paddingValues.calculateEndPadding(originDirection),
+            bottom = paddingValues.calculateBottomPadding()),
         verticalArrangement = Arrangement.spacedBy(xSmallPadding)
     ) {
+        TopAppBar(title = {
+            Text(
+                text = stringResource(bottomNavigationItemsList[1].title),
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }, actions = {
+            IconButton(onClick = {
+                navController.navigate(SettingRouteScreen.SettingDetail.route)
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = null,
+                )
+            }
+        })
         SearchBar(
             text = searchViewModel.searchQuery,
             onValueChange = { query ->

@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -47,8 +48,8 @@ fun Modifier.shimmerEffect() = composed {
 
 @Composable
 fun ShimmerEffect() {
-    val isDesktop = remember {
-        getType() == Type.Desktop
+    val isDesktop by remember {
+        mutableStateOf(getType() == Type.Desktop)
     }
     LazyVerticalGrid(
         columns = GridCells.Fixed(if (isDesktop) 3 else 1),

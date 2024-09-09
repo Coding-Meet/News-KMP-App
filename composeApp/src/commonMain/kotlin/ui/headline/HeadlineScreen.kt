@@ -3,11 +3,14 @@ package ui.headline
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import di.koinViewModel
 import news_kmp_app.composeapp.generated.resources.Res
@@ -19,19 +22,41 @@ import theme.xSmallPadding
 import ui.common.ArticleListScreen
 import ui.common.EmptyContent
 import ui.common.ShimmerEffect
+import ui.navigation.SettingRouteScreen
+import utils.bottomNavigationItemsList
 import utils.categoryList
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeadlineScreen(navController: NavController,paddingValues: PaddingValues) {
+fun HeadlineScreen(navController: NavController, paddingValues: PaddingValues) {
 
     val headlineViewModel = koinViewModel<HeadlineViewModel>()
+    val originDirection = LocalLayoutDirection.current
 
     val uiState by headlineViewModel.newsStateFlow.collectAsState()
-
-
     Column(
-        Modifier.padding(paddingValues)
+        Modifier.fillMaxSize().padding(
+            start = paddingValues.calculateStartPadding(originDirection),
+            end = paddingValues.calculateEndPadding(originDirection),
+            bottom = paddingValues.calculateBottomPadding(),)
     ) {
+        TopAppBar(title = {
+            Text(
+                text = stringResource(bottomNavigationItemsList[0].title),
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }, actions = {
+            IconButton(onClick = {
+                navController.navigate(SettingRouteScreen.SettingDetail.route)
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = null,
+                )
+            }
+        })
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(horizontal = xSmallPadding),

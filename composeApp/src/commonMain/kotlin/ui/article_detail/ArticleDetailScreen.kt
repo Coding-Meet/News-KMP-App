@@ -7,8 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -26,8 +25,12 @@ import news_kmp_app.composeapp.generated.resources.ic_bookmark_outlined
 import news_kmp_app.composeapp.generated.resources.ic_browse
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import theme.detailImageSize
+import theme.detailImageSizeForDesktop
+import theme.detailImageSizeForMobile
+import theme.mediumPadding
 import theme.xLargePadding
+import utils.Type
+import utils.getType
 import utils.shareLink
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,7 +40,14 @@ fun ArticleDetailScreen(
     currentArticle: Article
 ) {
     val articleDetailViewModel = koinViewModel<ArticleDetailViewModel>()
-
+    val isDesktop by remember {
+        mutableStateOf(getType() == Type.Desktop)
+    }
+    val imageSize by remember {
+        derivedStateOf {
+            if (isDesktop) detailImageSizeForDesktop else detailImageSizeForMobile
+        }
+    }
     LaunchedEffect(Unit) {
         articleDetailViewModel.isArticleBookmark(currentArticle)
     }
@@ -99,14 +109,14 @@ fun ArticleDetailScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            contentPadding = PaddingValues(xLargePadding),
-            verticalArrangement = Arrangement.spacedBy(xLargePadding)
+            contentPadding = PaddingValues(horizontal = xLargePadding),
+            verticalArrangement = Arrangement.spacedBy(mediumPadding)
         ) {
             item {
                 AsyncImage(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(detailImageSize)
+                        .height(imageSize)
                         .clip(MaterialTheme.shapes.large)
                         .background(color = Color.Gray),
                     model = currentArticle.urlToImage,
