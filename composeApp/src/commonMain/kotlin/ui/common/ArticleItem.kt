@@ -21,7 +21,7 @@ import news_kmp_app.composeapp.generated.resources.Res
 import news_kmp_app.composeapp.generated.resources.logo
 import org.jetbrains.compose.resources.painterResource
 import theme.imageSize
-import theme.mediumPadding
+import theme.xSmallPadding
 import theme.xxSmallPadding
 
 @Composable
@@ -32,10 +32,10 @@ fun ArticleItem(
     Card(
         onClick = onClick,
         shape =  RoundedCornerShape(10),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(mediumPadding)
+            horizontalArrangement = Arrangement.spacedBy(xSmallPadding)
         ) {
             AsyncImage(
                 modifier = Modifier

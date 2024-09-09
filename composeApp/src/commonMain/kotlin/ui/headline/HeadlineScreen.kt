@@ -70,7 +70,11 @@ fun HeadlineScreen(navController: NavController, paddingValues: PaddingValues) {
                         headlineViewModel.getHeadlines(headlineViewModel.category)
                     }, label = {
                         Text(category)
-                    })
+                    },
+                    colors =  FilterChipDefaults.filterChipColors(
+                       containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                )
             }
         }
         uiState.DisplayResult(

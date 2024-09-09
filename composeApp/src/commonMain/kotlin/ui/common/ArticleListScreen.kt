@@ -14,7 +14,6 @@ import data.model.Article
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import theme.mediumPadding
-import theme.xLargePadding
 import ui.navigation.NewsRouteScreen
 import utils.Type
 import utils.getType
@@ -30,7 +29,7 @@ fun ArticleListScreen(articleList: List<Article>,navController: NavController) {
         columns = GridCells.Fixed(if (isDesktop) 3 else 1),
         verticalArrangement = Arrangement.spacedBy(mediumPadding),
         horizontalArrangement = Arrangement.spacedBy(mediumPadding),
-        contentPadding = PaddingValues(xLargePadding),
+        contentPadding = PaddingValues(mediumPadding),
     ){
         items(articleList, key = {
             it.publishedAt+ randomUUIDStr()

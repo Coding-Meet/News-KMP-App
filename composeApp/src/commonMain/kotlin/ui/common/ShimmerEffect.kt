@@ -53,9 +53,9 @@ fun ShimmerEffect() {
     }
     LazyVerticalGrid(
         columns = GridCells.Fixed(if (isDesktop) 3 else 1),
-        verticalArrangement = Arrangement.spacedBy(xLargePadding),
-        horizontalArrangement = Arrangement.spacedBy(xLargePadding),
-        contentPadding = PaddingValues(xLargePadding),
+        verticalArrangement = Arrangement.spacedBy(mediumPadding),
+        horizontalArrangement = Arrangement.spacedBy(mediumPadding),
+        contentPadding = PaddingValues(mediumPadding),
         userScrollEnabled = false
     ) {
         repeat( 12 ) {
@@ -69,7 +69,7 @@ fun ShimmerEffect() {
 @Composable
 fun ArticleCardShimmerEffect() {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(mediumPadding)
+        horizontalArrangement = Arrangement.spacedBy(xSmallPadding)
     ) {
         Box(
             modifier = Modifier
