@@ -72,7 +72,7 @@ fun HeadlineScreen(navController: NavController, paddingValues: PaddingValues) {
                         Text(category)
                     },
                     colors =  FilterChipDefaults.filterChipColors(
-                       containerColor = MaterialTheme.colorScheme.surfaceVariant
+                       containerColor = MaterialTheme.colorScheme.surfaceContainer
                     )
                 )
             }

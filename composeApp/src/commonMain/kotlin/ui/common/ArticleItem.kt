@@ -32,7 +32,7 @@ fun ArticleItem(
     Card(
         onClick = onClick,
         shape =  RoundedCornerShape(10),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(xSmallPadding)
