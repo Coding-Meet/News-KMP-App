@@ -25,7 +25,7 @@ import utils.bottomNavigationItemsList
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookmarkScreen(
-    navController: NavController,
+    rootNavController: NavController,
     paddingValues: PaddingValues
 ) {
     val bookmarkViewModel = koinViewModel<BookmarkViewModel>()
@@ -48,7 +48,7 @@ fun BookmarkScreen(
             )
         }, actions = {
             IconButton(onClick = {
-                navController.navigate(SettingRouteScreen.SettingDetail.route)
+                rootNavController.navigate(SettingRouteScreen.SettingDetail.route)
             }) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
@@ -65,7 +65,10 @@ fun BookmarkScreen(
                     icon = Res.drawable.ic_browse, isOnRetryBtnVisible = false
                 )
             } else {
-                ArticleListScreen(articleList, navController)
+                ArticleListScreen(
+                    articleList = articleList,
+                    rootNavController = rootNavController
+                )
             }
         }, onError = {
             EmptyContent(message = it, icon = Res.drawable.ic_browse, onRetryClick = {

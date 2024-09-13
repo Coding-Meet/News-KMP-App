@@ -4,6 +4,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
+import androidx.compose.ui.unit.Dp
 import data.model.Article
 import data.model.NewsResponse
 import data.model.Source
@@ -49,6 +50,10 @@ enum class Theme(val title: StringResource) {
 enum class Type {
    Mobile, Desktop
 }
+data class Size(
+    val width: Dp,
+    val height :Dp
+)
 
 val articles: List<Article> = listOf(
     Article(

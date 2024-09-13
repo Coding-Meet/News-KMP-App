@@ -2,45 +2,42 @@ package ui.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import data.model.Article
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import theme.cardMinSize
 import theme.mediumPadding
 import ui.navigation.NewsRouteScreen
-import utils.Type
-import utils.getType
 import utils.randomUUIDStr
 
 
 @Composable
-fun ArticleListScreen(articleList: List<Article>,navController: NavController) {
-    val isDesktop by remember {
-        mutableStateOf(getType() == Type.Desktop)
-    }
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(if (isDesktop) 3 else 1),
-        verticalArrangement = Arrangement.spacedBy(mediumPadding),
+fun ArticleListScreen(
+    articleList: List<Article>,
+    rootNavController: NavController
+) {
+    LazyVerticalStaggeredGrid(
+        columns = StaggeredGridCells.Adaptive(cardMinSize),
+        verticalItemSpacing = mediumPadding,
         horizontalArrangement = Arrangement.spacedBy(mediumPadding),
         contentPadding = PaddingValues(mediumPadding),
-    ){
+    ) {
         items(articleList, key = {
-            it.publishedAt+ randomUUIDStr()
+            it.publishedAt + randomUUIDStr()
         }) { item ->
             ArticleItem(article = item, onClick = {
-                val articleStr = Json.encodeToString(item)
-                navController.currentBackStackEntry?.savedStateHandle?.apply {
-                    set("article",articleStr)
-                }
-                navController.navigate(NewsRouteScreen.NewsDetail.route)
 
+                val articleStr = Json.encodeToString(item)
+                rootNavController.currentBackStackEntry?.savedStateHandle?.apply {
+                    set("article", articleStr)
+                }
+                rootNavController.navigate(NewsRouteScreen.NewsDetail.route)
             })
         }
     }

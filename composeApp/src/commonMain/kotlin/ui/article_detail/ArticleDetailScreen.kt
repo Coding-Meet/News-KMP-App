@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import data.model.Article
@@ -25,11 +26,10 @@ import news_kmp_app.composeapp.generated.resources.ic_bookmark_outlined
 import news_kmp_app.composeapp.generated.resources.ic_browse
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import theme.detailImageSizeForDesktop
-import theme.detailImageSizeForMobile
 import theme.mediumPadding
 import theme.xLargePadding
 import utils.Type
+import utils.getScreenSize
 import utils.getType
 import utils.shareLink
 
@@ -41,13 +41,11 @@ fun ArticleDetailScreen(
 ) {
     val articleDetailViewModel = koinViewModel<ArticleDetailViewModel>()
     val isDesktop by remember {
-        mutableStateOf(getType() == Type.Desktop)
+        derivedStateOf { getType() == Type.Desktop }
     }
-    val imageSize by remember {
-        derivedStateOf {
-            if (isDesktop) detailImageSizeForDesktop else detailImageSizeForMobile
-        }
-    }
+
+    val screenSize = getScreenSize()
+
     LaunchedEffect(Unit) {
         articleDetailViewModel.isArticleBookmark(currentArticle)
     }
@@ -105,6 +103,11 @@ fun ArticleDetailScreen(
             )
         },
     ) { innerPadding ->
+        val imageSize by remember(screenSize, isDesktop, innerPadding) {
+            derivedStateOf {
+                (if (isDesktop) screenSize.height else screenSize.width) - (innerPadding.calculateTopPadding() + mediumPadding + 100.dp)
+            }
+        }
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -122,7 +125,7 @@ fun ArticleDetailScreen(
                     model = currentArticle.urlToImage,
                     error = painterResource(Res.drawable.logo),
                     contentDescription = null,
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.FillBounds
                 )
             }
 

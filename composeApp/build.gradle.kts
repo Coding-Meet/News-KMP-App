@@ -85,6 +85,8 @@ kotlin {
             implementation(libs.androidx.room.runtime)
             implementation(libs.sqlite.bundled)
 
+            // window-size
+            implementation(libs.screen.size)
 
             // Ktor
             implementation(libs.ktor.core)

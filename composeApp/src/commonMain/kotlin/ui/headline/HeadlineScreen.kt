@@ -1,5 +1,6 @@
 package ui.headline
 
+import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -28,7 +29,9 @@ import utils.categoryList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeadlineScreen(navController: NavController, paddingValues: PaddingValues) {
+fun HeadlineScreen(
+    rootNavController: NavController, paddingValues: PaddingValues
+) {
 
     val headlineViewModel = koinViewModel<HeadlineViewModel>()
     val originDirection = LocalLayoutDirection.current
@@ -38,7 +41,8 @@ fun HeadlineScreen(navController: NavController, paddingValues: PaddingValues) {
         Modifier.fillMaxSize().padding(
             start = paddingValues.calculateStartPadding(originDirection),
             end = paddingValues.calculateEndPadding(originDirection),
-            bottom = paddingValues.calculateBottomPadding(),)
+            bottom = paddingValues.calculateBottomPadding(),
+        )
     ) {
         TopAppBar(title = {
             Text(
@@ -49,7 +53,7 @@ fun HeadlineScreen(navController: NavController, paddingValues: PaddingValues) {
             )
         }, actions = {
             IconButton(onClick = {
-                navController.navigate(SettingRouteScreen.SettingDetail.route)
+                rootNavController.navigate(SettingRouteScreen.SettingDetail.route)
             }) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
@@ -71,8 +75,8 @@ fun HeadlineScreen(navController: NavController, paddingValues: PaddingValues) {
                     }, label = {
                         Text(category)
                     },
-                    colors =  FilterChipDefaults.filterChipColors(
-                       containerColor = MaterialTheme.colorScheme.surfaceContainer
+                    colors = FilterChipDefaults.filterChipColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer
                     )
                 )
             }
@@ -91,7 +95,10 @@ fun HeadlineScreen(navController: NavController, paddingValues: PaddingValues) {
                         }
                     )
                 } else {
-                    ArticleListScreen(articleList, navController)
+                    ArticleListScreen(
+                        articleList = articleList,
+                        rootNavController = rootNavController
+                    )
                 }
             },
             onError = {

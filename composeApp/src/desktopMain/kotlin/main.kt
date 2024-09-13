@@ -16,7 +16,8 @@ fun main() = application {
         ),   title = "News KMP APP",
         icon = org.jetbrains.compose.resources.painterResource(Res.drawable.logo)
     ) {
-        window.minimumSize = Dimension(1280, 768)
+        window.maximumSize = Dimension(1280, 768)
+        window.minimumSize = Dimension( 640, 480)
         App()
     }
 }

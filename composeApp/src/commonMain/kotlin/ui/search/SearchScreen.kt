@@ -26,7 +26,7 @@ import utils.bottomNavigationItemsList
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
-    navController: NavController,
+    rootNavController: NavController,
     paddingValues: PaddingValues,
 ) {
     val searchViewModel = koinViewModel<SearchViewModel>()
@@ -49,7 +49,7 @@ fun SearchScreen(
             )
         }, actions = {
             IconButton(onClick = {
-                navController.navigate(SettingRouteScreen.SettingDetail.route)
+                rootNavController.navigate(SettingRouteScreen.SettingDetail.route)
             }) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
@@ -89,7 +89,10 @@ fun SearchScreen(
                             }
                         })
                 } else {
-                    ArticleListScreen(articleList, navController)
+                    ArticleListScreen(
+                        articleList = articleList,
+                        rootNavController = rootNavController
+                    )
                 }
             },
             onError = {

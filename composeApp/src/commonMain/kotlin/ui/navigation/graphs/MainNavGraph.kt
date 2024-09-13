@@ -24,13 +24,13 @@ fun NavGraphBuilder.mainNavGraph(
         route = Graph.MainScreenGraph
     ) {
         composable(route = MainRouteScreen.Headline.route) {
-            HeadlineScreen(navController = rootNavController, paddingValues = innerPadding)
+            HeadlineScreen(rootNavController = rootNavController, paddingValues = innerPadding)
         }
         composable(route = MainRouteScreen.Search.route) {
-            SearchScreen(navController = rootNavController, paddingValues = innerPadding)
+            SearchScreen(rootNavController = rootNavController, paddingValues = innerPadding)
         }
         composable(route = MainRouteScreen.Bookmark.route) {
-            BookmarkScreen(navController = rootNavController, paddingValues = innerPadding)
+            BookmarkScreen(rootNavController = rootNavController, paddingValues = innerPadding)
         }
     }
 

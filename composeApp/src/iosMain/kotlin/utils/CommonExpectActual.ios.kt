@@ -1,6 +1,10 @@
 package utils
 
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.unit.dp
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import data.database.NewsDatabase
@@ -25,6 +29,15 @@ actual fun randomUUIDStr(): String {
 
 actual fun getType(): Type {
     return Type.Mobile
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+actual fun getScreenSize(): Size {
+    val configuration = LocalWindowInfo.current
+    val screenHeightDp = configuration.containerSize.height.dp
+    val screenWidthDP = configuration.containerSize.width.dp
+    return Size(width = screenWidthDP, height = screenHeightDp)
 }
 
 actual fun getDatabaseBuilder(): RoomDatabase.Builder<NewsDatabase> {
