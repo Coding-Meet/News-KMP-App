@@ -10,7 +10,7 @@ import data.model.NewsResponse
 import data.model.Source
 import news_kmp_app.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.StringResource
-import ui.navigation.BottomNavigationItem
+import ui.navigation.NavigationItem
 import ui.navigation.MainRouteScreen
 import kotlin.random.Random
 
@@ -25,18 +25,18 @@ val categoryList = arrayListOf(
     "Science",
     "Sports",
     "Technology")
-val bottomNavigationItemsList = listOf(
-    BottomNavigationItem(
+val navigationItemsLists = listOf(
+    NavigationItem(
         icon = Res.drawable.ic_headline,
         title = Res.string.headlines,
         route = MainRouteScreen.Headline.route,
     ),
-    BottomNavigationItem(
+    NavigationItem(
         icon = Res.drawable.ic_search,
         title = Res.string.search,
         route = MainRouteScreen.Search.route,
     ),
-    BottomNavigationItem(
+    NavigationItem(
         icon = Res.drawable.ic_bookmark_outlined,
         title = Res.string.bookmark,
         route = MainRouteScreen.Bookmark.route,

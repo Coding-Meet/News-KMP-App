@@ -1,8 +1,7 @@
-package ui.common
+package ui
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -14,21 +13,21 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import ui.navigation.BottomNavigationItem
+import ui.navigation.NavigationItem
 import ui.navigation.NavigationSideBar
 import ui.navigation.NewsBottomNavigation
 import ui.navigation.graphs.RootNavGraph
 import ui.setting.SettingViewModel
-import utils.bottomNavigationItemsList
-
+import utils.navigationItemsLists
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun MainRailBottomBar(settingViewModel: SettingViewModel) {
+fun MainScreen(settingViewModel: SettingViewModel) {
     val windowSizeClass = calculateWindowSizeClass()
-    val showNavigationRail by remember(windowSizeClass) {
+    val isMediumExpandedWWSC by remember(windowSizeClass) {
         derivedStateOf {
             windowSizeClass.widthSizeClass != WindowWidthSizeClass.Compact
         }
@@ -40,30 +39,32 @@ fun MainRailBottomBar(settingViewModel: SettingViewModel) {
             navBackStackEntry?.destination?.route
         }
     }
-    val bottomNavRoute by remember {
+    val navigationItem by remember {
         derivedStateOf {
-            bottomNavigationItemsList.find { it.route == currentRoute }
+            navigationItemsLists.find { it.route == currentRoute }
         }
     }
-    val navigationRailVisibility by remember(showNavigationRail) {
+    val isMainScreenVisible by remember(isMediumExpandedWWSC) {
         derivedStateOf {
-            bottomNavRoute != null
+            navigationItem != null
         }
     }
-    val bottomBarVisibility by remember(showNavigationRail) {
+    val isBottomBarVisible by remember(isMediumExpandedWWSC) {
         derivedStateOf {
-            if (!showNavigationRail) {
-                bottomNavRoute != null
+            if (!isMediumExpandedWWSC) {
+                navigationItem != null
             } else {
                 false
             }
         }
     }
     MainScaffold(
+        rootNavController = rootNavController,
+        settingViewModel = settingViewModel,
         currentRoute = currentRoute,
-        showNavigationRail = showNavigationRail,
-        bottomBarVisibility = bottomBarVisibility,
-        navigationRailVisibility = navigationRailVisibility,
+        isMediumExpandedWWSC = isMediumExpandedWWSC,
+        isBottomBarVisible = isBottomBarVisible,
+        isMainScreenVisible = isMainScreenVisible,
         onItemClick = { currentNavigationItem ->
             rootNavController.navigate(currentNavigationItem.route) {
                 // Pop up to the start destination of the graph to
@@ -83,29 +84,23 @@ fun MainRailBottomBar(settingViewModel: SettingViewModel) {
                 // Restore state when re-selecting a previously selected item
                 restoreState = true
             }
-        },
-        listContent = { innerPadding ->
-            RootNavGraph(
-                rootNavController = rootNavController,
-                innerPadding = innerPadding,
-                settingViewModel = settingViewModel
-            )
         })
 }
 
 @Composable
 fun MainScaffold(
+    rootNavController: NavHostController,
+    settingViewModel: SettingViewModel,
     currentRoute: String?,
-    showNavigationRail: Boolean,
-    bottomBarVisibility: Boolean,
-    navigationRailVisibility: Boolean,
-    onItemClick: (BottomNavigationItem) -> Unit,
-    listContent: @Composable (PaddingValues) -> Unit,
+    isMediumExpandedWWSC: Boolean,
+    isBottomBarVisible: Boolean,
+    isMainScreenVisible: Boolean,
+    onItemClick: (NavigationItem) -> Unit,
 ) {
     Row {
         AnimatedVisibility(
             modifier = Modifier.background( MaterialTheme.colorScheme.surface),
-            visible = showNavigationRail && navigationRailVisibility,
+            visible = isMediumExpandedWWSC && isMainScreenVisible,
             enter = slideInHorizontally(
                 // Slide in from the left
                 initialOffsetX = { fullWidth -> -fullWidth }
@@ -116,7 +111,7 @@ fun MainScaffold(
             )
         ) {
             NavigationSideBar(
-                items = bottomNavigationItemsList,
+                items = navigationItemsLists,
                 currentRoute = currentRoute,
                 onItemClick = { currentNavigationItem ->
                     onItemClick(currentNavigationItem)
@@ -126,7 +121,7 @@ fun MainScaffold(
         Scaffold(
             bottomBar = {
                 AnimatedVisibility(
-                    visible = bottomBarVisibility,
+                    visible = isBottomBarVisible,
                     enter = slideInVertically(
                         // Slide in from the bottom
                         initialOffsetY = { fullHeight -> fullHeight }
@@ -136,7 +131,7 @@ fun MainScaffold(
                         targetOffsetY = { fullHeight -> fullHeight }
                     )
                 ) {
-                    NewsBottomNavigation(items = bottomNavigationItemsList,
+                    NewsBottomNavigation(items = navigationItemsLists,
                         currentRoute = currentRoute,
                         onItemClick = { currentNavigationItem ->
                             onItemClick(currentNavigationItem)
@@ -145,7 +140,11 @@ fun MainScaffold(
                 }
             }
         ) { innerPadding ->
-            listContent(innerPadding)
+            RootNavGraph(
+                rootNavController = rootNavController,
+                innerPadding = innerPadding,
+                settingViewModel = settingViewModel
+            )
         }
     }
 }

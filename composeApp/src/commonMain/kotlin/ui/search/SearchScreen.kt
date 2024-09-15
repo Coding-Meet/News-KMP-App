@@ -21,7 +21,7 @@ import ui.common.EmptyContent
 import ui.common.ShimmerEffect
 import ui.navigation.SettingRouteScreen
 import ui.search.components.SearchBar
-import utils.bottomNavigationItemsList
+import utils.navigationItemsLists
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,7 +42,7 @@ fun SearchScreen(
     ) {
         TopAppBar(title = {
             Text(
-                text = stringResource(bottomNavigationItemsList[1].title),
+                text = stringResource(navigationItemsLists[1].title),
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground

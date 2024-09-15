@@ -9,44 +9,41 @@ import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextOverflow
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import theme.smallPadding
 
 @Composable
 fun NavigationSideBar(
-    items: List<BottomNavigationItem>,
+    items: List<NavigationItem>,
     currentRoute: String?,
-    onItemClick: (BottomNavigationItem) -> Unit
+    onItemClick: (NavigationItem) -> Unit
 ) {
     NavigationRail(
         modifier = Modifier.fillMaxHeight(),
         containerColor = MaterialTheme.colorScheme.surface,
     ) {
-        items.forEach { bottomNavigationItem ->
-
-            val isSelected = bottomNavigationItem.route == currentRoute
+        items.forEach { navigationItem ->
             NavigationRailItem(
-                modifier = Modifier.padding(vertical = 12.dp),
+                modifier = Modifier.padding(vertical = smallPadding),
                 icon = {
                     Icon(
-                        painter = painterResource(bottomNavigationItem.icon),
+                        painter = painterResource(navigationItem.icon),
                         contentDescription = null,
                     )
                 },
                 label = {
                     Text(
-                        text = stringResource(bottomNavigationItem.title),
-                        style =
-                        if (isSelected) MaterialTheme.typography.labelLarge
+                        text = stringResource(navigationItem.title),
+                        style = if (navigationItem.route == currentRoute) MaterialTheme.typography.labelLarge
                         else MaterialTheme.typography.labelMedium,
                         maxLines = 1,
-                        softWrap = false,
-                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis
                     )
                 },
-                selected = isSelected,
-                onClick = { onItemClick(bottomNavigationItem) }
+                selected = navigationItem.route == currentRoute,
+                onClick = { onItemClick(navigationItem) }
             )
         }
     }

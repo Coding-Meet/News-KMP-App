@@ -8,6 +8,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import news_kmp_app.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.painterResource
@@ -46,7 +47,7 @@ fun SettingScreen(navController: NavController, settingViewModel: SettingViewMod
                     showThemeSelectionDialog = false
                 },
                 onDismissRequest = { showThemeSelectionDialog = false },
-                currentTheme =currentTheme ?: Theme.DARK_MODE.name
+                currentTheme = currentTheme ?: Theme.DARK_MODE.name
             )
         }
     }
@@ -54,7 +55,14 @@ fun SettingScreen(navController: NavController, settingViewModel: SettingViewMod
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(Res.string.setting)) },
+                title = {
+                    Text(
+                        text = stringResource(Res.string.setting),
+                        style = MaterialTheme.typography.headlineLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(

@@ -20,7 +20,7 @@ import ui.common.ArticleListScreen
 import ui.common.EmptyContent
 import ui.common.ShimmerEffect
 import ui.navigation.SettingRouteScreen
-import utils.bottomNavigationItemsList
+import utils.navigationItemsLists
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +41,7 @@ fun BookmarkScreen(
     ) {
         TopAppBar(title = {
             Text(
-                text = stringResource(bottomNavigationItemsList[2].title),
+                text = stringResource(navigationItemsLists[2].title),
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground

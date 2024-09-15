@@ -1,6 +1,5 @@
 package ui.headline
 
-import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -24,7 +23,7 @@ import ui.common.ArticleListScreen
 import ui.common.EmptyContent
 import ui.common.ShimmerEffect
 import ui.navigation.SettingRouteScreen
-import utils.bottomNavigationItemsList
+import utils.navigationItemsLists
 import utils.categoryList
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,7 +45,7 @@ fun HeadlineScreen(
     ) {
         TopAppBar(title = {
             Text(
-                text = stringResource(bottomNavigationItemsList[0].title),
+                text = stringResource(navigationItemsLists[0].title),
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground

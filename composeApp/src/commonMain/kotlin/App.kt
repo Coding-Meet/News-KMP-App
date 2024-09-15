@@ -5,7 +5,7 @@ import di.koinViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
 import theme.NewsAppTheme
-import ui.common.MainRailBottomBar
+import ui.MainScreen
 import ui.setting.SettingViewModel
 
 @Composable
@@ -15,7 +15,7 @@ fun App() {
         val settingViewModel = koinViewModel<SettingViewModel>()
         val currentTheme by settingViewModel.currentTheme.collectAsState()
         NewsAppTheme(currentTheme) {
-            MainRailBottomBar(settingViewModel)
+            MainScreen(settingViewModel)
         }
     }
 }

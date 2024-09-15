@@ -20,10 +20,6 @@ import coil3.compose.AsyncImage
 import data.model.Article
 import di.koinViewModel
 import news_kmp_app.composeapp.generated.resources.*
-import news_kmp_app.composeapp.generated.resources.Res
-import news_kmp_app.composeapp.generated.resources.ic_bookmark_filled
-import news_kmp_app.composeapp.generated.resources.ic_bookmark_outlined
-import news_kmp_app.composeapp.generated.resources.ic_browse
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import theme.mediumPadding
