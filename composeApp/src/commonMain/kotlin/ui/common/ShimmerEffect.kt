@@ -45,7 +45,7 @@ fun ShimmerEffect() {
         contentPadding = PaddingValues(mediumPadding),
         userScrollEnabled = false
     ) {
-        repeat(15) {
+        repeat(30) {
             item {
                 ArticleCardShimmerEffect(brush)
             }
