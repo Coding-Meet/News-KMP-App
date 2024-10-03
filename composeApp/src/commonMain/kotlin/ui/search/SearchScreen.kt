@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
-import di.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 import news_kmp_app.composeapp.generated.resources.Res
 import news_kmp_app.composeapp.generated.resources.ic_browse
 import news_kmp_app.composeapp.generated.resources.ic_network_error

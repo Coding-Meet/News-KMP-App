@@ -1,9 +1,9 @@
 [versions]
-agp = "8.2.0"
+agp = "8.2.2"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
-androidx-activityCompose = "1.9.1"
+androidx-activityCompose = "1.9.2"
 androidx-appcompat = "1.7.0"
 androidx-constraintlayout = "2.1.4"
 androidx-core-ktx = "1.13.1"
@@ -12,27 +12,25 @@ androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 compose-plugin = "1.6.11"
 junit = "4.13.2"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 coil3 = "3.0.0-alpha06"
 ktor = "2.3.12"
-lifecycleViewmodel = "2.8.5"
+lifecycleViewmodel = "2.8.2"
 navigationCompose = "2.8.0-alpha02"
-coroutines = "1.8.1"
+coroutines = "1.9.0"
 ksp = "2.0.10-1.0.24"
 sqlite = "2.5.0-SNAPSHOT"
 androidx-room = "2.7.0-alpha04"
-kotlinx-serialization = "1.7.1"
+kotlinx-serialization = "1.7.3"
 kermit = "2.0.4"
 buildkonfig = "0.15.1"
 androidx-data-store = "1.1.1"
 coreSplashscreen = "1.0.1"
 size = "0.5.0"
-koin = "3.6.0-alpha3"
-koinCompose = "3.6.0-alpha3"
-koinComposeMultiplatform = "1.2.0-alpha3"
+koin = "4.0.0"
 
 [libraries]
-androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
+androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 
@@ -49,10 +47,10 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCompose" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinComposeMultiplatform" }
-koin-composeVM = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinComposeMultiplatform" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+koin-composeVM = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }

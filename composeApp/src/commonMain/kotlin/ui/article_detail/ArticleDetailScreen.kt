@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import data.model.Article
-import di.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 import news_kmp_app.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
