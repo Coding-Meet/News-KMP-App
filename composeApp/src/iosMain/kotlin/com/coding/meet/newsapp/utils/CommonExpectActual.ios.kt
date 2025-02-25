@@ -8,7 +8,6 @@ import androidx.compose.ui.unit.dp
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.coding.meet.newsapp.data.database.NewsDatabase
-import data.database.instantiateImpl
 import platform.Foundation.NSHomeDirectory
 import platform.Foundation.NSUUID
 import platform.UIKit.*
@@ -43,7 +42,6 @@ actual fun getScreenSize(): Size {
 actual fun getDatabaseBuilder(): RoomDatabase.Builder<NewsDatabase> {
     val dbFilePath = NSHomeDirectory() + "/$DB_Name"
     return Room.databaseBuilder<NewsDatabase>(
-        name = dbFilePath,
-        factory = { NewsDatabase::class.instantiateImpl() }
+        name = dbFilePath
     )
 }
