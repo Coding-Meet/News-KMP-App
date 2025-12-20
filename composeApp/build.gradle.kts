@@ -6,7 +6,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.buildkonfig)
     alias(libs.plugins.kotlinx.serialization)
@@ -16,9 +16,6 @@ plugins {
 }
 
 kotlin {
-    sourceSets.commonMain {
-        kotlin.srcDir("build/generated/ksp/metadata")
-    }
 
     androidTarget {
         compilerOptions {
@@ -29,7 +26,6 @@ kotlin {
     jvm("desktop")
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -120,9 +116,6 @@ kotlin {
             // Ktor
             implementation(libs.ktor.client.darwin)
         }
-        dependencies {
-            ksp(libs.androidx.room.compiler)
-        }
     }
 }
 
@@ -151,12 +144,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    buildFeatures {
-        compose = true
-    }
-    dependencies {
-        debugImplementation(compose.uiTooling)
-    }
+}
+dependencies {
+    debugImplementation(compose.uiTooling)
 }
 room {
     schemaDirectory("$projectDir/schemas")
