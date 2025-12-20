@@ -16,6 +16,9 @@ val databaseModule = module {
     single {
         getRoomDatabase(getDatabaseBuilder())
     }
+    single {
+        get<NewsDatabase>().newsDao()
+    }
 
     // datastore
     single {
