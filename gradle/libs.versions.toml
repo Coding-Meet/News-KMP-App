@@ -10,18 +10,18 @@ androidx-core-ktx = "1.17.0"
 androidx-espresso-core = "3.7.0"
 androidx-material = "1.13.0"
 androidx-test-junit = "1.3.0"
-composeMultiplatform = "1.9.3"
+composeMultiplatform = "1.10.0"
 junit = "4.13.2"
 kotlin = "2.3.0"
 coil3 = "3.3.0"
-ktor = "3.3.3"
+ktor = "3.4.0"
 lifecycleViewmodel = "2.9.6"
 navigationCompose = "2.9.1"
 coroutines = "1.10.2"
 ksp = "2.3.3"
 sqlite = "2.6.2"
 androidx-room = "2.8.4"
-kotlinx-serialization = "1.9.0"
+kotlinx-serialization = "1.10.0"
 kermit = "2.0.8"
 buildkonfig = "0.17.1"
 androidx-data-store = "1.2.0"
@@ -29,8 +29,19 @@ coreSplashscreen = "1.2.0"
 size = "0.5.0"
 koin = "4.1.1"
 composeHotReload = "1.0.0"
+material3-adaptive = "1.2.0"
+materialIconsExtended = "1.7.3"
+material3WindowSizeClass = "1.9.0"
 
 [libraries]
+components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
+foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatform" }
+runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
+ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
+ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "composeMultiplatform" }
+ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
+
+
 androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleViewmodel" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
@@ -47,6 +58,15 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+
+material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3WindowSizeClass" }
+material3-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "material3-adaptive" }
+material3-adaptive-navigation-suite = { module = "org.jetbrains.compose.material3:material3-adaptive-navigation-suite", version.ref = "material3WindowSizeClass" }
+material3-window-size-class1 = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "material3WindowSizeClass" }
+material3-adaptive-layout = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-layout", version.ref = "material3-adaptive" }
+material3-adaptive-navigation = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-navigation", version.ref = "material3-adaptive" }
+
 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
