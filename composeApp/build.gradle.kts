@@ -41,7 +41,7 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
-            implementation(compose.preview)
+            implementation(libs.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
 
             // Ktor
@@ -55,15 +55,17 @@ kotlin {
             implementation(libs.androidx.core.splashscreen)
         }
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.runtime)
+            implementation(libs.foundation)
+//            implementation(compose.material)
+            implementation(libs.ui)
+            implementation(libs.components.resources)
+            implementation(libs.ui.tooling.preview)
 
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
+            implementation(libs.material.icons.extended)
+            implementation(libs.material3)
 
             // Navigation
             implementation(libs.navigation.compose)
@@ -146,7 +148,7 @@ android {
     }
 }
 dependencies {
-    debugImplementation(compose.uiTooling)
+    debugImplementation(libs.ui.tooling)
 }
 room {
     schemaDirectory("$projectDir/schemas")
