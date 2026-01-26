@@ -57,13 +57,10 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.runtime)
             implementation(libs.foundation)
-//            implementation(compose.material)
             implementation(libs.ui)
             implementation(libs.components.resources)
             implementation(libs.ui.tooling.preview)
 
-            implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
             implementation(libs.material.icons.extended)
             implementation(libs.material3)
 
