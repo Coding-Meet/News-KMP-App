@@ -46,6 +46,9 @@ import news_kmp_app.shared.generated.resources.delete_bookmark
 import news_kmp_app.shared.generated.resources.delete_bookmark_description
 import org.jetbrains.compose.resources.stringResource
 
+import com.coding.meet.newsapp.designsystem.component.button.NewsTextButton
+import com.coding.meet.newsapp.designsystem.theme.spacing
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ThemeSelectionDialog(
@@ -54,6 +57,7 @@ fun ThemeSelectionDialog(
     currentTheme: String,
 ) {
     var currentSelectedTheme by remember { mutableStateOf(Theme.valueOf(currentTheme)) }
+    val spacing = MaterialTheme.spacing
 
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
@@ -65,12 +69,12 @@ fun ThemeSelectionDialog(
                 shape = MaterialTheme.shapes.extraLarge,
                 tonalElevation = AlertDialogDefaults.TonalElevation,
             ) {
-                Column(modifier = Modifier.padding(24.dp)) {
+                Column(modifier = Modifier.padding(spacing.xl)) {
                     Text(
                         text = stringResource(Res.string.choose_a_theme),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(bottom = 16.dp),
+                        modifier = Modifier.padding(bottom = spacing.md),
                     )
                     Theme.entries.forEach { theme ->
                         Row(
@@ -93,22 +97,20 @@ fun ThemeSelectionDialog(
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(spacing.lg))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.End,
                     ) {
-                        TextButton(onClick = onDismissRequest) {
-                            Text(stringResource(Res.string.cancel))
-                        }
-                        Spacer(modifier = Modifier.width(8.dp))
-                        TextButton(onClick = { onThemeChange(currentSelectedTheme) }) {
-                            Text(
-                                text = stringResource(Res.string.apply),
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.primary,
-                            )
-                        }
+                        NewsTextButton(
+                            text = stringResource(Res.string.cancel),
+                            onClick = onDismissRequest,
+                        )
+                        Spacer(modifier = Modifier.width(spacing.xs))
+                        NewsTextButton(
+                            text = stringResource(Res.string.apply),
+                            onClick = { onThemeChange(currentSelectedTheme) },
+                        )
                     }
                 }
             }
@@ -133,18 +135,17 @@ fun BookmarkDialog(
             )
         },
         confirmButton = {
-            TextButton(onClick = onDeleteHistory) {
-                Text(
-                    text = stringResource(Res.string.delete),
-                    color = MaterialTheme.colorScheme.error,
-                    fontWeight = FontWeight.SemiBold,
-                )
-            }
+            NewsTextButton(
+                text = stringResource(Res.string.delete),
+                onClick = onDeleteHistory,
+                contentColor = MaterialTheme.colorScheme.error,
+            )
         },
         dismissButton = {
-            TextButton(onClick = onDismissRequest) {
-                Text(stringResource(Res.string.cancel))
-            }
+            NewsTextButton(
+                text = stringResource(Res.string.cancel),
+                onClick = onDismissRequest,
+            )
         },
     )
 }

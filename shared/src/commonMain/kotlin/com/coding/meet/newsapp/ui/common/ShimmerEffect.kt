@@ -33,8 +33,12 @@ import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
 import com.coding.meet.newsapp.designsystem.theme.shimmerColors
 
+import androidx.compose.material3.MaterialTheme
+import com.coding.meet.newsapp.designsystem.theme.spacing
+
 @Composable
 fun ShimmerEffect() {
+    val spacing = MaterialTheme.spacing
     val transition = rememberInfiniteTransition()
     val translateAnimation by transition.animateFloat(
         initialValue = 0f,
@@ -56,9 +60,9 @@ fun ShimmerEffect() {
     }
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Adaptive(360.dp),
-        verticalItemSpacing = 12.dp,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        contentPadding = PaddingValues(16.dp),
+        verticalItemSpacing = spacing.sm,
+        horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+        contentPadding = PaddingValues(spacing.md),
         userScrollEnabled = false,
     ) {
         repeat(30) {
@@ -69,36 +73,38 @@ fun ShimmerEffect() {
 
 @Composable
 fun ArticleCardShimmerEffect(brush: Brush) {
+    val spacing = MaterialTheme.spacing
+    val shape = MaterialTheme.shapes.medium
     Row(
-        modifier = Modifier.padding(10.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        modifier = Modifier.padding(spacing.sm),
+        horizontalArrangement = Arrangement.spacedBy(spacing.sm),
     ) {
         Box(
             modifier = Modifier
                 .size(110.dp)
-                .background(brush, RoundedCornerShape(8.dp))
+                .background(brush, shape)
         )
         Column(
             modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
+            verticalArrangement = Arrangement.spacedBy(spacing.xs),
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp)
-                    .background(brush, RoundedCornerShape(8.dp))
+                    .background(brush, shape)
             )
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(32.dp)
-                    .background(brush, RoundedCornerShape(8.dp))
+                    .background(brush, shape)
             )
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .height(16.dp)
-                    .background(brush, RoundedCornerShape(8.dp))
+                    .background(brush, shape)
             )
         }
     }

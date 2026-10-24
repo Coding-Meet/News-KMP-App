@@ -26,6 +26,8 @@ import news_kmp_app.shared.generated.resources.Res
 import news_kmp_app.shared.generated.resources.ic_light_mode
 import org.jetbrains.compose.resources.painterResource
 
+import com.coding.meet.newsapp.designsystem.theme.spacing
+
 @Composable
 fun SettingItem(
     onClick: () -> Unit,
@@ -33,17 +35,18 @@ fun SettingItem(
     itemName: String,
     itemColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
+    val spacing = MaterialTheme.spacing
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
+            .clip(MaterialTheme.shapes.medium)
             .clickable { onClick() }
-            .padding(horizontal = 20.dp, vertical = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+            .padding(horizontal = spacing.lg, vertical = spacing.md),
+        horizontalArrangement = Arrangement.spacedBy(spacing.md, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            modifier = Modifier.size(22.dp),
+            modifier = Modifier.size(24.dp),
             painter = painter,
             contentDescription = null,
             colorFilter = ColorFilter.tint(color = itemColor),

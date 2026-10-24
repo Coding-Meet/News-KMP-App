@@ -11,8 +11,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -38,12 +36,16 @@ import news_kmp_app.shared.generated.resources.ic_network_error
 import news_kmp_app.shared.generated.resources.no_news
 import org.jetbrains.compose.resources.stringResource
 
+import com.coding.meet.newsapp.designsystem.component.chip.NewsCategoryChip
+import com.coding.meet.newsapp.designsystem.theme.spacing
+
 @Composable
 fun HeadlineScreen(
     state: HeadlineState,
     onEvent: (HeadlineEvent) -> Unit,
     onSettingsClick: (() -> Unit)? = null,
 ) {
+    val spacing = MaterialTheme.spacing
     Scaffold(
         topBar = {
             NewsTopAppBar(
@@ -69,25 +71,14 @@ fun HeadlineScreen(
         ) {
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(horizontal = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally),
+                contentPadding = PaddingValues(horizontal = spacing.sm),
+                horizontalArrangement = Arrangement.spacedBy(spacing.xs, Alignment.CenterHorizontally),
             ) {
                 items(categoryList, key = { it }) { category ->
-                    FilterChip(
+                    NewsCategoryChip(
+                        label = category,
                         selected = state.selectedCategory == category,
                         onClick = { onEvent(HeadlineEvent.SelectCategory(category)) },
-                        label = {
-                            Text(
-                                text = category,
-                                style = MaterialTheme.typography.labelLarge,
-                                fontWeight = if (state.selectedCategory == category) FontWeight.Bold else FontWeight.Normal,
-                            )
-                        },
-                        colors = FilterChipDefaults.filterChipColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                            selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-                            selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                        ),
                     )
                 }
             }

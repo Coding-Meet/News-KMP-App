@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,6 +26,9 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
+import com.coding.meet.newsapp.designsystem.component.button.NewsPrimaryButton
+import com.coding.meet.newsapp.designsystem.theme.spacing
+
 @Composable
 fun EmptyContent(
     message: String,
@@ -35,8 +36,11 @@ fun EmptyContent(
     isOnRetryBtnVisible: Boolean = true,
     onRetryClick: (() -> Unit) = {},
 ) {
+    val spacing = MaterialTheme.spacing
     Column(
-        modifier = Modifier.fillMaxSize().padding(24.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(spacing.xl),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -46,7 +50,7 @@ fun EmptyContent(
             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f),
             contentDescription = null,
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(spacing.md))
         Text(
             text = message,
             style = MaterialTheme.typography.titleMedium,
@@ -55,18 +59,11 @@ fun EmptyContent(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         if (isOnRetryBtnVisible) {
-            Spacer(modifier = Modifier.height(24.dp))
-            Button(
+            Spacer(modifier = Modifier.height(spacing.lg))
+            NewsPrimaryButton(
+                text = stringResource(Res.string.retry),
                 onClick = onRetryClick,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                ),
-            ) {
-                Text(
-                    text = stringResource(Res.string.retry),
-                    style = MaterialTheme.typography.labelLarge,
-                )
-            }
+            )
         }
     }
 }

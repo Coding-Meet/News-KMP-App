@@ -9,11 +9,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,8 +31,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
+import com.coding.meet.newsapp.designsystem.component.badge.NewsSourceBadge
+import com.coding.meet.newsapp.designsystem.component.card.NewsElevatedCard
 import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
+import com.coding.meet.newsapp.designsystem.theme.spacing
 import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.utils.previewArticles
 import news_kmp_app.shared.generated.resources.Res
@@ -44,26 +45,24 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun ArticleItem(
     article: Article,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    Card(
+    NewsElevatedCard(
         onClick = onClick,
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
     ) {
         Row(
-            modifier = Modifier.padding(10.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = Modifier.padding(MaterialTheme.spacing.medium),
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
                 modifier = Modifier
-                    .size(110.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentAlignment = Alignment.Center
+                    .size(108.dp)
+                    .clip(MaterialTheme.shapes.medium),
+                contentAlignment = Alignment.Center,
             ) {
                 var imageLoadResult by remember { mutableStateOf<Result<Painter>?>(null) }
                 val painter = rememberAsyncImagePainter(
@@ -85,7 +84,7 @@ fun ArticleItem(
                 val painterState by painter.state.collectAsState()
                 val transition by animateFloatAsState(
                     targetValue = if (painterState is AsyncImagePainter.State.Success) 1f else 0f,
-                    animationSpec = tween(durationMillis = 800),
+                    animationSpec = tween(durationMillis = 600),
                 )
 
                 when (val result = imageLoadResult) {
@@ -96,8 +95,8 @@ fun ArticleItem(
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize().graphicsLayer {
                             if (result.isSuccess) {
-                                rotationX = (1f - transition) * 30f
-                                val scale = 0.8f + (0.2f * transition)
+                                rotationX = (1f - transition) * 20f
+                                val scale = 0.85f + (0.15f * transition)
                                 scaleX = scale
                                 scaleY = scale
                             }
@@ -108,7 +107,7 @@ fun ArticleItem(
 
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
             ) {
                 Text(
                     text = article.title,
@@ -116,7 +115,7 @@ fun ArticleItem(
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface,
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 3,
+                    maxLines = 2,
                 )
                 article.description?.let {
                     Text(
@@ -127,11 +126,10 @@ fun ArticleItem(
                         maxLines = 2,
                     )
                 }
-                Text(
+                NewsSourceBadge(
                     text = article.source.name,
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
             }
         }

@@ -25,6 +25,8 @@ import news_kmp_app.shared.generated.resources.search
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
+import com.coding.meet.newsapp.designsystem.theme.spacing
+
 @Composable
 fun SearchBar(
     text: String,
@@ -32,11 +34,12 @@ fun SearchBar(
     onSearch: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
+    val spacing = MaterialTheme.spacing
 
     TextField(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = spacing.md, vertical = spacing.sm),
         value = text,
         onValueChange = { onValueChange(it) },
         textStyle = MaterialTheme.typography.bodyLarge.copy(

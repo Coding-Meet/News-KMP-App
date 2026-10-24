@@ -42,6 +42,7 @@ import coil3.compose.rememberAsyncImagePainter
 import com.coding.meet.newsapp.designsystem.component.topappbar.NewsTopAppBar
 import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
+import com.coding.meet.newsapp.designsystem.theme.spacing
 import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.ui.common.PulseAnimation
 import com.coding.meet.newsapp.utils.previewArticles
@@ -116,15 +117,16 @@ private fun ArticleDetailContent(
     article: Article,
     innerPadding: PaddingValues,
 ) {
+    val spacing = MaterialTheme.spacing
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
             top = innerPadding.calculateTopPadding(),
-            bottom = innerPadding.calculateBottomPadding() + 16.dp,
-            start = 20.dp,
-            end = 20.dp,
+            bottom = innerPadding.calculateBottomPadding() + spacing.md,
+            start = spacing.lg,
+            end = spacing.lg,
         ),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(spacing.md),
     ) {
         item {
             ArticleImage(
@@ -177,7 +179,7 @@ private fun ArticleImage(imageUrl: String?, title: String) {
             .fillMaxWidth()
             .background(
                 color = MaterialTheme.colorScheme.surfaceVariant,
-                shape = RoundedCornerShape(12.dp)
+                shape = MaterialTheme.shapes.large
             )
             .wrapContentWidth()
             .widthIn(max = 720.dp)

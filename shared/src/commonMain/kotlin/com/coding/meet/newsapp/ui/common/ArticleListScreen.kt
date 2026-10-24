@@ -13,16 +13,20 @@ import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
 import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.utils.previewArticles
 
+import androidx.compose.material3.MaterialTheme
+import com.coding.meet.newsapp.designsystem.theme.spacing
+
 @Composable
 fun ArticleListScreen(
     articleList: List<Article>,
     onArticleClick: (Article) -> Unit,
 ) {
+    val spacing = MaterialTheme.spacing
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Adaptive(360.dp),
-        verticalItemSpacing = 12.dp,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        contentPadding = PaddingValues(16.dp),
+        verticalItemSpacing = spacing.sm,
+        horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+        contentPadding = PaddingValues(spacing.md),
     ) {
         items(articleList, key = { it.publishedAt }) { item ->
             ArticleItem(article = item, onClick = { onArticleClick(item) })

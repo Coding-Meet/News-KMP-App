@@ -34,11 +34,30 @@ News-KMP-App/
 * **Offline Bookmarks**: Save favorite articles locally with Room Database for offline reading.
 * **Dark / Light Mode**: Dynamic theme selection with system default fallback saved via DataStore Preferences.
 * **Adaptive Navigation**: Responsive layouts using Material 3 Adaptive Navigation Suite across mobile, tablet, and desktop form factors.
+* **Design System & M3 Tokens**: Production-grade Material Design 3 design system with standardized tokens (`Spacing`, `NewsAppShapes`, `Elevation`, tonal `Color` containers) and reusable atomic components (`NewsCard`, `NewsButton`, `NewsCategoryChip`, `NewsSourceBadge`, `NewsStateView`, `NewsTopAppBar`).
 * **Clean Architecture & MVI**: Decoupled Layers (`core`, `data`, `domain`, `designsystem`, `ui`) with unidirectional data flow (State, Intent/Event, Effect).
 * **Multiplatform Networking**: Asynchronous HTTP client communication via Ktor 3 with JSON serialization.
 * **Image Caching**: Asynchronous image loading and caching using Coil 3.
 * **Dependency Injection**: Multiplatform dependency injection using Koin.
 * **Logging & Config**: Centralized logging with Kermit and environment config with BuildKonfig.
+
+---
+
+## Design System Architecture 🎨
+
+The UI layer is built upon a standardized, accessible Material Design 3 design system:
+
+* **Tokens (`designsystem/theme/`)**:
+  * **Spacing**: 8dp-based geometric grid tokens (`default`, `xs: 4dp`, `sm: 8dp`, `md: 12dp`, `lg: 16dp`, `xl: 24dp`, `xxl: 32dp`, `huge: 48dp`) injected via `LocalSpacing` and accessible through `MaterialTheme.spacing`.
+  * **Shapes**: Standardized `NewsAppShapes` from `extraSmall` (4dp) to `extraLarge` (24dp).
+  * **Elevation**: Material 3 elevation levels (Level 0 through Level 5) accessible via `MaterialTheme.elevation`.
+  * **Colors**: Complete M3 tonal color palette including `surfaceContainerLowest` through `surfaceContainerHighest`, `surfaceDim`, `surfaceBright`, `inverseSurface`, and scrim.
+* **Reusable Components (`designsystem/component/`)**:
+  * **Cards**: `NewsElevatedCard` and `NewsOutlinedCard` with customizable shapes and colors.
+  * **Buttons**: `NewsPrimaryButton`, `NewsOutlinedButton`, and `NewsTextButton` supporting loading states, icons, and text labels.
+  * **Badges & Chips**: `NewsSourceBadge` for article sources and `NewsCategoryChip` for category filtering.
+  * **State Views**: Unified `NewsLoadingView`, `NewsEmptyView`, and `NewsErrorView` with retry action support.
+  * **Top App Bars**: Standard `NewsTopAppBar` and `NewsCenterAlignedTopAppBar` with title overflow handling, M3 surface tinting, and action slots.
 
 ---
 
