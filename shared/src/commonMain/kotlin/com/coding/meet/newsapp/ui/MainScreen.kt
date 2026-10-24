@@ -2,7 +2,6 @@ package com.coding.meet.newsapp.ui
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldValue
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.material3.adaptive.navigationsuite.rememberNavigationSuiteScaffoldState
 import androidx.compose.runtime.Composable
@@ -32,9 +31,7 @@ fun MainScreen() {
     }
 
     val windowAdaptiveInfo = currentWindowAdaptiveInfoV2()
-    val navigationSuiteState = rememberNavigationSuiteScaffoldState(
-        initialValue = NavigationSuiteScaffoldValue.Hidden
-    )
+    val navigationSuiteState = rememberNavigationSuiteScaffoldState()
 
     val layoutType = if (currentNavigationItem == null) {
         NavigationSuiteType.None
