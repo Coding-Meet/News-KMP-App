@@ -1,0 +1,139 @@
+package com.coding.meet.newsapp.ui.headline
+
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.coding.meet.newsapp.designsystem.component.topappbar.NewsTopAppBar
+import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
+import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
+import com.coding.meet.newsapp.ui.common.ArticleListScreen
+import com.coding.meet.newsapp.ui.common.EmptyContent
+import com.coding.meet.newsapp.ui.common.ShimmerEffect
+import com.coding.meet.newsapp.utils.categoryList
+import com.coding.meet.newsapp.utils.navigationItemsLists
+import com.coding.meet.newsapp.utils.previewArticles
+import news_kmp_app.shared.generated.resources.Res
+import news_kmp_app.shared.generated.resources.ic_browse
+import news_kmp_app.shared.generated.resources.ic_network_error
+import news_kmp_app.shared.generated.resources.no_news
+import org.jetbrains.compose.resources.stringResource
+
+@Composable
+fun HeadlineScreen(
+    state: HeadlineState,
+    onEvent: (HeadlineEvent) -> Unit,
+    onSettingsClick: (() -> Unit)? = null,
+) {
+    Scaffold(
+        topBar = {
+            NewsTopAppBar(
+                title = stringResource(navigationItemsLists[0].title),
+                actions = {
+                    if (onSettingsClick != null) {
+                        IconButton(onClick = onSettingsClick) {
+                            Icon(
+                                imageVector = Icons.Filled.Settings,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onBackground,
+                            )
+                        }
+                    }
+                },
+            )
+        },
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+        ) {
+            LazyRow(
+                modifier = Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(horizontal = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally),
+            ) {
+                items(categoryList, key = { it }) { category ->
+                    FilterChip(
+                        selected = state.selectedCategory == category,
+                        onClick = { onEvent(HeadlineEvent.SelectCategory(category)) },
+                        label = {
+                            Text(
+                                text = category,
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = if (state.selectedCategory == category) FontWeight.Bold else FontWeight.Normal,
+                            )
+                        },
+                        colors = FilterChipDefaults.filterChipColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                            selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                            selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        ),
+                    )
+                }
+            }
+            when {
+                state.isLoading -> ShimmerEffect()
+                state.error != null -> EmptyContent(
+                    message = state.error,
+                    icon = Res.drawable.ic_network_error,
+                    onRetryClick = { onEvent(HeadlineEvent.Retry) },
+                )
+                state.articles.isEmpty() -> EmptyContent(
+                    message = stringResource(Res.string.no_news),
+                    icon = Res.drawable.ic_browse,
+                    onRetryClick = { onEvent(HeadlineEvent.Retry) },
+                )
+                else -> ArticleListScreen(
+                    articleList = state.articles,
+                    onArticleClick = { article -> onEvent(HeadlineEvent.OpenArticle(article)) },
+                )
+            }
+        }
+    }
+}
+
+@AllAdaptivePreviews
+@Composable
+private fun HeadlineScreenPreview() {
+    NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
+        HeadlineScreen(
+            state = HeadlineState(
+                articles = previewArticles,
+                selectedCategory = "Technology",
+            ),
+            onEvent = {},
+            onSettingsClick = {},
+        )
+    }
+}
+
+@AllAdaptivePreviews
+@Composable
+private fun HeadlineScreenLoadingPreview() {
+    NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
+        HeadlineScreen(
+            state = HeadlineState(isLoading = true, selectedCategory = "Technology"),
+            onEvent = {},
+        )
+    }
+}

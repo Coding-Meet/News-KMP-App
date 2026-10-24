@@ -1,5 +1,4 @@
 rootProject.name = "News-KMP-App"
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {
@@ -14,9 +13,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
-}
+
 dependencyResolutionManagement {
     repositories {
         google {
@@ -30,4 +27,10 @@ dependencyResolutionManagement {
     }
 }
 
-include(":composeApp")
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+
+include(":androidApp")
+include(":desktopApp")
+include(":shared")
