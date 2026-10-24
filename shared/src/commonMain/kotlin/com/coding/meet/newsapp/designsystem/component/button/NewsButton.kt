@@ -3,11 +3,14 @@ package com.coding.meet.newsapp.designsystem.component.button
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -16,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.coding.meet.newsapp.designsystem.theme.spacing
 
@@ -60,13 +64,14 @@ fun NewsPrimaryButton(
 }
 
 /**
- * Convenience Primary Action Button with text label.
+ * Convenience Primary Action Button with text label and optional icon.
  */
 @Composable
 fun NewsPrimaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
     enabled: Boolean = true,
     isLoading: Boolean = false,
     shape: Shape = MaterialTheme.shapes.medium,
@@ -83,6 +88,14 @@ fun NewsPrimaryButton(
         shape = shape,
         colors = colors,
     ) {
+        if (icon != null) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp),
+            )
+            Spacer(Modifier.width(MaterialTheme.spacing.small))
+        }
         Text(text = text, style = MaterialTheme.typography.labelLarge)
     }
 }

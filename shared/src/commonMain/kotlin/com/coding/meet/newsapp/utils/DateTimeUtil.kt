@@ -64,3 +64,15 @@ fun formatRelativeTime(
         }
     }.getOrDefault(isoString)
 }
+
+/**
+ * Cleans raw article content by stripping HTML tags and NewsAPI truncation indicators.
+ */
+fun cleanNewsContent(raw: String): String {
+    return raw
+        .replace(Regex("<[^>]*>"), "")
+        .replace(Regex("\\[\\+\\d+\\s+chars\\]"), "")
+        .replace(Regex("(\\r?\\n){3,}"), "\n\n")
+        .trim()
+}
+

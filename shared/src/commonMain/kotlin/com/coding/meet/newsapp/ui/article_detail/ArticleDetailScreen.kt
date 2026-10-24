@@ -7,11 +7,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
@@ -19,7 +21,12 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,20 +48,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
+import com.coding.meet.newsapp.designsystem.component.badge.NewsSourceBadge
+import com.coding.meet.newsapp.designsystem.component.button.NewsPrimaryButton
 import com.coding.meet.newsapp.designsystem.component.topappbar.NewsTopAppBar
 import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
 import com.coding.meet.newsapp.designsystem.theme.spacing
 import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.ui.common.PulseAnimation
+import com.coding.meet.newsapp.utils.cleanNewsContent
 import com.coding.meet.newsapp.utils.formatPublishedDate
 import com.coding.meet.newsapp.utils.previewArticles
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.outlined.BookmarkBorder
-import androidx.compose.material.icons.outlined.Public
 import news_kmp_app.shared.generated.resources.Res
 import news_kmp_app.shared.generated.resources.go_back
 import news_kmp_app.shared.generated.resources.logo
+import news_kmp_app.shared.generated.resources.read_full_story
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -107,6 +115,7 @@ fun ArticleDetailScreen(
             ArticleDetailContent(
                 article = article,
                 innerPadding = innerPadding,
+                onReadFullStory = { onEvent(ArticleDetailEvent.OpenInBrowser) },
             )
         }
     }
@@ -116,6 +125,7 @@ fun ArticleDetailScreen(
 private fun ArticleDetailContent(
     article: Article,
     innerPadding: PaddingValues,
+    onReadFullStory: () -> Unit,
 ) {
     val spacing = MaterialTheme.spacing
     LazyColumn(
@@ -135,47 +145,98 @@ private fun ArticleDetailContent(
             )
         }
         item {
-            Text(
-                text = article.title,
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
+            Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
+                Text(
+                    text = article.title,
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+                ) {
+                    NewsSourceBadge(
+                        text = article.source.name,
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(spacing.xs),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Schedule,
+                            contentDescription = null,
+                            modifier = Modifier.size(14.dp),
+                            tint = MaterialTheme.colorScheme.outline,
+                        )
+                        Text(
+                            text = formatPublishedDate(article.publishedAt),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.outline,
+                        )
+                    }
+                }
+                val cleanAuthor = article.author?.trim()?.takeIf {
+                    it.isNotBlank() &&
+                        !it.startsWith("http://", ignoreCase = true) &&
+                        !it.startsWith("https://", ignoreCase = true)
+                }
+                if (cleanAuthor != null) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(spacing.xs),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Person,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Text(
+                            text = "By $cleanAuthor",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+            }
         }
         article.description?.let {
-            item {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    lineHeight = MaterialTheme.typography.bodyLarge.lineHeight,
-                )
+            val cleanDescription = cleanNewsContent(it)
+            if (cleanDescription.isNotBlank()) {
+                item {
+                    Text(
+                        text = cleanDescription,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        lineHeight = MaterialTheme.typography.bodyLarge.lineHeight,
+                    )
+                }
             }
         }
         article.content?.let {
-            item {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
+            val cleanContent = cleanNewsContent(it)
+            if (cleanContent.isNotBlank()) {
+                item {
+                    Text(
+                        text = cleanContent,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        lineHeight = MaterialTheme.typography.bodyMedium.lineHeight,
+                    )
+                }
             }
         }
-        item {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.Schedule,
-                    contentDescription = null,
-                    modifier = Modifier.size(16.dp),
-                    tint = MaterialTheme.colorScheme.outline,
-                )
-                Text(
-                    text = formatPublishedDate(article.publishedAt),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.outline,
+        if (article.url.isNotBlank()) {
+            item {
+                NewsPrimaryButton(
+                    text = stringResource(Res.string.read_full_story),
+                    onClick = onReadFullStory,
+                    modifier = Modifier.fillMaxWidth().padding(top = spacing.sm),
+                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
                 )
             }
         }
