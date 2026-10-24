@@ -16,7 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.coding.meet.newsapp.designsystem.component.button.NewsPrimaryButton
@@ -63,7 +63,7 @@ fun NewsEmptyView(
     title: String,
     modifier: Modifier = Modifier,
     description: String? = null,
-    icon: Painter? = null,
+    icon: ImageVector? = null,
 ) {
     Box(
         modifier = modifier.fillMaxSize().padding(MaterialTheme.spacing.large),
@@ -76,7 +76,7 @@ fun NewsEmptyView(
         ) {
             if (icon != null) {
                 Icon(
-                    painter = icon,
+                    imageVector = icon,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                     modifier = Modifier.size(72.dp),
@@ -111,7 +111,7 @@ fun NewsErrorView(
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
     retryLabel: String = "Retry",
-    icon: Painter? = null,
+    icon: ImageVector? = null,
 ) {
     Box(
         modifier = modifier.fillMaxSize().padding(MaterialTheme.spacing.large),
@@ -124,7 +124,7 @@ fun NewsErrorView(
         ) {
             if (icon != null) {
                 Icon(
-                    painter = icon,
+                    imageVector = icon,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.error,
                     modifier = Modifier.size(64.dp),
@@ -139,10 +139,9 @@ fun NewsErrorView(
             )
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.large))
             NewsPrimaryButton(
+                text = retryLabel,
                 onClick = onRetry,
-            ) {
-                Text(retryLabel)
-            }
+            )
         }
     }
 }

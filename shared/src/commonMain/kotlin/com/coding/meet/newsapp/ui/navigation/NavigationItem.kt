@@ -1,10 +1,10 @@
 package com.coding.meet.newsapp.ui.navigation
 
-import org.jetbrains.compose.resources.DrawableResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import org.jetbrains.compose.resources.StringResource
 
 data class NavigationItem(
-    val icon: DrawableResource,
+    val icon: ImageVector,
     val title: StringResource,
     val route: Route
 )

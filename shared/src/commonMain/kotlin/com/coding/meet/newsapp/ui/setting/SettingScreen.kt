@@ -19,14 +19,13 @@ import com.coding.meet.newsapp.ui.setting.component.BookmarkDialog
 import com.coding.meet.newsapp.ui.setting.component.SettingItem
 import com.coding.meet.newsapp.ui.setting.component.ThemeSelectionDialog
 import com.coding.meet.newsapp.utils.Theme
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Palette
 import news_kmp_app.shared.generated.resources.Res
 import news_kmp_app.shared.generated.resources.delete_bookmark
 import news_kmp_app.shared.generated.resources.go_back
-import news_kmp_app.shared.generated.resources.ic_delete
-import news_kmp_app.shared.generated.resources.ic_light_mode
 import news_kmp_app.shared.generated.resources.setting
 import news_kmp_app.shared.generated.resources.theme
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -65,14 +64,14 @@ fun SettingScreen(
             item {
                 SettingItem(
                     onClick = { onEvent(SettingEvent.ShowThemeDialog) },
-                    painter = painterResource(Res.drawable.ic_light_mode),
+                    icon = Icons.Outlined.Palette,
                     itemName = stringResource(Res.string.theme),
                 )
             }
             item {
                 SettingItem(
                     onClick = { onEvent(SettingEvent.ShowDeleteDialog) },
-                    painter = painterResource(Res.drawable.ic_delete),
+                    icon = Icons.Outlined.Delete,
                     itemName = stringResource(Res.string.delete_bookmark),
                     itemColor = MaterialTheme.colorScheme.error,
                 )

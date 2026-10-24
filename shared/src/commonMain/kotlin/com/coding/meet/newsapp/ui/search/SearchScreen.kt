@@ -16,9 +16,11 @@ import com.coding.meet.newsapp.ui.common.ShimmerEffect
 import com.coding.meet.newsapp.ui.search.components.SearchBar
 import com.coding.meet.newsapp.utils.navigationItemsLists
 import com.coding.meet.newsapp.utils.previewArticles
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CloudOff
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.SearchOff
 import news_kmp_app.shared.generated.resources.Res
-import news_kmp_app.shared.generated.resources.ic_browse
-import news_kmp_app.shared.generated.resources.ic_network_error
 import news_kmp_app.shared.generated.resources.type_to_search
 import org.jetbrains.compose.resources.stringResource
 
@@ -45,18 +47,18 @@ fun SearchScreen(
             when {
                 state.isIdle -> EmptyContent(
                     message = stringResource(Res.string.type_to_search),
-                    icon = Res.drawable.ic_browse,
+                    icon = Icons.Outlined.Search,
                     isOnRetryBtnVisible = false,
                 )
                 state.isLoading -> ShimmerEffect()
                 state.error != null -> EmptyContent(
                     message = state.error,
-                    icon = Res.drawable.ic_network_error,
+                    icon = Icons.Outlined.CloudOff,
                     onRetryClick = { onEvent(SearchEvent.Retry) },
                 )
                 state.articles.isEmpty() -> EmptyContent(
                     message = stringResource(Res.string.type_to_search),
-                    icon = Res.drawable.ic_browse,
+                    icon = Icons.Outlined.SearchOff,
                     isOnRetryBtnVisible = false,
                 )
                 else -> ArticleListScreen(

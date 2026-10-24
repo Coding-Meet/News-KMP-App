@@ -14,7 +14,7 @@ sealed interface SearchEvent {
     data class QueryChanged(val query: String) : SearchEvent
     data object Search : SearchEvent
     data object Retry : SearchEvent
-    data class OpenArticle(val article: com.coding.meet.newsapp.domain.model.Article) : SearchEvent
+    data class OpenArticle(val article: Article) : SearchEvent
 }
 
 sealed interface SearchEffect {

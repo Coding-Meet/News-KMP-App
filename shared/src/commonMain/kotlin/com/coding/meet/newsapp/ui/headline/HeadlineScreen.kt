@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.Feed
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.CloudOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -31,8 +33,6 @@ import com.coding.meet.newsapp.utils.categoryList
 import com.coding.meet.newsapp.utils.navigationItemsLists
 import com.coding.meet.newsapp.utils.previewArticles
 import news_kmp_app.shared.generated.resources.Res
-import news_kmp_app.shared.generated.resources.ic_browse
-import news_kmp_app.shared.generated.resources.ic_network_error
 import news_kmp_app.shared.generated.resources.no_news
 import org.jetbrains.compose.resources.stringResource
 
@@ -82,16 +82,17 @@ fun HeadlineScreen(
                     )
                 }
             }
+
             when {
                 state.isLoading -> ShimmerEffect()
                 state.error != null -> EmptyContent(
                     message = state.error,
-                    icon = Res.drawable.ic_network_error,
+                    icon = Icons.Outlined.CloudOff,
                     onRetryClick = { onEvent(HeadlineEvent.Retry) },
                 )
                 state.articles.isEmpty() -> EmptyContent(
                     message = stringResource(Res.string.no_news),
-                    icon = Res.drawable.ic_browse,
+                    icon = Icons.AutoMirrored.Outlined.Feed,
                     onRetryClick = { onEvent(HeadlineEvent.Retry) },
                 )
                 else -> ArticleListScreen(

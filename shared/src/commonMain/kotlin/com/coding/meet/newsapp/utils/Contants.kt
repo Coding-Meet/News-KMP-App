@@ -7,15 +7,16 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.ui.unit.Dp
 import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.domain.model.Source
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.Newspaper
+import androidx.compose.material.icons.outlined.Search
 import com.coding.meet.newsapp.ui.navigation.NavigationItem
 import com.coding.meet.newsapp.ui.navigation.Route
 import news_kmp_app.shared.generated.resources.Res
 import news_kmp_app.shared.generated.resources.bookmark
 import news_kmp_app.shared.generated.resources.dark_mode
 import news_kmp_app.shared.generated.resources.headlines
-import news_kmp_app.shared.generated.resources.ic_bookmark_outlined
-import news_kmp_app.shared.generated.resources.ic_headline
-import news_kmp_app.shared.generated.resources.ic_search
 import news_kmp_app.shared.generated.resources.light_mode
 import news_kmp_app.shared.generated.resources.search
 import news_kmp_app.shared.generated.resources.system_default
@@ -38,17 +39,17 @@ val categoryList = arrayListOf(
 
 val navigationItemsLists = listOf(
     NavigationItem(
-        icon = Res.drawable.ic_headline,
+        icon = Icons.Outlined.Newspaper,
         title = Res.string.headlines,
         route = Route.Headline,
     ),
     NavigationItem(
-        icon = Res.drawable.ic_search,
+        icon = Icons.Outlined.Search,
         title = Res.string.search,
         route = Route.Search,
     ),
     NavigationItem(
-        icon = Res.drawable.ic_bookmark_outlined,
+        icon = Icons.Outlined.BookmarkBorder,
         title = Res.string.bookmark,
         route = Route.Bookmark,
     ),

@@ -24,7 +24,6 @@ import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
 import com.coding.meet.newsapp.ui.navigation.NavigationItem
 import com.coding.meet.newsapp.utils.Theme
 import com.coding.meet.newsapp.utils.navigationItemsLists
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 /**
@@ -74,7 +73,7 @@ fun NavigationSuiteScope.systemNavBar(
         item(
             icon = {
                 Icon(
-                    painterResource(navItem.icon),
+                    imageVector = navItem.icon,
                     contentDescription = stringResource(navItem.title)
                 )
             },

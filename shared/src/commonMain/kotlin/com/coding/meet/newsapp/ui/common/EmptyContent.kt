@@ -20,19 +20,21 @@ import androidx.compose.ui.unit.dp
 import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
 import news_kmp_app.shared.generated.resources.Res
-import news_kmp_app.shared.generated.resources.ic_browse
 import news_kmp_app.shared.generated.resources.retry
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 import com.coding.meet.newsapp.designsystem.component.button.NewsPrimaryButton
 import com.coding.meet.newsapp.designsystem.theme.spacing
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.CloudOff
+import androidx.compose.ui.graphics.vector.ImageVector
+
 @Composable
 fun EmptyContent(
     message: String,
-    icon: DrawableResource,
+    icon: ImageVector,
     isOnRetryBtnVisible: Boolean = true,
     onRetryClick: (() -> Unit) = {},
 ) {
@@ -46,7 +48,7 @@ fun EmptyContent(
     ) {
         Icon(
             modifier = Modifier.size(96.dp),
-            painter = painterResource(icon),
+            imageVector = icon,
             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f),
             contentDescription = null,
         )
@@ -74,7 +76,7 @@ private fun EmptyContentWithRetryPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
         EmptyContent(
             message = "Something went wrong. Please try again.",
-            icon = Res.drawable.ic_browse,
+            icon = Icons.Outlined.CloudOff,
             isOnRetryBtnVisible = true,
             onRetryClick = {},
         )
@@ -87,7 +89,7 @@ private fun EmptyContentNoRetryPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
         EmptyContent(
             message = "No bookmarks yet.",
-            icon = Res.drawable.ic_browse,
+            icon = Icons.Outlined.BookmarkBorder,
             isOnRetryBtnVisible = false,
         )
     }

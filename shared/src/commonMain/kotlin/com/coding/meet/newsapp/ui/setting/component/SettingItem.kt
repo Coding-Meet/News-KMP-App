@@ -16,22 +16,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
-import news_kmp_app.shared.generated.resources.Res
-import news_kmp_app.shared.generated.resources.ic_light_mode
-import org.jetbrains.compose.resources.painterResource
-
 import com.coding.meet.newsapp.designsystem.theme.spacing
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material3.Icon
+import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
 fun SettingItem(
     onClick: () -> Unit,
-    painter: Painter,
+    icon: ImageVector,
     itemName: String,
     itemColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
@@ -45,11 +45,11 @@ fun SettingItem(
         horizontalArrangement = Arrangement.spacedBy(spacing.md, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Image(
+        Icon(
             modifier = Modifier.size(24.dp),
-            painter = painter,
+            imageVector = icon,
             contentDescription = null,
-            colorFilter = ColorFilter.tint(color = itemColor),
+            tint = itemColor,
         )
         Text(
             text = itemName,
@@ -66,7 +66,7 @@ private fun SettingItemPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
         SettingItem(
             onClick = {},
-            painter = painterResource(Res.drawable.ic_light_mode),
+            icon = Icons.Outlined.Palette,
             itemName = "Theme",
         )
     }
@@ -78,7 +78,7 @@ private fun SettingItemDestructivePreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
         SettingItem(
             onClick = {},
-            painter = painterResource(Res.drawable.ic_light_mode),
+            icon = Icons.Outlined.Delete,
             itemName = "Delete Bookmarks",
             itemColor = MaterialTheme.colorScheme.error,
         )

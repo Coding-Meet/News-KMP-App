@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
@@ -46,13 +45,12 @@ import com.coding.meet.newsapp.designsystem.theme.spacing
 import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.ui.common.PulseAnimation
 import com.coding.meet.newsapp.utils.previewArticles
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.Public
 import news_kmp_app.shared.generated.resources.Res
 import news_kmp_app.shared.generated.resources.go_back
-import news_kmp_app.shared.generated.resources.ic_bookmark_filled
-import news_kmp_app.shared.generated.resources.ic_bookmark_outlined
-import news_kmp_app.shared.generated.resources.ic_browse
 import news_kmp_app.shared.generated.resources.logo
-import news_kmp_app.shared.generated.resources.news_detail
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -64,7 +62,7 @@ fun ArticleDetailScreen(
     Scaffold(
         topBar = {
             NewsTopAppBar(
-                title = stringResource(Res.string.news_detail),
+                title = "",
                 navigationIcon = {
                     IconButton(onClick = { onEvent(ArticleDetailEvent.NavigateBack) }) {
                         Icon(
@@ -83,17 +81,15 @@ fun ArticleDetailScreen(
                     }
                     IconButton(onClick = { onEvent(ArticleDetailEvent.OpenInBrowser) }) {
                         Icon(
-                            painter = painterResource(Res.drawable.ic_browse),
+                            imageVector = Icons.Outlined.Public,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.onBackground,
                         )
                     }
                     IconButton(onClick = { onEvent(ArticleDetailEvent.ToggleBookmark) }) {
                         Icon(
-                            painter = painterResource(
-                                if (state.isBookmarked) Res.drawable.ic_bookmark_filled
-                                else Res.drawable.ic_bookmark_outlined
-                            ),
+                            imageVector = if (state.isBookmarked) Icons.Filled.Bookmark
+                            else Icons.Outlined.BookmarkBorder,
                             contentDescription = null,
                             tint = if (state.isBookmarked) MaterialTheme.colorScheme.primary
                             else MaterialTheme.colorScheme.onBackground,

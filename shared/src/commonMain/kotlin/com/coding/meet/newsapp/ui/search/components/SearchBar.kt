@@ -19,10 +19,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import news_kmp_app.shared.generated.resources.Res
-import news_kmp_app.shared.generated.resources.ic_search
 import news_kmp_app.shared.generated.resources.search
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 import com.coding.meet.newsapp.designsystem.theme.spacing
@@ -47,7 +47,7 @@ fun SearchBar(
         ),
         leadingIcon = {
             Icon(
-                painter = painterResource(Res.drawable.ic_search),
+                imageVector = Icons.Default.Search,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )

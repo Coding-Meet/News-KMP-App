@@ -66,6 +66,7 @@ The UI layer is built upon a standardized, accessible Material Design 3 design s
 | Technology / Library | Purpose |
 | :--- | :--- |
 | [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform) (1.12.1) | Declarative UI for Android, Desktop, and iOS |
+| [Material Icons Extended](https://developer.android.com/reference/kotlin/androidx/compose/material/icons/Icons) (1.7.3) | Unified multiplatform vector icon set replacing static XML drawables |
 | [Kotlin](https://kotlinlang.org/) (2.4.20) | Programming language and multiplatform toolchain |
 | [Android Gradle Plugin](https://developer.android.com/studio/releases/gradle-plugin) (9.1.1) | Android & KMP build toolchain |
 | [Koin](https://insert-koin.io/) (4.2.2) | Pragmatic lightweight dependency injection |
