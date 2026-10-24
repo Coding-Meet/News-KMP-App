@@ -14,6 +14,7 @@ junit = "4.13.2"
 kotlin = "2.4.20"
 androidx-navigation = "2.10.0"
 kotlinx-coroutines = "1.11.0"
+kotlinxDatetime = "0.8.0"
 material3 = "1.12.0-alpha03"
 coil3 = "3.6.3"
 ktor = "3.6.0"
@@ -37,6 +38,7 @@ kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
 # Compose Multiplatform
 compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }

@@ -84,7 +84,7 @@ val previewArticles: List<Article> = listOf(
         description = "This is the main news description. This is the main news description.",
         url = "",
         urlToImage = "https://www.marketscreener.com/images/reuters/2024-03-05T144855Z_1_LYNXNPEK240IP_RTROPTP_3_GERMANY-TESLA-FIRE.JPG",
-        publishedAt = Random(100).nextInt().toString(),
+        publishedAt = "2026-10-15T17:53:55Z",
         content = "What is the content?",
     ),
     Article(
@@ -94,7 +94,7 @@ val previewArticles: List<Article> = listOf(
         description = "This is the main news description. This is the main news description.",
         url = "",
         urlToImage = "https://www.marketscreener.com/images/reuters/2024-03-05T144855Z_1_LYNXNPEK240IP_RTROPTP_3_GERMANY-TESLA-FIRE.JPG",
-        publishedAt = Random(200).nextInt().toString(),
+        publishedAt = "2026-10-16T12:30:00Z",
         content = "What is the content?",
     ),
     Article(
@@ -104,7 +104,7 @@ val previewArticles: List<Article> = listOf(
         description = "This is the main news description. This is the main news description.",
         url = "",
         urlToImage = "https://www.marketscreener.com/images/reuters/2024-03-05T144855Z_1_LYNXNPEK240IP_RTROPTP_3_GERMANY-TESLA-FIRE.JPG",
-        publishedAt = Random(300).nextInt().toString(),
+        publishedAt = "2026-10-17T08:15:00Z",
         content = "What is the content?",
     ),
 )

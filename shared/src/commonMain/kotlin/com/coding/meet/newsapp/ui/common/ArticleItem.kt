@@ -37,6 +37,7 @@ import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
 import com.coding.meet.newsapp.designsystem.theme.spacing
 import com.coding.meet.newsapp.domain.model.Article
+import com.coding.meet.newsapp.utils.formatRelativeTime
 import com.coding.meet.newsapp.utils.previewArticles
 import news_kmp_app.shared.generated.resources.Res
 import news_kmp_app.shared.generated.resources.logo
@@ -126,11 +127,22 @@ fun ArticleItem(
                         maxLines = 2,
                     )
                 }
-                NewsSourceBadge(
-                    text = article.source.name,
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    NewsSourceBadge(
+                        text = article.source.name,
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    )
+                    Text(
+                        text = formatRelativeTime(article.publishedAt),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.outline,
+                    )
+                }
             }
         }
     }

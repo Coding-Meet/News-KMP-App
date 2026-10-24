@@ -108,6 +108,9 @@ kotlin {
             // DataStore
             implementation(libs.androidx.data.store.core)
 
+            // DateTime
+            implementation(libs.kotlinx.datetime)
+
             // Koin
             api(libs.koin.core)
             implementation(libs.koin.compose)
