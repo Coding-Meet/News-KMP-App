@@ -13,8 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationRailDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldState
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldValue
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
@@ -24,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
+import com.coding.meet.newsapp.ui.navigation.customNavigationSuiteType
 import com.coding.meet.newsapp.utils.Theme
 import com.coding.meet.newsapp.utils.navigationItemsLists
 
@@ -68,8 +68,8 @@ private fun MainContentBoxPreview() {
         appTheme = Theme.SYSTEM_DEFAULT.name,
         darkTheme = isSystemInDarkTheme(),
     ) {
-        val windowAdaptiveInfo = currentWindowAdaptiveInfo()
-        val layoutType = NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(windowAdaptiveInfo)
+        val windowAdaptiveInfo = currentWindowAdaptiveInfoV2()
+        val layoutType = customNavigationSuiteType(windowAdaptiveInfo)
         SystemNavigationSuiteScaffold(
             navigationSuiteState = rememberNavigationSuiteScaffoldState(),
             layoutType = layoutType,

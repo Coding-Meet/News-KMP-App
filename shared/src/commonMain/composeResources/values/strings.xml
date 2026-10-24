@@ -23,4 +23,6 @@
     <string name="news_detail">News Detail</string>
     <string name="no_news">No News</string>
     <string name="no_bookmarks">No bookmarks yet!</string>
+    <string name="collapse_rail">Collapse rail</string>
+    <string name="expand_rail">Expand rail</string>
 </resources>

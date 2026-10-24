@@ -8,6 +8,9 @@ import androidx.compose.ui.unit.Dp
 import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.domain.model.Source
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.Newspaper
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.Newspaper
 import androidx.compose.material.icons.outlined.Search
@@ -39,17 +42,20 @@ val categoryList = arrayListOf(
 
 val navigationItemsLists = listOf(
     NavigationItem(
-        icon = Icons.Outlined.Newspaper,
+        selectedIcon = Icons.Filled.Newspaper,
+        unselectedIcon = Icons.Outlined.Newspaper,
         title = Res.string.headlines,
         route = Route.Headline,
     ),
     NavigationItem(
-        icon = Icons.Outlined.Search,
+        selectedIcon = Icons.Filled.Search,
+        unselectedIcon = Icons.Outlined.Search,
         title = Res.string.search,
         route = Route.Search,
     ),
     NavigationItem(
-        icon = Icons.Outlined.BookmarkBorder,
+        selectedIcon = Icons.Filled.Bookmark,
+        unselectedIcon = Icons.Outlined.BookmarkBorder,
         title = Res.string.bookmark,
         route = Route.Bookmark,
     ),

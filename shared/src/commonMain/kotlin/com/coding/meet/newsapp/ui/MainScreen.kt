@@ -1,21 +1,20 @@
 package com.coding.meet.newsapp.ui
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldValue
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.material3.adaptive.navigationsuite.rememberNavigationSuiteScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.coding.meet.newsapp.designsystem.component.navigation.MainContentBox
-import com.coding.meet.newsapp.designsystem.component.navigation.SystemNavigationSuiteScaffold
+import com.coding.meet.newsapp.designsystem.component.navigation.CustomNavigationSuiteScaffoldLayout
 import com.coding.meet.newsapp.ui.navigation.NavigationItem
+import com.coding.meet.newsapp.ui.navigation.customNavigationSuiteType
 import com.coding.meet.newsapp.ui.navigation.graphs.NavGraph
 import com.coding.meet.newsapp.utils.navigationItemsLists
 
@@ -32,35 +31,27 @@ fun MainScreen() {
         }
     }
 
-    val windowAdaptiveInfo = currentWindowAdaptiveInfo()
-    val layoutType = NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(windowAdaptiveInfo)
+    val windowAdaptiveInfo = currentWindowAdaptiveInfoV2()
     val navigationSuiteState = rememberNavigationSuiteScaffoldState(
         initialValue = NavigationSuiteScaffoldValue.Hidden
     )
 
-    LaunchedEffect(currentNavigationItem) {
-        if (currentNavigationItem != null) {
-            navigationSuiteState.show()
-        } else {
-            navigationSuiteState.hide()
-        }
+    val layoutType = if (currentNavigationItem == null) {
+        NavigationSuiteType.None
+    } else {
+        customNavigationSuiteType(windowAdaptiveInfo)
     }
 
-    SystemNavigationSuiteScaffold(
+    CustomNavigationSuiteScaffoldLayout(
         navigationSuiteState = navigationSuiteState,
         layoutType = layoutType,
         currentNavigationItem = currentNavigationItem,
         onNavigationItemClick = { navItem -> navigateTo(rootNavController, navItem) },
     ) {
-        MainContentBox(
-            navigationSuiteState = navigationSuiteState,
-            layoutType = layoutType,
-        ) {
-            NavGraph(
-                rootNavController = rootNavController,
-                innerPadding = PaddingValues(),
-            )
-        }
+        NavGraph(
+            rootNavController = rootNavController,
+            innerPadding = PaddingValues(),
+        )
     }
 }
 
