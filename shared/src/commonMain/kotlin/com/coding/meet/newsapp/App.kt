@@ -3,9 +3,9 @@ package com.coding.meet.newsapp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
 import com.coding.meet.newsapp.ui.MainScreen
-import com.coding.meet.newsapp.ui.setting.SettingViewModel
+import com.coding.meet.newsapp.ui.designsystem.theme.NewsAppTheme
+import com.coding.meet.newsapp.ui.screen.setting.SettingViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

@@ -7,24 +7,11 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.ui.unit.Dp
 import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.domain.model.Source
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.Newspaper
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.BookmarkBorder
-import androidx.compose.material.icons.outlined.Newspaper
-import androidx.compose.material.icons.outlined.Search
-import com.coding.meet.newsapp.ui.navigation.NavigationItem
-import com.coding.meet.newsapp.ui.navigation.Route
 import news_kmp_app.shared.generated.resources.Res
-import news_kmp_app.shared.generated.resources.bookmark
 import news_kmp_app.shared.generated.resources.dark_mode
-import news_kmp_app.shared.generated.resources.headlines
 import news_kmp_app.shared.generated.resources.light_mode
-import news_kmp_app.shared.generated.resources.search
 import news_kmp_app.shared.generated.resources.system_default
 import org.jetbrains.compose.resources.StringResource
-import kotlin.random.Random
 
 const val BASE_URL = "https://newsapi.org/v2/"
 const val DB_Name = "NewsDB"
@@ -38,27 +25,6 @@ val categoryList = arrayListOf(
     "Science",
     "Sports",
     "Technology",
-)
-
-val navigationItemsLists = listOf(
-    NavigationItem(
-        selectedIcon = Icons.Filled.Newspaper,
-        unselectedIcon = Icons.Outlined.Newspaper,
-        title = Res.string.headlines,
-        route = Route.Headline,
-    ),
-    NavigationItem(
-        selectedIcon = Icons.Filled.Search,
-        unselectedIcon = Icons.Outlined.Search,
-        title = Res.string.search,
-        route = Route.Search,
-    ),
-    NavigationItem(
-        selectedIcon = Icons.Filled.Bookmark,
-        unselectedIcon = Icons.Outlined.BookmarkBorder,
-        title = Res.string.bookmark,
-        route = Route.Bookmark,
-    ),
 )
 
 enum class Theme(val title: StringResource) {
