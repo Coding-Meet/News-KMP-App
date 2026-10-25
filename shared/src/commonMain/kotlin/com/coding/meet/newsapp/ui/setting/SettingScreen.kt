@@ -6,12 +6,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.coding.meet.newsapp.designsystem.component.topappbar.NewsTopAppBar
 import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
@@ -19,17 +24,39 @@ import com.coding.meet.newsapp.ui.setting.component.BookmarkDialog
 import com.coding.meet.newsapp.ui.setting.component.SettingItem
 import com.coding.meet.newsapp.ui.setting.component.ThemeSelectionDialog
 import com.coding.meet.newsapp.utils.Theme
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Palette
 import news_kmp_app.shared.generated.resources.Res
 import news_kmp_app.shared.generated.resources.delete_bookmark
 import news_kmp_app.shared.generated.resources.go_back
 import news_kmp_app.shared.generated.resources.setting
 import news_kmp_app.shared.generated.resources.theme
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun SettingScreen(
+    onNavigateBack: () -> Unit,
+) {
+    val viewModel = koinViewModel<SettingViewModel>()
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.effects.collect { effect ->
+            when (effect) {
+                SettingEffect.NavigateBack -> onNavigateBack()
+            }
+        }
+    }
+
+    SettingScreenCotent(
+        state = state,
+        onEvent = viewModel::onEvent,
+    )
+}
+
+
+@Composable
+fun SettingScreenCotent(
     state: SettingState,
     onEvent: (SettingEvent) -> Unit,
 ) {
@@ -90,9 +117,9 @@ fun SettingScreen(
 
 @AllAdaptivePreviews
 @Composable
-private fun SettingScreenPreview() {
+private fun SettingScreenCotentPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
-        SettingScreen(
+        SettingScreenCotent(
             state = SettingState(currentTheme = Theme.DARK_MODE.name),
             onEvent = {},
         )
@@ -101,9 +128,9 @@ private fun SettingScreenPreview() {
 
 @AllAdaptivePreviews
 @Composable
-private fun SettingScreenThemeDialogPreview() {
+private fun SettingScreenCotentThemeDialogPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
-        SettingScreen(
+        SettingScreenCotent(
             state = SettingState(
                 currentTheme = Theme.DARK_MODE.name,
                 showThemeDialog = true,

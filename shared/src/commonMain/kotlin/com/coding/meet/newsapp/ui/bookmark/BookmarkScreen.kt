@@ -4,9 +4,15 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.CloudOff
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.coding.meet.newsapp.designsystem.component.topappbar.NewsTopAppBar
 import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
@@ -15,15 +21,35 @@ import com.coding.meet.newsapp.ui.common.EmptyContent
 import com.coding.meet.newsapp.ui.common.ShimmerEffect
 import com.coding.meet.newsapp.utils.navigationItemsLists
 import com.coding.meet.newsapp.utils.previewArticles
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.BookmarkBorder
-import androidx.compose.material.icons.outlined.CloudOff
 import news_kmp_app.shared.generated.resources.Res
 import news_kmp_app.shared.generated.resources.no_bookmarks
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun BookmarkScreen(
+    onArticleClick: (articleId: String) -> Unit,
+) {
+    val viewModel = koinViewModel<BookmarkViewModel>()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.effects.collect { effect ->
+            when (effect) {
+                is BookmarkEffect.NavigateToDetail -> onArticleClick(effect.articleId)
+            }
+        }
+    }
+
+    BookmarkScreenContent(
+        state = state,
+        onEvent = viewModel::onEvent,
+    )
+}
+
+
+@Composable
+fun BookmarkScreenContent(
     state: BookmarkState,
     onEvent: (BookmarkEvent) -> Unit,
 ) {
@@ -44,11 +70,13 @@ fun BookmarkScreen(
                     icon = Icons.Outlined.CloudOff,
                     isOnRetryBtnVisible = false,
                 )
+
                 state.articles.isEmpty() -> EmptyContent(
                     message = stringResource(Res.string.no_bookmarks),
                     icon = Icons.Outlined.BookmarkBorder,
                     isOnRetryBtnVisible = false,
                 )
+
                 else -> ArticleListScreen(
                     articleList = state.articles,
                     onArticleClick = { article -> onEvent(BookmarkEvent.OpenArticle(article.publishedAt)) },
@@ -60,9 +88,9 @@ fun BookmarkScreen(
 
 @AllAdaptivePreviews
 @Composable
-private fun BookmarkScreenPreview() {
+private fun BookmarkScreenContentPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
-        BookmarkScreen(
+        BookmarkScreenContent(
             state = BookmarkState(articles = previewArticles),
             onEvent = {},
         )
@@ -71,9 +99,9 @@ private fun BookmarkScreenPreview() {
 
 @AllAdaptivePreviews
 @Composable
-private fun BookmarkScreenEmptyPreview() {
+private fun BookmarkScreenContentEmptyPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
-        BookmarkScreen(
+        BookmarkScreenContent(
             state = BookmarkState(articles = emptyList()),
             onEvent = {},
         )

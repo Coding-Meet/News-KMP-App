@@ -6,12 +6,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.coding.meet.newsapp.ui.article_detail.ArticleDetailRoute
-import com.coding.meet.newsapp.ui.bookmark.BookmarkRoute
-import com.coding.meet.newsapp.ui.headline.HeadlineRoute
+import com.coding.meet.newsapp.ui.article_detail.ArticleDetailScreen
+import com.coding.meet.newsapp.ui.bookmark.BookmarkScreen
+import com.coding.meet.newsapp.ui.headline.HeadlineScreen
 import com.coding.meet.newsapp.ui.navigation.Route
-import com.coding.meet.newsapp.ui.search.SearchRoute
-import com.coding.meet.newsapp.ui.setting.SettingRoute
+import com.coding.meet.newsapp.ui.search.SearchScreen
+import com.coding.meet.newsapp.ui.setting.SettingScreen
 
 @Composable
 fun NavGraph(
@@ -23,7 +23,7 @@ fun NavGraph(
         startDestination = Route.Headline,
     ) {
         composable<Route.Headline> {
-            HeadlineRoute(
+            HeadlineScreen(
                 onArticleClick = { articleId ->
                     rootNavController.navigate(Route.NewsDetail(articleId))
                 },
@@ -31,14 +31,14 @@ fun NavGraph(
             )
         }
         composable<Route.Search> {
-            SearchRoute(
+            SearchScreen(
                 onArticleClick = { articleId ->
                     rootNavController.navigate(Route.NewsDetail(articleId))
                 },
             )
         }
         composable<Route.Bookmark> {
-            BookmarkRoute(
+            BookmarkScreen(
                 onArticleClick = { articleId ->
                     rootNavController.navigate(Route.NewsDetail(articleId))
                 },
@@ -46,13 +46,13 @@ fun NavGraph(
         }
         composable<Route.NewsDetail> { backStackEntry ->
             val route = backStackEntry.toRoute<Route.NewsDetail>()
-            ArticleDetailRoute(
+            ArticleDetailScreen(
                 articleId = route.articleId,
                 onNavigateBack = { rootNavController.popBackStack() },
             )
         }
         composable<Route.SettingDetail> {
-            SettingRoute(
+            SettingScreen(
                 onNavigateBack = { rootNavController.popBackStack() },
             )
         }

@@ -34,6 +34,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,8 +45,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
 import com.coding.meet.newsapp.designsystem.component.badge.NewsSourceBadge
@@ -59,15 +62,46 @@ import com.coding.meet.newsapp.ui.common.PulseAnimation
 import com.coding.meet.newsapp.utils.cleanNewsContent
 import com.coding.meet.newsapp.utils.formatPublishedDate
 import com.coding.meet.newsapp.utils.previewArticles
+import com.coding.meet.newsapp.utils.shareLink
 import news_kmp_app.shared.generated.resources.Res
 import news_kmp_app.shared.generated.resources.go_back
 import news_kmp_app.shared.generated.resources.logo
 import news_kmp_app.shared.generated.resources.read_full_story
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun ArticleDetailScreen(
+    articleId: String,
+    onNavigateBack: () -> Unit,
+) {
+    val viewModel = koinViewModel<ArticleDetailViewModel>(parameters = { parametersOf(articleId) })
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val openurl = LocalUriHandler.current
+    LaunchedEffect(Unit) {
+        viewModel.effects.collect { effect ->
+            when (effect) {
+                is ArticleDetailEffect.Share -> shareLink(effect.url)
+                is ArticleDetailEffect.OpenUrl -> {
+                    openurl.openUri(effect.url)
+                }
+
+                ArticleDetailEffect.NavigateBack -> onNavigateBack()
+            }
+        }
+    }
+
+    ArticleDetailScreenContent(
+        state = state,
+        onEvent = viewModel::onEvent,
+    )
+}
+
+
+@Composable
+fun ArticleDetailScreenContent(
     state: ArticleDetailState,
     onEvent: (ArticleDetailEvent) -> Unit,
 ) {
@@ -112,7 +146,7 @@ fun ArticleDetailScreen(
         },
     ) { innerPadding ->
         state.article?.let { article ->
-            ArticleDetailContent(
+            ArticleDetailScreenContent(
                 article = article,
                 innerPadding = innerPadding,
                 onReadFullStory = { onEvent(ArticleDetailEvent.OpenInBrowser) },
@@ -122,7 +156,7 @@ fun ArticleDetailScreen(
 }
 
 @Composable
-private fun ArticleDetailContent(
+private fun ArticleDetailScreenContent(
     article: Article,
     innerPadding: PaddingValues,
     onReadFullStory: () -> Unit,
@@ -181,8 +215,8 @@ private fun ArticleDetailContent(
                 }
                 val cleanAuthor = article.author?.trim()?.takeIf {
                     it.isNotBlank() &&
-                        !it.startsWith("http://", ignoreCase = true) &&
-                        !it.startsWith("https://", ignoreCase = true)
+                            !it.startsWith("http://", ignoreCase = true) &&
+                            !it.startsWith("https://", ignoreCase = true)
                 }
                 if (cleanAuthor != null) {
                     Row(
@@ -300,9 +334,9 @@ private fun ArticleImage(imageUrl: String?, title: String) {
 
 @AllAdaptivePreviews
 @Composable
-private fun ArticleDetailScreenPreview() {
+private fun ArticleDetailScreenContentPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
-        ArticleDetailScreen(
+        ArticleDetailScreenContent(
             state = ArticleDetailState(
                 article = previewArticles[0],
                 isBookmarked = true,
@@ -315,9 +349,9 @@ private fun ArticleDetailScreenPreview() {
 
 @AllAdaptivePreviews
 @Composable
-private fun ArticleDetailScreenLoadingPreview() {
+private fun ArticleDetailScreenContentLoadingPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
-        ArticleDetailScreen(
+        ArticleDetailScreenContent(
             state = ArticleDetailState(isLoading = true),
             onEvent = {},
         )

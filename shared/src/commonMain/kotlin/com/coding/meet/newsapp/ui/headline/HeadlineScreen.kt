@@ -17,15 +17,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.coding.meet.newsapp.designsystem.component.chip.NewsCategoryChip
 import com.coding.meet.newsapp.designsystem.component.topappbar.NewsTopAppBar
 import com.coding.meet.newsapp.designsystem.preview.AllAdaptivePreviews
 import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
+import com.coding.meet.newsapp.designsystem.theme.spacing
 import com.coding.meet.newsapp.ui.common.ArticleListScreen
 import com.coding.meet.newsapp.ui.common.EmptyContent
 import com.coding.meet.newsapp.ui.common.ShimmerEffect
@@ -35,12 +37,34 @@ import com.coding.meet.newsapp.utils.previewArticles
 import news_kmp_app.shared.generated.resources.Res
 import news_kmp_app.shared.generated.resources.no_news
 import org.jetbrains.compose.resources.stringResource
-
-import com.coding.meet.newsapp.designsystem.component.chip.NewsCategoryChip
-import com.coding.meet.newsapp.designsystem.theme.spacing
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun HeadlineScreen(
+    onArticleClick: (articleId: String) -> Unit,
+    onSettingsClick: () -> Unit,
+) {
+    val viewModel = koinViewModel<HeadlineViewModel>()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.effects.collect { effect ->
+            when (effect) {
+                is HeadlineEffect.NavigateToDetail -> onArticleClick(effect.articleId)
+            }
+        }
+    }
+
+    HeadlineScreenContent(
+        state = state,
+        onEvent = viewModel::onEvent,
+        onSettingsClick = onSettingsClick,
+    )
+}
+
+
+@Composable
+fun HeadlineScreenContent(
     state: HeadlineState,
     onEvent: (HeadlineEvent) -> Unit,
     onSettingsClick: (() -> Unit)? = null,
@@ -72,7 +96,10 @@ fun HeadlineScreen(
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(horizontal = spacing.sm),
-                horizontalArrangement = Arrangement.spacedBy(spacing.xs, Alignment.CenterHorizontally),
+                horizontalArrangement = Arrangement.spacedBy(
+                    spacing.xs,
+                    Alignment.CenterHorizontally
+                ),
             ) {
                 items(categoryList, key = { it }) { category ->
                     NewsCategoryChip(
@@ -90,11 +117,13 @@ fun HeadlineScreen(
                     icon = Icons.Outlined.CloudOff,
                     onRetryClick = { onEvent(HeadlineEvent.Retry) },
                 )
+
                 state.articles.isEmpty() -> EmptyContent(
                     message = stringResource(Res.string.no_news),
                     icon = Icons.AutoMirrored.Outlined.Feed,
                     onRetryClick = { onEvent(HeadlineEvent.Retry) },
                 )
+
                 else -> ArticleListScreen(
                     articleList = state.articles,
                     onArticleClick = { article -> onEvent(HeadlineEvent.OpenArticle(article)) },
@@ -106,9 +135,9 @@ fun HeadlineScreen(
 
 @AllAdaptivePreviews
 @Composable
-private fun HeadlineScreenPreview() {
+private fun HeadlineScreenContentPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
-        HeadlineScreen(
+        HeadlineScreenContent(
             state = HeadlineState(
                 articles = previewArticles,
                 selectedCategory = "Technology",
@@ -121,9 +150,9 @@ private fun HeadlineScreenPreview() {
 
 @AllAdaptivePreviews
 @Composable
-private fun HeadlineScreenLoadingPreview() {
+private fun HeadlineScreenContentLoadingPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
-        HeadlineScreen(
+        HeadlineScreenContent(
             state = HeadlineState(isLoading = true, selectedCategory = "Technology"),
             onEvent = {},
         )
