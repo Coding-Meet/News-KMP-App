@@ -14,12 +14,10 @@ val viewmodelModule = module {
     viewModelOf(::SearchViewModel)
     viewModelOf(::BookmarkViewModel)
     viewModelOf(::SettingViewModel)
-    // ArticleDetailViewModel requires articleId passed at runtime via parametersOf(articleId)
+    // ArticleDetailViewModel requires article passed at runtime via parametersOf(article)
     viewModel { params ->
         ArticleDetailViewModel(
-            articleId = params.get(),
-            articleCache = get(),
-            getArticleById = get(),
+            article = params.get(),
             isArticleBookmarked = get(),
             bookmarkArticle = get(),
             removeBookmark = get(),

@@ -3,7 +3,6 @@ package com.coding.meet.newsapp.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coding.meet.newsapp.domain.usecase.SearchNewsUseCase
-import com.coding.meet.newsapp.utils.ArticleCache
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +12,6 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val searchNews: SearchNewsUseCase,
-    private val articleCache: ArticleCache,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SearchState())
@@ -30,9 +28,8 @@ class SearchViewModel(
             SearchEvent.Search -> performSearch()
             SearchEvent.Retry -> performSearch()
             is SearchEvent.OpenArticle -> {
-                articleCache.put(event.article)
                 viewModelScope.launch {
-                    _effects.send(SearchEffect.NavigateToDetail(event.article.publishedAt))
+                    _effects.send(SearchEffect.NavigateToDetail(event.article))
                 }
             }
         }

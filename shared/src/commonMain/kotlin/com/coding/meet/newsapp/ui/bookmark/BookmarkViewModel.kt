@@ -3,7 +3,6 @@ package com.coding.meet.newsapp.ui.bookmark
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coding.meet.newsapp.domain.usecase.GetBookmarksUseCase
-import com.coding.meet.newsapp.utils.ArticleCache
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +16,6 @@ import kotlinx.coroutines.launch
 
 class BookmarkViewModel(
     private val getBookmarks: GetBookmarksUseCase,
-    private val articleCache: ArticleCache,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(BookmarkState())
@@ -37,11 +35,8 @@ class BookmarkViewModel(
     fun onEvent(event: BookmarkEvent) {
         when (event) {
             is BookmarkEvent.OpenArticle -> {
-                // Bookmarked articles are in the DB; cache them too for fast access
-                val article = _state.value.articles.find { it.publishedAt == event.articleId }
-                if (article != null) articleCache.put(article)
                 viewModelScope.launch {
-                    _effects.send(BookmarkEffect.NavigateToDetail(event.articleId))
+                    _effects.send(BookmarkEffect.NavigateToDetail(event.article))
                 }
             }
         }

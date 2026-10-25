@@ -19,6 +19,7 @@ import com.coding.meet.newsapp.designsystem.theme.NewsAppTheme
 import com.coding.meet.newsapp.ui.common.ArticleListScreen
 import com.coding.meet.newsapp.ui.common.EmptyContent
 import com.coding.meet.newsapp.ui.common.ShimmerEffect
+import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.utils.navigationItemsLists
 import com.coding.meet.newsapp.utils.previewArticles
 import news_kmp_app.shared.generated.resources.Res
@@ -28,7 +29,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun BookmarkScreen(
-    onArticleClick: (articleId: String) -> Unit,
+    onArticleClick: (article: Article) -> Unit,
 ) {
     val viewModel = koinViewModel<BookmarkViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -36,7 +37,7 @@ fun BookmarkScreen(
     LaunchedEffect(Unit) {
         viewModel.effects.collect { effect ->
             when (effect) {
-                is BookmarkEffect.NavigateToDetail -> onArticleClick(effect.articleId)
+                is BookmarkEffect.NavigateToDetail -> onArticleClick(effect.article)
             }
         }
     }
@@ -79,7 +80,7 @@ fun BookmarkScreenContent(
 
                 else -> ArticleListScreen(
                     articleList = state.articles,
-                    onArticleClick = { article -> onEvent(BookmarkEvent.OpenArticle(article.publishedAt)) },
+                    onArticleClick = { article -> onEvent(BookmarkEvent.OpenArticle(article)) },
                 )
             }
         }

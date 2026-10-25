@@ -3,7 +3,6 @@ package com.coding.meet.newsapp.ui.headline
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coding.meet.newsapp.domain.usecase.GetHeadlinesUseCase
-import com.coding.meet.newsapp.utils.ArticleCache
 import com.coding.meet.newsapp.utils.categoryList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +13,6 @@ import kotlinx.coroutines.launch
 
 class HeadlineViewModel(
     private val getHeadlines: GetHeadlinesUseCase,
-    private val articleCache: ArticleCache,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HeadlineState(selectedCategory = categoryList[0]))
@@ -36,9 +34,8 @@ class HeadlineViewModel(
             }
             HeadlineEvent.Retry -> loadHeadlines(_state.value.selectedCategory)
             is HeadlineEvent.OpenArticle -> {
-                articleCache.put(event.article)
                 viewModelScope.launch {
-                    _effects.send(HeadlineEffect.NavigateToDetail(event.article.publishedAt))
+                    _effects.send(HeadlineEffect.NavigateToDetail(event.article))
                 }
             }
         }

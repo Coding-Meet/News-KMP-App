@@ -21,6 +21,7 @@ import com.coding.meet.newsapp.ui.common.ArticleListScreen
 import com.coding.meet.newsapp.ui.common.EmptyContent
 import com.coding.meet.newsapp.ui.common.ShimmerEffect
 import com.coding.meet.newsapp.ui.search.components.SearchBar
+import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.utils.navigationItemsLists
 import com.coding.meet.newsapp.utils.previewArticles
 import news_kmp_app.shared.generated.resources.Res
@@ -31,7 +32,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun SearchScreen(
-    onArticleClick: (articleId: String) -> Unit,
+    onArticleClick: (article: Article) -> Unit,
 ) {
     val viewModel = koinViewModel<SearchViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -39,7 +40,7 @@ fun SearchScreen(
     LaunchedEffect(Unit) {
         viewModel.effects.collect { effect ->
             when (effect) {
-                is SearchEffect.NavigateToDetail -> onArticleClick(effect.articleId)
+                is SearchEffect.NavigateToDetail -> onArticleClick(effect.article)
             }
         }
     }

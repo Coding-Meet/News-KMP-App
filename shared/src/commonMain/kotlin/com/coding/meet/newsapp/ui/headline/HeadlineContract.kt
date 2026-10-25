@@ -16,5 +16,5 @@ sealed interface HeadlineEvent {
 }
 
 sealed interface HeadlineEffect {
-    data class NavigateToDetail(val articleId: String) : HeadlineEffect
+    data class NavigateToDetail(val article: Article) : HeadlineEffect
 }

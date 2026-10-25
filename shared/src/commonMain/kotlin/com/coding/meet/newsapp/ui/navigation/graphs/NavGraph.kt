@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.ui.article_detail.ArticleDetailScreen
 import com.coding.meet.newsapp.ui.bookmark.BookmarkScreen
 import com.coding.meet.newsapp.ui.headline.HeadlineScreen
@@ -24,30 +25,30 @@ fun NavGraph(
     ) {
         composable<Route.Headline> {
             HeadlineScreen(
-                onArticleClick = { articleId ->
-                    rootNavController.navigate(Route.NewsDetail(articleId))
+                onArticleClick = { article ->
+                    rootNavController.navigate(Route.NewsDetail.from(article))
                 },
                 onSettingsClick = { rootNavController.navigate(Route.SettingDetail) },
             )
         }
         composable<Route.Search> {
             SearchScreen(
-                onArticleClick = { articleId ->
-                    rootNavController.navigate(Route.NewsDetail(articleId))
+                onArticleClick = { article ->
+                    rootNavController.navigate(Route.NewsDetail.from(article))
                 },
             )
         }
         composable<Route.Bookmark> {
             BookmarkScreen(
-                onArticleClick = { articleId ->
-                    rootNavController.navigate(Route.NewsDetail(articleId))
+                onArticleClick = { article ->
+                    rootNavController.navigate(Route.NewsDetail.from(article))
                 },
             )
         }
         composable<Route.NewsDetail> { backStackEntry ->
             val route = backStackEntry.toRoute<Route.NewsDetail>()
             ArticleDetailScreen(
-                articleId = route.articleId,
+                article = route.toArticle(),
                 onNavigateBack = { rootNavController.popBackStack() },
             )
         }

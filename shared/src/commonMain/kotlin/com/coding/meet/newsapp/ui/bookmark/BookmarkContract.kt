@@ -9,9 +9,9 @@ data class BookmarkState(
 )
 
 sealed interface BookmarkEvent {
-    data class OpenArticle(val articleId: String) : BookmarkEvent
+    data class OpenArticle(val article: Article) : BookmarkEvent
 }
 
 sealed interface BookmarkEffect {
-    data class NavigateToDetail(val articleId: String) : BookmarkEffect
+    data class NavigateToDetail(val article: Article) : BookmarkEffect
 }

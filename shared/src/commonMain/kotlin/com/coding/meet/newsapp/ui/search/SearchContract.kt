@@ -18,5 +18,5 @@ sealed interface SearchEvent {
 }
 
 sealed interface SearchEffect {
-    data class NavigateToDetail(val articleId: String) : SearchEffect
+    data class NavigateToDetail(val article: Article) : SearchEffect
 }

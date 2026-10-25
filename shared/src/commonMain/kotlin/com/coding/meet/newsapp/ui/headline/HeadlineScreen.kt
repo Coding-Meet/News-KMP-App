@@ -31,6 +31,7 @@ import com.coding.meet.newsapp.designsystem.theme.spacing
 import com.coding.meet.newsapp.ui.common.ArticleListScreen
 import com.coding.meet.newsapp.ui.common.EmptyContent
 import com.coding.meet.newsapp.ui.common.ShimmerEffect
+import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.utils.categoryList
 import com.coding.meet.newsapp.utils.navigationItemsLists
 import com.coding.meet.newsapp.utils.previewArticles
@@ -41,7 +42,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun HeadlineScreen(
-    onArticleClick: (articleId: String) -> Unit,
+    onArticleClick: (article: Article) -> Unit,
     onSettingsClick: () -> Unit,
 ) {
     val viewModel = koinViewModel<HeadlineViewModel>()
@@ -50,7 +51,7 @@ fun HeadlineScreen(
     LaunchedEffect(Unit) {
         viewModel.effects.collect { effect ->
             when (effect) {
-                is HeadlineEffect.NavigateToDetail -> onArticleClick(effect.articleId)
+                is HeadlineEffect.NavigateToDetail -> onArticleClick(effect.article)
             }
         }
     }

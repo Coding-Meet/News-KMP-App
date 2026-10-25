@@ -74,10 +74,10 @@ import org.koin.core.parameter.parametersOf
 
 @Composable
 fun ArticleDetailScreen(
-    articleId: String,
+    article: Article,
     onNavigateBack: () -> Unit,
 ) {
-    val viewModel = koinViewModel<ArticleDetailViewModel>(parameters = { parametersOf(articleId) })
+    val viewModel = koinViewModel<ArticleDetailViewModel>(parameters = { parametersOf(article) })
     val state by viewModel.state.collectAsStateWithLifecycle()
     val openurl = LocalUriHandler.current
     LaunchedEffect(Unit) {

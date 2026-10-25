@@ -2,11 +2,10 @@ package com.coding.meet.newsapp.ui.article_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.domain.usecase.BookmarkArticleUseCase
-import com.coding.meet.newsapp.domain.usecase.GetArticleByIdUseCase
 import com.coding.meet.newsapp.domain.usecase.IsArticleBookmarkedUseCase
 import com.coding.meet.newsapp.domain.usecase.RemoveBookmarkUseCase
-import com.coding.meet.newsapp.utils.ArticleCache
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,22 +14,20 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ArticleDetailViewModel(
-    private val articleId: String,
-    private val articleCache: ArticleCache,
-    private val getArticleById: GetArticleByIdUseCase,
+    private val article: Article,
     private val isArticleBookmarked: IsArticleBookmarkedUseCase,
     private val bookmarkArticle: BookmarkArticleUseCase,
     private val removeBookmark: RemoveBookmarkUseCase,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(ArticleDetailState())
+    private val _state = MutableStateFlow(ArticleDetailState(article = article, isLoading = true))
     val state = _state.asStateFlow()
 
     private val _effects = Channel<ArticleDetailEffect>(Channel.BUFFERED)
     val effects = _effects.receiveAsFlow()
 
     init {
-        loadArticle()
+        checkBookmarkStatus()
     }
 
     fun onEvent(event: ArticleDetailEvent) {
@@ -50,23 +47,20 @@ class ArticleDetailViewModel(
         }
     }
 
-    private fun loadArticle() {
+    private fun checkBookmarkStatus() {
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
-            // Check in-memory cache first (covers headline/search articles not yet in DB)
-            val article = articleCache.get(articleId) ?: getArticleById(articleId)
-            val bookmarked = isArticleBookmarked(articleId)
-            _state.update { it.copy(article = article, isBookmarked = bookmarked, isLoading = false) }
+            val bookmarked = isArticleBookmarked(article.publishedAt)
+            _state.update { it.copy(isBookmarked = bookmarked, isLoading = false) }
         }
     }
 
     private fun toggleBookmark() {
-        val article = _state.value.article ?: return
+        val currentArticle = _state.value.article ?: return
         viewModelScope.launch {
             if (_state.value.isBookmarked) {
-                removeBookmark(article)
+                removeBookmark(currentArticle)
             } else {
-                bookmarkArticle(article)
+                bookmarkArticle(currentArticle)
             }
             _state.update { it.copy(isBookmarked = !it.isBookmarked) }
         }
