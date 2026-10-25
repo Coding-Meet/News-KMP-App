@@ -9,8 +9,8 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun SearchRoute(
     onArticleClick: (articleId: String) -> Unit,
-    viewModel: SearchViewModel = koinViewModel(),
 ) {
+    val viewModel = koinViewModel<SearchViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {

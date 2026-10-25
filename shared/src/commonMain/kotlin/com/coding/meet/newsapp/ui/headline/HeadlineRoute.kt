@@ -10,8 +10,8 @@ import org.koin.compose.viewmodel.koinViewModel
 fun HeadlineRoute(
     onArticleClick: (articleId: String) -> Unit,
     onSettingsClick: () -> Unit,
-    viewModel: HeadlineViewModel = koinViewModel(),
 ) {
+    val viewModel = koinViewModel<HeadlineViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {

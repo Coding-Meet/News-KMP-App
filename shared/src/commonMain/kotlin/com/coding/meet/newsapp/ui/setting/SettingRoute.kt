@@ -9,8 +9,9 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun SettingRoute(
     onNavigateBack: () -> Unit,
-    viewModel: SettingViewModel = koinViewModel(),
 ) {
+    val viewModel = koinViewModel<SettingViewModel>()
+
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {

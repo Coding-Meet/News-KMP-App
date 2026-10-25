@@ -9,8 +9,8 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun BookmarkRoute(
     onArticleClick: (articleId: String) -> Unit,
-    viewModel: BookmarkViewModel = koinViewModel(),
 ) {
+    val viewModel = koinViewModel<BookmarkViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
