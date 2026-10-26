@@ -4,7 +4,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
-import androidx.compose.ui.unit.Dp
 import com.coding.meet.newsapp.domain.model.Article
 import com.coding.meet.newsapp.domain.model.Source
 import news_kmp_app.shared.generated.resources.Res
@@ -33,14 +32,6 @@ enum class Theme(val title: StringResource) {
     DARK_MODE(Res.string.dark_mode),
 }
 
-enum class Type {
-    Mobile, Desktop
-}
-
-data class Size(
-    val width: Dp,
-    val height: Dp,
-)
 
 val previewArticles: List<Article> = listOf(
     Article(
