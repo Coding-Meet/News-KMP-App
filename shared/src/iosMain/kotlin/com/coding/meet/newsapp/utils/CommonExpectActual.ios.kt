@@ -2,15 +2,18 @@ package com.coding.meet.newsapp.utils
 
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.dp
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.coding.meet.newsapp.data.database.NewsDatabase
-import platform.Foundation.NSHomeDirectory
+import kotlinx.cinterop.ExperimentalForeignApi
+import platform.Foundation.NSDocumentDirectory
+import platform.Foundation.NSFileManager
 import platform.Foundation.NSUUID
-import platform.UIKit.*
+import platform.Foundation.NSUserDomainMask
+import platform.UIKit.UIActivityViewController
+import platform.UIKit.UIApplication
 
 actual fun shareLink(url: String) {
     val currentViewController = UIApplication.sharedApplication().keyWindow?.rootViewController
@@ -30,7 +33,6 @@ actual fun getType(): Type {
     return Type.Mobile
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 actual fun getScreenSize(): Size {
     val configuration = LocalWindowInfo.current
@@ -40,8 +42,20 @@ actual fun getScreenSize(): Size {
 }
 
 actual fun getDatabaseBuilder(): RoomDatabase.Builder<NewsDatabase> {
-    val dbFilePath = NSHomeDirectory() + "/$DB_Name"
+    val dbFilePath = documentDirectory() + "/$DB_Name"
     return Room.databaseBuilder<NewsDatabase>(
         name = dbFilePath,
     )
+}
+
+@OptIn(ExperimentalForeignApi::class)
+private fun documentDirectory(): String {
+    val documentDirectory = NSFileManager.defaultManager.URLForDirectory(
+        directory = NSDocumentDirectory,
+        inDomain = NSUserDomainMask,
+        appropriateForURL = null,
+        create = false,
+        error = null,
+    )
+    return requireNotNull(documentDirectory?.path)
 }
