@@ -28,7 +28,7 @@ class SettingViewModel(
 
     init {
         getTheme()
-            .onEach { theme -> _state.update { it.copy(currentTheme = theme) } }
+            .onEach { theme -> _state.update { it.copy(currentThemeName = theme) } }
             .launchIn(viewModelScope)
     }
 

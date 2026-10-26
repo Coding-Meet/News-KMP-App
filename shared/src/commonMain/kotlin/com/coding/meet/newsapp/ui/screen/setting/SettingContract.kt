@@ -1,10 +1,19 @@
 package com.coding.meet.newsapp.ui.screen.setting
 
+import com.coding.meet.newsapp.utils.Theme
+
 data class SettingState(
-    val currentTheme: String = "",
+    val currentThemeName: String = "",
     val showDeleteDialog: Boolean = false,
     val showThemeDialog: Boolean = false,
-)
+) {
+    val currentTheme: Theme
+        get() = try {
+            if (currentThemeName.isBlank()) Theme.SYSTEM_DEFAULT else Theme.valueOf(currentThemeName)
+        } catch (_: Exception) {
+            Theme.SYSTEM_DEFAULT
+        }
+}
 
 sealed interface SettingEvent {
     data class ChangeTheme(val theme: String) : SettingEvent

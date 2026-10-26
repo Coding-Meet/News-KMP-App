@@ -109,7 +109,7 @@ fun SettingScreenCotent(
             ThemeSelectionDialog(
                 onThemeChange = { theme -> onEvent(SettingEvent.ChangeTheme(theme.name)) },
                 onDismissRequest = { onEvent(SettingEvent.DismissThemeDialog) },
-                currentTheme = state.currentTheme.ifBlank { Theme.DARK_MODE.name },
+                currentTheme = state.currentThemeName.ifBlank { Theme.DARK_MODE.name },
             )
         }
     }
@@ -120,7 +120,7 @@ fun SettingScreenCotent(
 private fun SettingScreenCotentPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
         SettingScreenCotent(
-            state = SettingState(currentTheme = Theme.DARK_MODE.name),
+            state = SettingState(currentThemeName = Theme.DARK_MODE.name),
             onEvent = {},
         )
     }
@@ -132,7 +132,7 @@ private fun SettingScreenCotentThemeDialogPreview() {
     NewsAppTheme(appTheme = null, darkTheme = isSystemInDarkTheme()) {
         SettingScreenCotent(
             state = SettingState(
-                currentTheme = Theme.DARK_MODE.name,
+                currentThemeName = Theme.DARK_MODE.name,
                 showThemeDialog = true,
             ),
             onEvent = {},

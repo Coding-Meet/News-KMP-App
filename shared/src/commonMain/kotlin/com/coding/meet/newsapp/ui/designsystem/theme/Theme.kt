@@ -97,17 +97,21 @@ private val DarkColorScheme = darkColorScheme(
 
 @Composable
 fun NewsAppTheme(
-    appTheme: String?,
+    appTheme: String? = null,
     darkTheme: Boolean = isSystemInDarkTheme(),
     spacing: Spacing = Spacing(),
     elevation: Elevation = Elevation(),
+    systemAppearance: @Composable (isDark: Boolean) -> Unit = {},
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = when (appTheme) {
-        Theme.LIGHT_MODE.name -> LightColorScheme
-        Theme.DARK_MODE.name -> DarkColorScheme
-        else -> if (darkTheme) DarkColorScheme else LightColorScheme
+    val isDark = when (appTheme) {
+        Theme.LIGHT_MODE.name -> false
+        Theme.DARK_MODE.name -> true
+        else -> darkTheme
     }
+    val colorScheme = if (isDark) DarkColorScheme else LightColorScheme
+
+    systemAppearance(isDark)
 
     CompositionLocalProvider(
         LocalSpacing provides spacing,
