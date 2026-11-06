@@ -30,6 +30,7 @@ koin = "4.2.2"
 material3-adaptive = "1.3.0"
 materialIconsExtended = "1.7.3"
 material3WindowSizeClass = "1.9.0"
+uiTest = "1.12.2"
 
 [libraries]
 # Kotlin & Coroutines
@@ -101,6 +102,7 @@ sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sql
 # DataStore & Logging
 androidx-data-store-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "androidx-data-store" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+ui-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "uiTest" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

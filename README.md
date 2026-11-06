@@ -126,102 +126,79 @@ The UI layer is built upon a standardized, accessible Material Design 3 design s
 
 ---
 
-## Screenshots 💻
+## Screenshots 📸
 
-### Android
+### Android (Google Pixel 9) 🤖
 
-<table>
-   <tr>
-    <td><img src="image/android/android1.png" alt="android"></td>
-    <td><img src="image/android/android2.png" alt="android"></td>
-   </tr>
-   <tr>
-    <td><img src="image/android/android3.png" alt="android"></td>
-    <td><img src="image/android/android4.png" alt="android"></td>
-   </tr>
-   <tr>
-    <td><img src="image/android/android5.png" alt="android"></td>
-    <td><img src="image/android/android6.png" alt="android"></td>
-   </tr>
-   <tr>
-    <td><img src="image/android/android7.png" alt="android"></td>
-    <td><img src="image/android/android8.png" alt="android"></td>
-   </tr>
-   <tr>
-    <td><img src="image/android/android9.png" alt="android"></td>
-    <td><img src="image/android/android10.png" alt="android"></td>
-   </tr>
-   <tr>
-    <td><img src="image/android/android11.png" alt="android"></td>
-    <td><img src="image/android/android12.png" alt="android"></td>
-   </tr>
-</table>
+<div align="center">
 
-### iOS
+| Dark Mode | Light Mode |
+| :---: | :---: |
+| <img src="image/android/dark/01_headlines_feed.png" width="380" alt="Headlines Dark" /> | <img src="image/android/light/01_headlines_feed.png" width="380" alt="Headlines Light" /> |
+| <img src="image/android/dark/02_headlines_shimmer_loading.png" width="380" alt="Shimmer Dark" /> | <img src="image/android/light/02_headlines_shimmer_loading.png" width="380" alt="Shimmer Light" /> |
+| <img src="image/android/dark/03_article_detail.png" width="380" alt="Article Detail Dark" /> | <img src="image/android/light/03_article_detail.png" width="380" alt="Article Detail Light" /> |
+| <img src="image/android/dark/04_search_empty.png" width="380" alt="Search Empty Dark" /> | <img src="image/android/light/04_search_empty.png" width="380" alt="Search Empty Light" /> |
+| <img src="image/android/dark/05_search_results.png" width="380" alt="Search Results Dark" /> | <img src="image/android/light/05_search_results.png" width="380" alt="Search Results Light" /> |
+| <img src="image/android/dark/06_bookmarks_empty.png" width="380" alt="Bookmarks Empty Dark" /> | <img src="image/android/light/06_bookmarks_empty.png" width="380" alt="Bookmarks Empty Light" /> |
+| <img src="image/android/dark/07_bookmarks_saved.png" width="380" alt="Bookmarks Saved Dark" /> | <img src="image/android/light/07_bookmarks_saved.png" width="380" alt="Bookmarks Saved Light" /> |
+| <img src="image/android/dark/08_settings_screen.png" width="380" alt="Settings Dark" /> | <img src="image/android/light/08_settings_screen.png" width="380" alt="Settings Light" /> |
+| <img src="image/android/dark/09_theme_selection_dialog.png" width="380" alt="Theme Dialog Dark" /> | <img src="image/android/light/09_theme_selection_dialog.png" width="380" alt="Theme Dialog Light" /> |
+| <img src="image/android/dark/10_delete_bookmarks_dialog.png" width="380" alt="Delete Dialog Dark" /> | <img src="image/android/light/10_delete_bookmarks_dialog.png" width="380" alt="Delete Dialog Light" /> |
 
-<table>
-   <tr>
-    <td><img src="image/ios/ios1.png" alt="ios"></td>
-    <td><img src="image/ios/ios2.png" alt="ios"></td>
-   </tr>
-   <tr>
-    <td><img src="image/ios/ios3.png" alt="ios"></td>
-    <td><img src="image/ios/ios4.png" alt="ios"></td>
-   </tr>
-   <tr>
-    <td><img src="image/ios/ios5.png" alt="ios"></td>
-    <td><img src="image/ios/ios6.png" alt="ios"></td>
-   </tr>
-   <tr>
-    <td><img src="image/ios/ios7.png" alt="ios"></td>
-    <td><img src="image/ios/ios8.png" alt="ios"></td>
-   </tr>
-   <tr>
-    <td><img src="image/ios/ios9.png" alt="ios"></td>
-    <td><img src="image/ios/ios10.png" alt="ios"></td>
-   </tr>
-</table>
+</div>
 
-### Windows / Desktop
+---
 
-<table>
-  <tr>
-    <td><img src="image/windows/new_feature.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win1.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win2.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win3.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win4.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win5.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win6.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win7.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win8.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win9.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win10.png" alt="win"></td>
-  </tr>
-  <tr>
-    <td><img src="image/windows/win11.png" alt="win"></td>
-  </tr>
-</table>
+### iOS (Apple iPhone 16 Pro) 🍎
+
+<div align="center">
+
+| Dark Mode | Light Mode |
+| :---: | :---: |
+| <img src="image/ios/dark/01_headlines_feed.png" width="380" alt="iOS Headlines Dark" /> | <img src="image/ios/light/01_headlines_feed.png" width="380" alt="iOS Headlines Light" /> |
+| <img src="image/ios/dark/02_headlines_shimmer_loading.png" width="380" alt="iOS Shimmer Dark" /> | <img src="image/ios/light/02_headlines_shimmer_loading.png" width="380" alt="iOS Shimmer Light" /> |
+| <img src="image/ios/dark/03_article_detail.png" width="380" alt="iOS Article Detail Dark" /> | <img src="image/ios/light/03_article_detail.png" width="380" alt="iOS Article Detail Light" /> |
+| <img src="image/ios/dark/04_search_empty.png" width="380" alt="iOS Search Empty Dark" /> | <img src="image/ios/light/04_search_empty.png" width="380" alt="iOS Search Empty Light" /> |
+| <img src="image/ios/dark/05_search_results.png" width="380" alt="iOS Search Results Dark" /> | <img src="image/ios/light/05_search_results.png" width="380" alt="iOS Search Results Light" /> |
+| <img src="image/ios/dark/06_bookmarks_empty.png" width="380" alt="iOS Bookmarks Empty Dark" /> | <img src="image/ios/light/06_bookmarks_empty.png" width="380" alt="iOS Bookmarks Empty Light" /> |
+| <img src="image/ios/dark/07_bookmarks_saved.png" width="380" alt="iOS Bookmarks Saved Dark" /> | <img src="image/ios/light/07_bookmarks_saved.png" width="380" alt="iOS Bookmarks Saved Light" /> |
+| <img src="image/ios/dark/08_settings_screen.png" width="380" alt="iOS Settings Dark" /> | <img src="image/ios/light/08_settings_screen.png" width="380" alt="iOS Settings Light" /> |
+| <img src="image/ios/dark/09_theme_selection_dialog.png" width="380" alt="iOS Theme Dialog Dark" /> | <img src="image/ios/light/09_theme_selection_dialog.png" width="380" alt="iOS Theme Dialog Light" /> |
+| <img src="image/ios/dark/10_delete_bookmarks_dialog.png" width="380" alt="iOS Delete Dialog Dark" /> | <img src="image/ios/light/10_delete_bookmarks_dialog.png" width="380" alt="iOS Delete Dialog Light" /> |
+
+</div>
+
+---
+
+### macOS / Desktop (Two-Pane Master-Detail Window) 🖥️
+
+<div align="center">
+
+| Dark Mode | Light Mode |
+| :---: | :---: |
+| <img src="image/mac/dark/01_two_pane_headlines_and_detail.png" width="460" alt="Desktop Headlines Dark" /> | <img src="image/mac/light/01_two_pane_headlines_and_detail.png" width="460" alt="Desktop Headlines Light" /> |
+| <img src="image/mac/dark/02_two_pane_search_and_detail.png" width="460" alt="Desktop Search Dark" /> | <img src="image/mac/light/02_two_pane_search_and_detail.png" width="460" alt="Desktop Search Light" /> |
+| <img src="image/mac/dark/03_two_pane_bookmarks_and_detail.png" width="460" alt="Desktop Bookmarks Dark" /> | <img src="image/mac/light/03_two_pane_bookmarks_and_detail.png" width="460" alt="Desktop Bookmarks Light" /> |
+| <img src="image/mac/dark/04_two_pane_theme_dialog.png" width="460" alt="Desktop Theme Dialog Dark" /> | <img src="image/mac/light/04_two_pane_theme_dialog.png" width="460" alt="Desktop Theme Dialog Light" /> |
+| <img src="image/mac/dark/05_two_pane_delete_bookmarks_dialog.png" width="460" alt="Desktop Delete Dialog Dark" /> | <img src="image/mac/light/05_two_pane_delete_bookmarks_dialog.png" width="460" alt="Desktop Delete Dialog Light" /> |
+
+</div>
+
+---
+
+### Web (Chrome Browser Two-Pane Frame) 🌐
+
+<div align="center">
+
+| Dark Mode | Light Mode |
+| :---: | :---: |
+| <img src="image/web/dark/01_web_headlines_and_detail.png" width="460" alt="Web Headlines Dark" /> | <img src="image/web/light/01_web_headlines_and_detail.png" width="460" alt="Web Headlines Light" /> |
+| <img src="image/web/dark/02_web_search_results.png" width="460" alt="Web Search Dark" /> | <img src="image/web/light/02_web_search_results.png" width="460" alt="Web Search Light" /> |
+| <img src="image/web/dark/03_web_bookmarks_and_detail.png" width="460" alt="Web Bookmarks Dark" /> | <img src="image/web/light/03_web_bookmarks_and_detail.png" width="460" alt="Web Bookmarks Light" /> |
+| <img src="image/web/dark/04_web_theme_dialog.png" width="460" alt="Web Theme Dialog Dark" /> | <img src="image/web/light/04_web_theme_dialog.png" width="460" alt="Web Theme Dialog Light" /> |
+| <img src="image/web/dark/05_web_delete_bookmarks_dialog.png" width="460" alt="Web Delete Dialog Dark" /> | <img src="image/web/light/05_web_delete_bookmarks_dialog.png" width="460" alt="Web Delete Dialog Light" /> |
+
+</div>
 
 ---
 
