@@ -2,10 +2,14 @@ package com.coding.meet.newsapp.screenshot
 
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
+import androidx.compose.material3.adaptive.navigationsuite.rememberNavigationSuiteScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.apadmi.cmpdevicepreview.devices.DevicePresets
+import com.coding.meet.newsapp.ui.navigation.CustomNavigationSuiteScaffoldLayout
+import com.coding.meet.newsapp.ui.navigation.NavigationItem
 import java.io.File
 
 /**
@@ -48,26 +52,31 @@ internal val mobileScreenStates = listOf(
 )
 
 internal val desktopScreenStates = listOf(
-    "01_two_pane_headlines_and_detail.png" to AdaptiveScreenState.HEADLINES,
-    "02_two_pane_search_and_detail.png" to AdaptiveScreenState.SEARCH_RESULTS,
-    "03_two_pane_bookmarks_and_detail.png" to AdaptiveScreenState.BOOKMARKS_SAVED,
-    "04_two_pane_theme_dialog.png" to AdaptiveScreenState.THEME_DIALOG,
-    "05_two_pane_delete_bookmarks_dialog.png" to AdaptiveScreenState.CLEAR_BOOKMARKS_DIALOG,
+    "01_headlines_feed.png" to AdaptiveScreenState.HEADLINES,
+    "02_article_detail.png" to AdaptiveScreenState.ARTICLE_DETAIL,
+    "03_search_results.png" to AdaptiveScreenState.SEARCH_RESULTS,
+    "04_bookmarks_saved.png" to AdaptiveScreenState.BOOKMARKS_SAVED,
+    "05_settings_screen.png" to AdaptiveScreenState.SETTINGS,
+    "06_theme_selection_dialog.png" to AdaptiveScreenState.THEME_DIALOG,
 )
 
 internal val webScreenStates = listOf(
-    "01_web_headlines_and_detail.png" to AdaptiveScreenState.HEADLINES,
-    "02_web_search_results.png" to AdaptiveScreenState.SEARCH_RESULTS,
-    "03_web_bookmarks_and_detail.png" to AdaptiveScreenState.BOOKMARKS_SAVED,
-    "04_web_theme_dialog.png" to AdaptiveScreenState.THEME_DIALOG,
-    "05_web_delete_bookmarks_dialog.png" to AdaptiveScreenState.CLEAR_BOOKMARKS_DIALOG,
+    "01_web_headlines_feed.png" to AdaptiveScreenState.HEADLINES,
+    "02_web_article_detail.png" to AdaptiveScreenState.ARTICLE_DETAIL,
+    "03_web_search_results.png" to AdaptiveScreenState.SEARCH_RESULTS,
+    "04_web_bookmarks_saved.png" to AdaptiveScreenState.BOOKMARKS_SAVED,
+    "05_web_settings_screen.png" to AdaptiveScreenState.SETTINGS,
+    "06_web_theme_selection_dialog.png" to AdaptiveScreenState.THEME_DIALOG,
 )
 
 /**
- * Unified adaptive container that renders the given [state] automatically adapting to the
- * screen width:
- * - On compact devices (`maxWidth < 840.dp`, e.g. Pixel 9, iPhone 16 Pro): renders single-pane layout.
- * - On expanded screens (`maxWidth >= 840.dp`, e.g. Desktop window, Web browser): renders two-pane master-detail layout.
+ * Canonical adaptive app container powered by [CustomNavigationSuiteScaffoldLayout]:
+ * - Compact screens (< 840.dp, e.g. Pixel 9, iPhone 16 Pro):
+ *   Uses [NavigationSuiteType.ShortNavigationBarCompact] with active item selection, or
+ *   [NavigationSuiteType.None] when viewing article details / settings.
+ * - Expanded screens (>= 840.dp, e.g. Desktop, Web):
+ *   Uses [NavigationSuiteType.NavigationDrawer] permanent navigation panel on the left, or
+ *   [NavigationSuiteType.None] for detail / settings view.
  */
 @Composable
 fun AdaptiveAppContent(
@@ -75,68 +84,35 @@ fun AdaptiveAppContent(
     isDark: Boolean = true,
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
-        val isTwoPane = maxWidth >= 840.dp
+        val isExpanded = maxWidth >= 840.dp
 
-        if (isTwoPane) {
-            when (state) {
-                AdaptiveScreenState.HEADLINES,
-                AdaptiveScreenState.HEADLINES_SHIMMER -> {
-                    TwoPaneLayout(
-                        leftPane = { HeadlinesContent() },
-                        rightPane = { ArticleDetailContent() },
-                    )
-                }
-                AdaptiveScreenState.ARTICLE_DETAIL -> {
-                    TwoPaneLayout(
-                        leftPane = { HeadlinesContent() },
-                        rightPane = { ArticleDetailContent(isBookmarked = true) },
-                    )
-                }
-                AdaptiveScreenState.SEARCH_EMPTY -> {
-                    TwoPaneLayout(
-                        leftPane = { SearchEmptyContent() },
-                        rightPane = { ArticleDetailContent() },
-                    )
-                }
-                AdaptiveScreenState.SEARCH_RESULTS -> {
-                    TwoPaneLayout(
-                        leftPane = { SearchResultsContent() },
-                        rightPane = { ArticleDetailContent(article = sampleSearchArticles.first()) },
-                    )
-                }
-                AdaptiveScreenState.BOOKMARKS_EMPTY -> {
-                    TwoPaneLayout(
-                        leftPane = { BookmarksEmptyContent() },
-                        rightPane = { ArticleDetailContent() },
-                    )
-                }
-                AdaptiveScreenState.BOOKMARKS_SAVED -> {
-                    TwoPaneLayout(
-                        leftPane = { BookmarksSavedContent() },
-                        rightPane = { ArticleDetailContent(article = sampleBookmarkedArticles.first()) },
-                    )
-                }
-                AdaptiveScreenState.SETTINGS -> {
-                    TwoPaneLayout(
-                        leftPane = { SettingsContent(isDark = isDark) },
-                        rightPane = { ArticleDetailContent() },
-                    )
-                }
-                AdaptiveScreenState.THEME_DIALOG -> {
-                    TwoPaneLayout(
-                        leftPane = { ThemeDialogContent(isDark = isDark) },
-                        rightPane = { ArticleDetailContent() },
-                    )
-                }
-                AdaptiveScreenState.CLEAR_BOOKMARKS_DIALOG -> {
-                    TwoPaneLayout(
-                        leftPane = { ClearBookmarksDialogContent(isDark = isDark) },
-                        rightPane = { ArticleDetailContent() },
-                    )
-                }
-            }
+        val currentNavItem = when (state) {
+            AdaptiveScreenState.HEADLINES,
+            AdaptiveScreenState.HEADLINES_SHIMMER -> NavigationItem.Headlines
+            AdaptiveScreenState.SEARCH_EMPTY,
+            AdaptiveScreenState.SEARCH_RESULTS -> NavigationItem.Search
+            AdaptiveScreenState.BOOKMARKS_EMPTY,
+            AdaptiveScreenState.BOOKMARKS_SAVED -> NavigationItem.Bookmark
+            AdaptiveScreenState.ARTICLE_DETAIL,
+            AdaptiveScreenState.SETTINGS,
+            AdaptiveScreenState.THEME_DIALOG,
+            AdaptiveScreenState.CLEAR_BOOKMARKS_DIALOG -> null
+        }
+
+        val layoutType = if (currentNavItem == null) {
+            NavigationSuiteType.None
+        } else if (isExpanded) {
+            NavigationSuiteType.NavigationDrawer
         } else {
-            // Compact Mobile Layout
+            NavigationSuiteType.ShortNavigationBarCompact
+        }
+
+        CustomNavigationSuiteScaffoldLayout(
+            navigationSuiteState = rememberNavigationSuiteScaffoldState(),
+            layoutType = layoutType,
+            currentNavigationItem = currentNavItem,
+            onNavigationItemClick = {},
+        ) {
             when (state) {
                 AdaptiveScreenState.HEADLINES -> HeadlinesContent()
                 AdaptiveScreenState.HEADLINES_SHIMMER -> HeadlinesShimmerContent()
@@ -196,4 +172,3 @@ internal fun exportPlatformScreens(
         }
     }
 }
-

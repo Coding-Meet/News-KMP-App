@@ -27,9 +27,9 @@ By default, the screenshot-related modules **can remain commented out** in [`set
      - **Solid Opacity Scrims**: Fast-forwards Material 3 dialog appearance animations to 100% solid opacity.
      - **Chrome Web Frame**: Realistic browser header with window controls, back/forward/refresh buttons, URL pill, and dark/light styling.
 
-2. **Unified Adaptive Layout**:
-   - Compact screens (`< 840.dp`, Android & iOS): Single-pane feed, article details, search, bookmarks, and settings.
-   - Expanded screens (`>= 840.dp`, macOS & Web): Master-detail two-pane layout with headlines on the left and full article reader on the right.
+2. **Unified Adaptive Layout with `CustomNavigationSuiteScaffoldLayout`**:
+   - Compact screens (`< 840.dp`, Android & iOS): Uses `ShortNavigationBarCompact` for bottom navigation tabs (Headlines, Search, Bookmark) and `NavigationSuiteType.None` for detail/settings screens.
+   - Expanded screens (`>= 840.dp`, macOS & Web): Uses permanent `NavigationDrawer` navigation sheet on the left and full responsive screen views on the right.
 
 ---
 

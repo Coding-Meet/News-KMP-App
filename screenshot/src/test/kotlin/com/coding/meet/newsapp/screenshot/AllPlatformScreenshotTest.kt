@@ -113,7 +113,7 @@ class AllPlatformScreenshotTest {
     }
 
     @Test
-    fun captureMacDesktopTwoPaneScreenshotInJvm() = runComposeUiTest {
+    fun captureMacDesktopScreenshotInJvm() = runComposeUiTest {
         val screenshots = DeviceScreenshots()
         setContent {
             CompositionLocalProvider(LocalDeviceScreenshots provides screenshots) {
@@ -141,7 +141,7 @@ class AllPlatformScreenshotTest {
             screenshots.capture(includeFrame = true),
             "macOS window frame could not be captured",
         )
-        val outputFile = File(outputDir, "test_mac_desktop_two_pane.png")
+        val outputFile = File(outputDir, "test_mac_desktop_headlines.png")
         saveImageBitmap(capturedImage, outputFile)
 
         assertTrue(outputFile.exists() && outputFile.length() > 0, "macOS screenshot was not saved!")
@@ -149,7 +149,7 @@ class AllPlatformScreenshotTest {
     }
 
     @Test
-    fun captureWebBrowserTwoPaneScreenshotInJvm() = runComposeUiTest {
+    fun captureWebBrowserScreenshotInJvm() = runComposeUiTest {
         setContent {
             NewsAppTheme(darkTheme = true) {
                 WebBrowserFrame(
@@ -168,7 +168,7 @@ class AllPlatformScreenshotTest {
 
         val rootNode = onRoot()
         val imageBitmap = rootNode.captureToImage()
-        val outputFile = File(outputDir, "test_web_browser_two_pane.png")
+        val outputFile = File(outputDir, "test_web_browser_headlines.png")
         saveImageBitmap(imageBitmap, outputFile)
 
         assertTrue(outputFile.exists() && outputFile.length() > 0, "Web browser screenshot was not saved!")

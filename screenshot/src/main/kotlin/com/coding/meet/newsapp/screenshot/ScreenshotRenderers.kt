@@ -33,38 +33,6 @@ import org.jetbrains.skia.Image
 import java.io.File
 import kotlin.math.roundToInt
 
-@Composable
-internal fun TwoPaneLayout(
-    leftPane: @Composable () -> Unit,
-    rightPane: @Composable () -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
-        Box(
-            modifier = Modifier
-                .width(420.dp)
-                .fillMaxHeight()
-        ) {
-            leftPane()
-        }
-        VerticalDivider(
-            modifier = Modifier.fillMaxHeight(),
-            thickness = 1.dp,
-            color = MaterialTheme.colorScheme.outlineVariant
-        )
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight()
-        ) {
-            rightPane()
-        }
-    }
-}
-
 internal fun renderPhoneScreen(
     preset: DevicePreset,
     outputFile: File,

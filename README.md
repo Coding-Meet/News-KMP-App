@@ -170,33 +170,35 @@ The UI layer is built upon a standardized, accessible Material Design 3 design s
 
 ---
 
-### macOS / Desktop (Two-Pane Master-Detail Window) 🖥️
+### macOS / Desktop (Adaptive Desktop Window) 🖥️
 
 <div align="center">
 
 | Dark Mode | Light Mode |
 | :---: | :---: |
-| <img src="image/mac/dark/01_two_pane_headlines_and_detail.png" width="460" alt="Desktop Headlines Dark" /> | <img src="image/mac/light/01_two_pane_headlines_and_detail.png" width="460" alt="Desktop Headlines Light" /> |
-| <img src="image/mac/dark/02_two_pane_search_and_detail.png" width="460" alt="Desktop Search Dark" /> | <img src="image/mac/light/02_two_pane_search_and_detail.png" width="460" alt="Desktop Search Light" /> |
-| <img src="image/mac/dark/03_two_pane_bookmarks_and_detail.png" width="460" alt="Desktop Bookmarks Dark" /> | <img src="image/mac/light/03_two_pane_bookmarks_and_detail.png" width="460" alt="Desktop Bookmarks Light" /> |
-| <img src="image/mac/dark/04_two_pane_theme_dialog.png" width="460" alt="Desktop Theme Dialog Dark" /> | <img src="image/mac/light/04_two_pane_theme_dialog.png" width="460" alt="Desktop Theme Dialog Light" /> |
-| <img src="image/mac/dark/05_two_pane_delete_bookmarks_dialog.png" width="460" alt="Desktop Delete Dialog Dark" /> | <img src="image/mac/light/05_two_pane_delete_bookmarks_dialog.png" width="460" alt="Desktop Delete Dialog Light" /> |
+| <img src="image/mac/dark/01_headlines_feed.png" width="460" alt="Desktop Headlines Dark" /> | <img src="image/mac/light/01_headlines_feed.png" width="460" alt="Desktop Headlines Light" /> |
+| <img src="image/mac/dark/02_article_detail.png" width="460" alt="Desktop Article Detail Dark" /> | <img src="image/mac/light/02_article_detail.png" width="460" alt="Desktop Article Detail Light" /> |
+| <img src="image/mac/dark/03_search_results.png" width="460" alt="Desktop Search Dark" /> | <img src="image/mac/light/03_search_results.png" width="460" alt="Desktop Search Light" /> |
+| <img src="image/mac/dark/04_bookmarks_saved.png" width="460" alt="Desktop Bookmarks Dark" /> | <img src="image/mac/light/04_bookmarks_saved.png" width="460" alt="Desktop Bookmarks Light" /> |
+| <img src="image/mac/dark/05_settings_screen.png" width="460" alt="Desktop Settings Dark" /> | <img src="image/mac/light/05_settings_screen.png" width="460" alt="Desktop Settings Light" /> |
+| <img src="image/mac/dark/06_theme_selection_dialog.png" width="460" alt="Desktop Theme Dialog Dark" /> | <img src="image/mac/light/06_theme_selection_dialog.png" width="460" alt="Desktop Theme Dialog Light" /> |
 
 </div>
 
 ---
 
-### Web (Chrome Browser Two-Pane Frame) 🌐
+### Web (Chrome Browser Adaptive Frame) 🌐
 
 <div align="center">
 
 | Dark Mode | Light Mode |
 | :---: | :---: |
-| <img src="image/web/dark/01_web_headlines_and_detail.png" width="460" alt="Web Headlines Dark" /> | <img src="image/web/light/01_web_headlines_and_detail.png" width="460" alt="Web Headlines Light" /> |
-| <img src="image/web/dark/02_web_search_results.png" width="460" alt="Web Search Dark" /> | <img src="image/web/light/02_web_search_results.png" width="460" alt="Web Search Light" /> |
-| <img src="image/web/dark/03_web_bookmarks_and_detail.png" width="460" alt="Web Bookmarks Dark" /> | <img src="image/web/light/03_web_bookmarks_and_detail.png" width="460" alt="Web Bookmarks Light" /> |
-| <img src="image/web/dark/04_web_theme_dialog.png" width="460" alt="Web Theme Dialog Dark" /> | <img src="image/web/light/04_web_theme_dialog.png" width="460" alt="Web Theme Dialog Light" /> |
-| <img src="image/web/dark/05_web_delete_bookmarks_dialog.png" width="460" alt="Web Delete Dialog Dark" /> | <img src="image/web/light/05_web_delete_bookmarks_dialog.png" width="460" alt="Web Delete Dialog Light" /> |
+| <img src="image/web/dark/01_web_headlines_feed.png" width="460" alt="Web Headlines Dark" /> | <img src="image/web/light/01_web_headlines_feed.png" width="460" alt="Web Headlines Light" /> |
+| <img src="image/web/dark/02_web_article_detail.png" width="460" alt="Web Article Detail Dark" /> | <img src="image/web/light/02_web_article_detail.png" width="460" alt="Web Article Detail Light" /> |
+| <img src="image/web/dark/03_web_search_results.png" width="460" alt="Web Search Dark" /> | <img src="image/web/light/03_web_search_results.png" width="460" alt="Web Search Light" /> |
+| <img src="image/web/dark/04_web_bookmarks_saved.png" width="460" alt="Web Bookmarks Dark" /> | <img src="image/web/light/04_web_bookmarks_saved.png" width="460" alt="Web Bookmarks Light" /> |
+| <img src="image/web/dark/05_web_settings_screen.png" width="460" alt="Web Settings Dark" /> | <img src="image/web/light/05_web_settings_screen.png" width="460" alt="Web Settings Light" /> |
+| <img src="image/web/dark/06_web_theme_selection_dialog.png" width="460" alt="Web Theme Dialog Dark" /> | <img src="image/web/light/06_web_theme_selection_dialog.png" width="460" alt="Web Theme Dialog Light" /> |
 
 </div>
 

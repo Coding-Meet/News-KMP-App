@@ -34,5 +34,5 @@ This guide is designed for **AI coding agents** and **human developers** integra
 Exported to `image/`:
 - `image/android/dark/` & `image/android/light/` (Google Pixel 9 hardware frame)
 - `image/ios/dark/` & `image/ios/light/` (Apple iPhone 16 Pro Dynamic Island frame)
-- `image/mac/dark/` & `image/mac/light/` (macOS Two-Pane Desktop Window frame)
-- `image/web/dark/` & `image/web/light/` (Chrome Web Browser Two-Pane frame)
+- `image/mac/dark/` & `image/mac/light/` (macOS Desktop Window frame with navigation drawer)
+- `image/web/dark/` & `image/web/light/` (Chrome Web Browser frame with navigation drawer)
