@@ -34,3 +34,6 @@ plugins {
 include(":androidApp")
 include(":desktopApp")
 include(":shared")
+
+// Screenshot and Preview functionality for developer internal screenshot capture
+include(":screenshot")

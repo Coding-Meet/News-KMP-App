@@ -124,6 +124,15 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
+        jvmTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.ui.test)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.mp)
+            implementation(libs.coil.network.ktor3)
+            implementation(libs.koin.core)
+            implementation(libs.kotlinx.coroutinesSwing)
+        }
     }
 }
 
